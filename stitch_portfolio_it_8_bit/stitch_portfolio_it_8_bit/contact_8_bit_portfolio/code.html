@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CONTACT // PORTFOLIO_OS_V1.0</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;family=Space+Grotesk:wght@500;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .pixel-corners {
+            clip-path: polygon(
+                0 4px, 4px 4px, 4px 0,
+                calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px,
+                100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+                4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px)
+            );
+        }
+        .scanline {
+            width: 100%;
+            height: 2px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.1);
+            opacity: 0.75;
+            position: absolute;
+            pointer-events: none;
+            animation: scanline 6s linear infinite;
+        }
+        @keyframes scanline {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+        .crt-flicker {
+            animation: flicker 0.15s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.98; }
+            50% { opacity: 1; }
+            100% { opacity: 0.99; }
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#701c8e",
+                    "on-primary-fixed-variant": "#673d00",
+                    "surface-container-high": "#28283d",
+                    "on-tertiary-fixed-variant": "#004f54",
+                    "on-primary-fixed": "#2c1700",
+                    "primary-fixed": "#ffdcbb",
+                    "tertiary-fixed": "#7df4ff",
+                    "surface-tint": "#ffb869",
+                    "on-secondary": "#53006f",
+                    "on-tertiary": "#00363a",
+                    "inverse-surface": "#e2e0fc",
+                    "secondary-fixed": "#f9d8ff",
+                    "on-error": "#690005",
+                    "outline-variant": "#544433",
+                    "tertiary-container": "#00c7d4",
+                    "on-surface": "#e2e0fc",
+                    "surface-bright": "#37374d",
+                    "inverse-on-surface": "#2f2e43",
+                    "tertiary-fixed-dim": "#00dbe9",
+                    "background": "#111125",
+                    "error-container": "#93000a",
+                    "surface": "#111125",
+                    "primary": "#ffc485",
+                    "surface-container-highest": "#333348",
+                    "secondary": "#eeb1ff",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-low": "#1a1a2e",
+                    "on-tertiary-container": "#004e53",
+                    "on-background": "#e2e0fc",
+                    "surface-container-lowest": "#0c0c1f",
+                    "inverse-primary": "#885200",
+                    "primary-container": "#ff9d00",
+                    "outline": "#a28d79",
+                    "on-secondary-container": "#e697ff",
+                    "surface-container": "#1e1e32",
+                    "error": "#ffb4ab",
+                    "tertiary": "#00e5f4",
+                    "surface-variant": "#333348",
+                    "on-secondary-fixed-variant": "#701c8e",
+                    "primary-fixed-dim": "#ffb869",
+                    "on-secondary-fixed": "#330045",
+                    "on-tertiary-fixed": "#002022",
+                    "on-primary": "#482900",
+                    "on-primary-container": "#663c00",
+                    "surface-dim": "#111125",
+                    "on-surface-variant": "#dac2ad",
+                    "secondary-fixed-dim": "#eeb1ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "unit": "4px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "container-max": "1200px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Space Mono"],
+                    "headline-lg": ["Space Grotesk"],
+                    "body-md": ["JetBrains Mono"],
+                    "headline-lg-mobile": ["Space Grotesk"],
+                    "display-lg": ["Space Grotesk"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md min-h-screen flex flex-col relative overflow-x-hidden crt-flicker">
+<div class="scanline"></div>
+<nav class="w-full top-0 sticky z-50 bg-background border-b-4 border-surface-container-highest shadow-[4px_4px_0px_0px_#701c8e]">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="text-headline-lg font-headline-lg font-bold text-primary uppercase">
+                PORTFOLIO_OS_V1.0
+            </div>
+<div class="hidden md:flex gap-gutter">
+<a class="text-on-background hover:text-secondary transition-all duration-75" href="#">Home</a>
+<a class="text-on-background hover:text-secondary transition-all duration-75" href="#">About</a>
+<a class="text-on-background hover:text-secondary transition-all duration-75" href="#">Projects</a>
+<a class="text-primary border-b-4 border-primary pb-1 transition-all duration-75" href="#">Contact</a>
+</div>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 border-4 border-black shadow-[4px_4px_0px_0px_#701c8e] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-75 font-bold">
+                LOGIN_CMD
+            </button>
+</div>
+</nav>
+<main class="flex-grow flex flex-col items-center justify-center py-12 px-margin-mobile">
+<div class="max-w-4xl w-full">
+<div class="text-center mb-12">
+<h1 class="text-display-lg font-display-lg text-primary mb-2 uppercase tracking-widest">
+                    Continue?
+                </h1>
+<p class="text-tertiary font-label-sm uppercase">Level 99: Final Communication</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<div class="md:col-span-8">
+<div class="bg-surface-container-low border-4 border-black shadow-[8px_8px_0px_0px_#701c8e] p-8 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full bg-secondary-container px-4 py-1 text-on-secondary font-bold text-label-sm uppercase">
+                            SAVE_GAME_DATA.EXE
+                        </div>
+<form class="mt-6 space-y-6">
+<div class="space-y-2">
+<label class="block text-primary uppercase font-bold text-label-sm">Player Name</label>
+<input class="w-full bg-background border-4 border-primary-container text-on-background px-4 py-3 focus:outline-none focus:ring-0 focus:border-tertiary placeholder:text-surface-container-highest font-body-md" placeholder="ENTER NAME..." type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-primary uppercase font-bold text-label-sm">Signal Channel (Email)</label>
+<input class="w-full bg-background border-4 border-primary-container text-on-background px-4 py-3 focus:outline-none focus:ring-0 focus:border-tertiary placeholder:text-surface-container-highest font-body-md" placeholder="USER@TERMINAL.NET" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="block text-primary uppercase font-bold text-label-sm">Message Content</label>
+<textarea class="w-full bg-background border-4 border-primary-container text-on-background px-4 py-3 focus:outline-none focus:ring-0 focus:border-tertiary placeholder:text-surface-container-highest font-body-md resize-none" placeholder="TRANSMIT MESSAGE..." rows="4"></textarea>
+</div>
+<button class="w-full md:w-auto bg-primary-container text-on-primary-container px-10 py-4 border-4 border-black shadow-[4px_4px_0px_0px_#701c8e] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-75 font-bold text-headline-lg-mobile uppercase flex items-center justify-center gap-4" type="submit">
+<span class="material-symbols-outlined">send</span>
+                                SUBMIT_DATA
+                            </button>
+</form>
+</div>
+</div>
+<div class="md:col-span-4 space-y-8">
+<div class="bg-surface-container-low border-4 border-black shadow-[8px_8px_0px_0px_#00e5f4] p-6">
+<div class="bg-tertiary text-on-tertiary px-4 py-1 text-label-sm font-bold uppercase mb-4 inline-block">
+                            Inventory
+                        </div>
+<div class="flex flex-col gap-4">
+<a class="group flex items-center gap-4 bg-background p-3 border-4 border-surface-container-highest hover:border-primary transition-colors" href="#">
+<div class="w-12 h-12 bg-surface-container-highest flex items-center justify-center group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-on-background group-hover:text-on-primary" data-icon="terminal">terminal</span>
+</div>
+<div>
+<div class="text-label-sm font-bold text-tertiary uppercase">GitHub</div>
+<div class="text-label-sm text-surface-variant">/STUDENT_DEV</div>
+</div>
+</a>
+<a class="group flex items-center gap-4 bg-background p-3 border-4 border-surface-container-highest hover:border-secondary transition-colors" href="#">
+<div class="w-12 h-12 bg-surface-container-highest flex items-center justify-center group-hover:bg-secondary transition-colors">
+<span class="material-symbols-outlined text-on-background group-hover:text-on-secondary" data-icon="share">share</span>
+</div>
+<div>
+<div class="text-label-sm font-bold text-tertiary uppercase">LinkedIn</div>
+<div class="text-label-sm text-surface-variant">/IN/IT_STUDENT</div>
+</div>
+</a>
+</div>
+</div>
+<div class="bg-surface-container-low border-4 border-black p-6">
+<div class="text-label-sm text-primary uppercase font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-label-sm" data-icon="location_on">location_on</span>
+                            Current Map
+                        </div>
+<div class="w-full h-32 bg-background border-4 border-surface-container-highest relative overflow-hidden">
+<img class="w-full h-full object-cover grayscale brightness-50 contrast-125" data-alt="A pixelated, high-contrast satellite view of a metropolitan city at night. The image is filtered with a retro 8-bit aesthetic, emphasizing deep blues and neon orange highlights. The layout is blocky and grid-based, evoking a nostalgic map screen from a 1990s video game. The overall mood is technological and urban." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ73KvqejV_l7B4c_8_bGaAt0uZ3K3gNVOr9oPeiWMZjRl1KHTUJN1dVUTsryiM5DaI9ni6Qa8qzJMWq_bjfafCPebgKWOmRiAXYqT2AhUudzy6Skykde6AsMbE4wwvkt2y8M12NnHUieenfcNef2IfJoe2A-XnEg2CE1sp6-aruKldq4SMKiNRUt1Um3FAqc0i8vcL5vTPwnFmHdmJBaenfL2uM1qG0AE3JxDozhbV2Ew3r7FtR8nfd_l5GEOUESGmRjemo9RdIA"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-primary text-on-primary p-1 animate-bounce">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_pin</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="w-full mt-auto bg-surface-container-lowest border-t-4 border-surface-container-highest">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-8 gap-gutter max-w-container-max mx-auto">
+<div class="text-label-sm font-label-sm text-on-surface">
+                © 199X IT_STUDENT_DEV. ALL RIGHTS RESERVED.
+            </div>
+<div class="flex gap-gutter">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-label-sm font-label-sm" href="#">GITHUB</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-label-sm font-label-sm" href="#">LINKEDIN</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-label-sm font-label-sm" href="#">TERMINAL</a>
+</div>
+</div>
+</footer>
+<script>
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('label').classList.add('text-tertiary');
+                input.parentElement.querySelector('label').classList.remove('text-primary');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('label').classList.remove('text-tertiary');
+                input.parentElement.querySelector('label').classList.add('text-primary');
+            });
+        });
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> UPLOADING...';
+            btn.style.pointerEvents = 'none';
+            
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> SUCCESS';
+                btn.classList.replace('bg-primary-container', 'bg-tertiary-container');
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.replace('bg-tertiary-container', 'bg-primary-container');
+                    btn.style.pointerEvents = 'auto';
+                    form.reset();
+                }, 2000);
+            }, 1500);
+        });
+    </script>
+</body></html>

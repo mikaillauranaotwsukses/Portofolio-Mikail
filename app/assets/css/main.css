@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #111125;
+  cursor: crosshair;
+}
+
+/* Custom cursor to mimic retro terminal */
+.custom-cursor {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="12" height="20" fill="%23ffc485"/></svg>'), auto;
+}
+
+.pixel-border {
+  box-shadow: 
+    0 -4px 0 0 #000,
+    0 4px 0 0 #000,
+    -4px 0 0 #000,
+    4px 0 0 #000;
+}
+
+.retro-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(112, 28, 142, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(112, 28, 142, 0.1) 1px, transparent 1px);
+}
+
+.pixel-grid {
+  background-image: radial-gradient(circle, #28283d 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.scanlines {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  background-size: 100% 3px, 3px 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.scanline {
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 229, 244, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  animation: scanline-anim 8s linear infinite;
+}
+
+@keyframes scanline-anim {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+.crt-flicker {
+  animation: flicker-anim 0.15s infinite;
+}
+
+@keyframes flicker-anim {
+  0% { opacity: 0.98; }
+  50% { opacity: 1; }
+  100% { opacity: 0.99; }
+}
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.blink { animation: blink 1s step-end infinite; }
+
+.skill-block {
+  width: calc(10% - 2px);
+  height: 24px;
+  background-color: #1a1a2e;
+  border: 2px solid #000;
+}
+
+.skill-block.filled {
+  background-color: #00e5f4;
+  box-shadow: inset -2px -2px 0px rgba(0,0,0,0.3);
+}
+
+.timeline-step::before {
+  content: '';
+  position: absolute;
+  left: -34px;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  background: #ffc485;
+  border: 4px solid #000;
+}
+
+.hard-shadow {
+  box-shadow: 4px 4px 0px 0px #000000;
+}
+
+.pixel-corners {
+  clip-path: polygon(
+    0 4px, 4px 4px, 4px 0,
+    calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px,
+    100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+    4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px)
+  );
+}
+
+.retro-scroll::-webkit-scrollbar {
+  width: 12px;
+}
+.retro-scroll::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+.retro-scroll::-webkit-scrollbar-thumb {
+  background: #ffc485;
+  border: 3px solid #1a1a2e;
+}

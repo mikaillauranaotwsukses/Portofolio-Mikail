@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About Me | PORTFOLIO_OS_V1.0</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&amp;family=Space+Mono:wght@400;700&amp;family=JetBrains+Mono:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body {
+            background-color: #111125;
+            cursor: crosshair;
+        }
+
+        .pixel-border {
+            box-shadow: 
+                0 -4px 0 0 #000,
+                0 4px 0 0 #000,
+                -4px 0 0 #000,
+                4px 0 0 #000;
+        }
+
+        .retro-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(112, 28, 142, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(112, 28, 142, 0.1) 1px, transparent 1px);
+        }
+
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 229, 244, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        .skill-block {
+            width: calc(10% - 2px);
+            height: 24px;
+            background-color: #1a1a2e;
+            border: 2px solid #000;
+        }
+
+        .skill-block.filled {
+            background-color: #00e5f4;
+            box-shadow: inset -2px -2px 0px rgba(0,0,0,0.3);
+        }
+
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            background: #ffc485;
+            border: 4px solid #000;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#701c8e",
+                        "surface-container-high": "#28283d",
+                        "surface-container-highest": "#333348",
+                        "background": "#111125",
+                        "surface": "#111125",
+                        "primary": "#ffc485",
+                        "secondary": "#eeb1ff",
+                        "tertiary": "#00e5f4",
+                        "primary-container": "#ff9d00",
+                        "on-background": "#e2e0fc",
+                        "surface-container-low": "#1a1a2e",
+                        "surface-container-lowest": "#0c0c1f",
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Space Mono"],
+                        "headline-lg": ["Space Grotesk"],
+                        "body-md": ["JetBrains Mono"],
+                        "display-lg": ["Space Grotesk"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-on-background retro-grid min-h-screen flex flex-col font-body-md">
+<div class="scanline"></div>
+<!-- TopNavBar from JSON -->
+<header class="w-full top-0 sticky z-50 bg-background border-b-4 border-surface-container-highest shadow-[4px_4px_0px_0px_#701c8e]">
+<nav class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="text-headline-lg font-headline-lg font-bold text-primary uppercase">
+                PORTFOLIO_OS_V1.0
+            </div>
+<div class="hidden md:flex gap-gutter items-center">
+<a class="text-on-background hover:text-secondary font-label-sm text-label-sm transition-all duration-75" href="#">Home</a>
+<a class="text-primary border-b-4 border-primary pb-1 font-label-sm text-label-sm transition-all duration-75" href="#">About</a>
+<a class="text-on-background hover:text-secondary font-label-sm text-label-sm transition-all duration-75" href="#">Projects</a>
+<a class="text-on-background hover:text-secondary font-label-sm text-label-sm transition-all duration-75" href="#">Contact</a>
+</div>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 border-4 border-black shadow-[4px_4px_0px_0px_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-75 font-bold uppercase">
+                LOGIN_CMD
+            </button>
+</nav>
+</header>
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 space-y-16">
+<!-- Hero Profile Section -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-4 flex justify-center">
+<div class="relative w-64 h-64 border-4 border-black bg-surface-container-low shadow-[8px_8px_0px_0px_#701c8e] overflow-hidden">
+<img alt="IT Student Avatar" class="w-full h-full object-cover filter contrast-125 brightness-90 grayscale-[0.3]" data-alt="A pixel-art style portrait of a young software engineer sitting in front of a glowing computer terminal. The scene is bathed in a synthwave color palette of deep violets and neon cyans. Digital matrix code cascades in the background, and the character wears high-tech headphones. The lighting is dramatic, high-contrast, and captures a focused, cybernetic mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5w1O49VEEIqjjmvbL-8F2HA0wsBT_Kwqqqp8DmHoa4VrxCWg3uaYL3nnkUQkdgrMeA-i_7AJFo4cjyP-51cozY8fjKNqTvr7uJ6GbroIMXlkkj9N7T5WOUQFBqRDmBqdwSdAkusn1_L6iVrKarmLUVObo0erqR8zE4sqv9_B7gjRzG-cQBCbD-vVz0hAzUQPcXQ26hctilsj0JVKLs54Qv5aE7EnWTVE3atEUZEDPzHtw9Uev1v-fLmfn1E8xYsgK2kaElZyistg"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay"></div>
+</div>
+</div>
+<div class="md:col-span-8 space-y-6">
+<div class="inline-block bg-secondary text-on-secondary px-4 py-1 border-2 border-black font-label-sm text-label-sm font-bold shadow-[4px_4px_0px_0px_#000]">
+                    LVL_22_HUMAN_DEV
+                </div>
+<h1 class="text-display-lg font-display-lg text-primary leading-none uppercase">
+                    USER: <span class="text-white">ALEX_DEV</span><br/>
+                    ROLE: <span class="text-tertiary">IT_STUDENT</span>
+</h1>
+<p class="text-body-md font-body-md max-w-xl bg-surface-container-low border-2 border-black p-4 shadow-[4px_4px_0px_0px_#701c8e]">
+                    [LOG_START] I build digital architecture and solve hardware puzzles. Passionate about the intersection of legacy low-level systems and modern web frameworks. Currently optimizing my brain for Full-Stack development and Cisco networking. [LOG_END]
+                </p>
+</div>
+</section>
+<!-- Stats / Power-ups Bento Grid -->
+<section class="space-y-8">
+<h2 class="text-headline-lg font-headline-lg text-primary uppercase flex items-center gap-4">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                CHARACTER_STATS
+            </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Coding Stats -->
+<div class="bg-surface-container-low border-4 border-black p-6 shadow-[8px_8px_0px_0px_#000] space-y-6 group hover:-translate-y-1 transition-transform">
+<div class="flex justify-between items-center">
+<span class="material-symbols-outlined text-tertiary text-4xl">code</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">INTELLECT +15</span>
+</div>
+<h3 class="font-headline-lg text-2xl uppercase">CODING_SCRIPTS</h3>
+<div class="space-y-4">
+<div class="space-y-1">
+<div class="flex justify-between text-label-sm font-label-sm uppercase">
+<span>JavaScript</span>
+<span class="text-tertiary">90%</span>
+</div>
+<div class="flex gap-1">
+<div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-label-sm font-label-sm uppercase">
+<span>Python</span>
+<span class="text-tertiary">70%</span>
+</div>
+<div class="flex gap-1">
+<div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block filled"></div><div class="skill-block"></div><div class="skill-block"></div><div class="skill-block"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Hardware Stats -->
+<div class="bg-surface-container-low border-4 border-black p-6 shadow-[8px_8px_0px_0px_#000] space-y-6 group hover:-translate-y-1 transition-transform">
+<div class="flex justify-between items-center">
+<span class="material-symbols-outlined text-primary text-4xl">memory</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">DEXTERITY +12</span>
+</div>
+<h3 class="font-headline-lg text-2xl uppercase">HARDWARE_MODS</h3>
+<div class="space-y-4">
+<div class="space-y-1">
+<div class="flex justify-between text-label-sm font-label-sm uppercase">
+<span>System Assembly</span>
+<span class="text-primary">100%</span>
+</div>
+<div class="flex gap-1">
+<div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-label-sm font-label-sm uppercase">
+<span>IoT / Arduino</span>
+<span class="text-primary">60%</span>
+</div>
+<div class="flex gap-1">
+<div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div><div class="skill-block filled bg-primary"></div><div class="skill-block"></div><div class="skill-block"></div><div class="skill-block"></div><div class="skill-block"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Networking Stats -->
+<div class="bg-surface-container-low border-4 border-black p-6 shadow-[8px_8px_0px_0px_#000] space-y-6 group hover:-translate-y-1 transition-transform">
+<div class="flex justify-between items-center">
+<span class="material-symbols-outlined text-secondary text-4xl">hub</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">SYSTEMS +18</span>
+</div>
+<h3 class="font-headline-lg text-2xl uppercase">NET_INFRA</h3>
+<div class="space-y-4">
+<div class="space-y-1">
+<div class="flex justify-between text-label-sm font-label-sm uppercase">
+<span>TCP/IP Protocols</span>
+<span class="text-secondary">80%</span>
+</div>
+<div class="flex gap-1">
+<div class="skill-block filled bg-secondary"></div><div class="skill-block filled bg-secondary"></div><div class="skill-block filled bg-secondary"></div><div class="skill-block filled bg-secondary"></div><div class="skill-block filled bg-secondary"></div><div class="skill-block filled bg-secondary"></div><div class="skill-block filled bg-secondary"></div><div class="skill-block filled bg-secondary"></div><div class="skill-block"></div><div class="skill-block"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-label-sm font-label-sm uppercase">
+<span>Server Admin</span>
+<span class="text-secondary">50%</span>
+</div>
+<div class="flex gap-1">
+<div class="skill-block filled bg-secondary"></div><div class="skill-block filled bg-secondary"></div><div class="skill-block filled bg-secondary"></div><div class="skill-block filled bg-secondary"></div><div class="skill-block filled bg-secondary"></div><div class="skill-block"></div><div class="skill-block"></div><div class="skill-block"></div><div class="skill-block"></div><div class="skill-block"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pixel-Art Timeline -->
+<section class="space-y-12">
+<h2 class="text-headline-lg font-headline-lg text-primary uppercase flex items-center gap-4">
+<span class="material-symbols-outlined text-4xl">history</span>
+                QUEST_LOG_TIMELINE
+            </h2>
+<div class="relative ml-8 border-l-4 border-dashed border-surface-container-highest pl-12 space-y-12 py-4">
+<!-- Education Item 1 -->
+<div class="timeline-step relative bg-surface-container p-6 border-4 border-black shadow-[4px_4px_0px_0px_#ffc485] hover:translate-x-2 transition-transform">
+<div class="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-4">
+<span class="font-label-sm text-label-sm text-primary">2022 - PRESENT</span>
+<div class="flex gap-2 mt-2 md:mt-0">
+<span class="bg-primary/20 text-primary border border-primary px-2 py-0.5 text-[10px] uppercase">Bachelor Degree</span>
+</div>
+</div>
+<h4 class="font-headline-lg text-xl text-white mb-2 uppercase">Computer Science University</h4>
+<p class="text-on-surface-variant font-body-md">Specializing in Software Engineering and Artificial Intelligence. Mastering data structures and complex algorithms while maintaining a 3.8 GPA.</p>
+</div>
+<!-- Education Item 2 -->
+<div class="timeline-step relative bg-surface-container p-6 border-4 border-black shadow-[4px_4px_0px_0px_#eeb1ff] hover:translate-x-2 transition-transform">
+<div class="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-4">
+<span class="font-label-sm text-label-sm text-secondary">2021 - 2022</span>
+<div class="flex gap-2 mt-2 md:mt-0">
+<span class="bg-secondary/20 text-secondary border border-secondary px-2 py-0.5 text-[10px] uppercase">Certification</span>
+</div>
+</div>
+<h4 class="font-headline-lg text-xl text-white mb-2 uppercase">Cisco Networking Academy</h4>
+<p class="text-on-surface-variant font-body-md">Completed CCNA 1 &amp; 2. Gained deep understanding of routing, switching, and network security protocols.</p>
+</div>
+<!-- Education Item 3 -->
+<div class="timeline-step relative bg-surface-container p-6 border-4 border-black shadow-[4px_4px_0px_0px_#00e5f4] hover:translate-x-2 transition-transform">
+<div class="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-4">
+<span class="font-label-sm text-label-sm text-tertiary">2019 - 2021</span>
+<div class="flex gap-2 mt-2 md:mt-0">
+<span class="bg-tertiary/20 text-tertiary border border-tertiary px-2 py-0.5 text-[10px] uppercase">High School Diploma</span>
+</div>
+</div>
+<h4 class="font-headline-lg text-xl text-white mb-2 uppercase">Tech High Vocational School</h4>
+<p class="text-on-surface-variant font-body-md">Introduction to Computer Architecture and Maintenance. First place in the Regional Robotics Competition.</p>
+</div>
+</div>
+</section>
+<!-- Terminal Section -->
+<section class="bg-black border-4 border-primary p-6 shadow-[12px_12px_0px_0px_#000] relative overflow-hidden">
+<div class="flex gap-2 mb-4 border-b border-primary/30 pb-2">
+<div class="w-3 h-3 bg-red-500 rounded-full"></div>
+<div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+<div class="w-3 h-3 bg-green-500 rounded-full"></div>
+<span class="text-[10px] text-primary/50 ml-4 font-label-sm">terminal_v2.0.sh</span>
+</div>
+<div class="space-y-2 text-primary font-body-md overflow-hidden">
+<p><span class="text-green-400">guest@portfolio:~$</span> sudo fetch bio_info</p>
+<p>[SUCCESS] Data packet retrieved from memory_bank_01.</p>
+<p>...</p>
+<p class="typing-text overflow-hidden whitespace-nowrap border-r-8 border-primary pr-2">I am always looking for new quests to join. If you have a challenge, let's connect!</p>
+</div>
+</section>
+</main>
+<!-- Footer from JSON -->
+<footer class="w-full mt-auto bg-surface-container-lowest border-t-4 border-surface-container-highest">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-desktop py-8 gap-gutter max-w-container-max mx-auto">
+<div class="text-label-sm font-label-sm text-on-surface uppercase">
+                © 199X IT_STUDENT_DEV. ALL RIGHTS RESERVED.
+            </div>
+<div class="flex gap-8">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm" href="#">GITHUB</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm" href="#">LINKEDIN</a>
+<a class="text-tertiary font-bold font-label-sm text-label-sm" href="#">TERMINAL</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for typing effect
+        const text = document.querySelector('.typing-text');
+        if (text) {
+            text.style.width = '0';
+            text.style.animation = 'typing 3.5s steps(40, end) forwards, blink-caret .75s step-end infinite';
+        }
+
+        // Add CSS for typing animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes typing {
+                from { width: 0 }
+                to { width: 100% }
+            }
+            @keyframes blink-caret {
+                from, to { border-color: transparent }
+                50% { border-color: #ffc485 }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Interaction for "Power-up" blocks
+        document.querySelectorAll('.skill-block').forEach(block => {
+            block.addEventListener('mouseenter', () => {
+                if(!block.classList.contains('filled')) {
+                    block.style.borderColor = '#ffc485';
+                }
+            });
+            block.addEventListener('mouseleave', () => {
+                block.style.borderColor = '#000';
+            });
+        });
+    </script>
+</body></html>

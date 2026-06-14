@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PORTFOLIO_OS_V1.0 | IT_STUDENT_DEV</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..900&family=Space+Grotesk:wght@100..900&family=Space+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+        /* Custom cursor to mimic retro terminal */
+        .custom-cursor {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="12" height="20" fill="%23ffc485"/></svg>'), auto;
+        }
+        /* Scanline effect */
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .blink { animation: blink 1s step-end infinite; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-container": "#701c8e",
+                      "on-primary-fixed-variant": "#673d00",
+                      "surface-container-high": "#28283d",
+                      "on-tertiary-fixed-variant": "#004f54",
+                      "on-primary-fixed": "#2c1700",
+                      "primary-fixed": "#ffdcbb",
+                      "tertiary-fixed": "#7df4ff",
+                      "surface-tint": "#ffb869",
+                      "on-secondary": "#53006f",
+                      "on-tertiary": "#00363a",
+                      "inverse-surface": "#e2e0fc",
+                      "secondary-fixed": "#f9d8ff",
+                      "on-error": "#690005",
+                      "outline-variant": "#544433",
+                      "tertiary-container": "#00c7d4",
+                      "on-surface": "#e2e0fc",
+                      "surface-bright": "#37374d",
+                      "inverse-on-surface": "#2f2e43",
+                      "tertiary-fixed-dim": "#00dbe9",
+                      "background": "#111125",
+                      "error-container": "#93000a",
+                      "surface": "#111125",
+                      "primary": "#ffc485",
+                      "surface-container-highest": "#333348",
+                      "secondary": "#eeb1ff",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-low": "#1a1a2e",
+                      "on-tertiary-container": "#004e53",
+                      "on-background": "#e2e0fc",
+                      "surface-container-lowest": "#0c0c1f",
+                      "inverse-primary": "#885200",
+                      "primary-container": "#ff9d00",
+                      "outline": "#a28d79",
+                      "on-secondary-container": "#e697ff",
+                      "surface-container": "#1e1e32",
+                      "error": "#ffb4ab",
+                      "tertiary": "#00e5f4",
+                      "surface-variant": "#333348",
+                      "on-secondary-fixed-variant": "#701c8e",
+                      "primary-fixed-dim": "#ffb869",
+                      "on-secondary-fixed": "#330045",
+                      "on-tertiary-fixed": "#002022",
+                      "on-primary": "#482900",
+                      "on-primary-container": "#663c00",
+                      "surface-dim": "#111125",
+                      "on-surface-variant": "#dac2ad",
+                      "secondary-fixed-dim": "#eeb1ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "unit": "4px",
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "container-max": "1200px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Space Mono"],
+                      "headline-lg": ["Space Grotesk"],
+                      "body-md": ["JetBrains Mono"],
+                      "headline-lg-mobile": ["Space Grotesk"],
+                      "display-lg": ["Space Grotesk"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md custom-cursor overflow-x-hidden">
+<div class="scanlines"></div>
+<!-- Navigation -->
+<nav class="w-full top-0 sticky z-50 bg-background dark:bg-background border-b-4 border-surface-container-highest shadow-[4px_4px_0px_0px_#701c8e]">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="text-headline-lg font-headline-lg font-extrabold text-primary uppercase tracking-tighter">
+                PORTFOLIO_OS_V1.0
+            </div>
+<div class="hidden md:flex gap-gutter items-center">
+<a class="text-primary border-b-4 border-primary pb-1 font-label-sm text-label-sm uppercase" href="#">Home</a>
+<a class="text-on-background hover:text-secondary transition-all font-label-sm text-label-sm uppercase" href="#">About</a>
+<a class="text-on-background hover:text-secondary transition-all font-label-sm text-label-sm uppercase" href="#">Projects</a>
+<a class="text-on-background hover:text-secondary transition-all font-label-sm text-label-sm uppercase" href="#">Contact</a>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 border-4 border-black shadow-[4px_4px_0px_0px_#701c8e] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-label-sm text-label-sm font-bold uppercase">
+                    LOGIN_CMD
+                </button>
+</div>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<main class="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
+<!-- Hero Section: Retro Start Game -->
+<section class="relative min-h-[716px] flex flex-col items-center justify-center text-center border-4 border-black bg-surface-container-low shadow-[8px_8px_0px_0px_#ffc485] p-8 mb-24 overflow-hidden">
+<!-- Background Decoration -->
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="grid grid-cols-12 h-full w-full">
+<div class="border-r border-b border-primary"></div><div class="border-r border-b border-primary"></div><div class="border-r border-b border-primary"></div><div class="border-r border-b border-primary"></div><div class="border-r border-b border-primary"></div><div class="border-r border-b border-primary"></div><div class="border-r border-b border-primary"></div><div class="border-r border-b border-primary"></div><div class="border-r border-b border-primary"></div><div class="border-r border-b border-primary"></div><div class="border-r border-b border-primary"></div><div class="border-r border-b border-primary"></div>
+</div>
+</div>
+<div class="relative z-10 space-y-8">
+<h1 class="text-display-lg font-display-lg text-primary uppercase leading-tight">
+                    IT_STUDENT_<br class="md:hidden"/>DEV_INITIATED
+                </h1>
+<p class="text-secondary font-body-md max-w-2xl mx-auto px-4 border-l-4 border-r-4 border-secondary py-2">
+                    SYSTEM STATUS: OPTIMIZED | SKILL LEVEL: RISING | MISSION: ENGINEER ROBUST SOFTWARE SOLUTIONS
+                </p>
+<div class="flex flex-col md:flex-row items-center justify-center gap-gutter pt-8">
+<button class="group relative bg-primary-container text-on-primary-container px-10 py-4 border-4 border-black shadow-[6px_6px_0px_0px_#701c8e] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+<span class="text-headline-lg font-headline-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                            PRESS START
+                        </span>
+</button>
+<button class="text-on-background hover:text-tertiary font-label-sm text-label-sm uppercase flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+                        OPTIONS_MENU
+                    </button>
+</div>
+<div class="pt-12">
+<span class="text-primary font-label-sm text-label-sm uppercase tracking-[0.5em] blink">Insert Coin to Continue</span>
+</div>
+</div>
+</section>
+<!-- Level 1 Bio: Bento Style -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-24">
+<div class="md:col-span-12 mb-8">
+<h2 class="text-headline-lg font-headline-lg text-tertiary flex items-center gap-4">
+<span class="bg-tertiary text-on-tertiary px-3 py-1 border-2 border-black shadow-[4px_4px_0px_0px_#00363a]">01</span>
+                    PLAYER_PROFILE_BIO
+                </h2>
+</div>
+<!-- Avatar Card -->
+<div class="md:col-span-4 bg-surface-container-high border-4 border-black p-6 shadow-[8px_8px_0px_0px_#701c8e]">
+<div class="aspect-square bg-surface-container-low border-4 border-black mb-6 relative overflow-hidden group">
+<img alt="Tech environment" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500" data-alt="A gritty, cinematic high-angle shot of a retro-futuristic hacker's desk in a dimly lit room. Multiple bulky CRT monitors glow with lime-green terminal code, surrounded by tangled wires, circuit boards, and vintage computing hardware. The atmosphere is dense with cyber-noir mystery, illuminated by the neon blue and orange light-spill from the hardware. The visual style is pixel-perfect brutalist, focusing on high-contrast shadows and sharp mechanical textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyrOtRQyyC4y-a68ZRTnMKsdjmmca6M0n7EE2ouSOewrkTnfCMNYCZQz9QmAXYTzJpi8Qm1Cdl7JbM0VGMsGFV6f94H6zpqY6erd5vJci5GbZOBq6cnPCkA-KG9e3hGDsaSCcqpy0r-KVy3j8D_9_CGYmMy0JmDQME7xIBvJ6_Z-yf7XN8lZ1O0C9KV7ympez0A0C5ydHy0Wl6ZnP88eEC6KaXMbkvdimpmFX_I6JhY5OSQMqKwvk0LsFiOr85RGpOlA5V9tyBh9s"/>
+<div class="absolute inset-0 border-4 border-transparent group-hover:border-primary transition-all pointer-events-none"></div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center border-b-2 border-surface-container-highest pb-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase">Name:</span>
+<span class="text-primary font-bold">ALEX_DEV</span>
+</div>
+<div class="flex justify-between items-center border-b-2 border-surface-container-highest pb-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase">Class:</span>
+<span class="text-secondary font-bold">FULLSTACK_MAGE</span>
+</div>
+<div class="flex justify-between items-center border-b-2 border-surface-container-highest pb-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase">XP:</span>
+<span class="text-tertiary font-bold">4096 / 8192</span>
+</div>
+</div>
+</div>
+<!-- Stats & Inventory -->
+<div class="md:col-span-8 flex flex-col gap-gutter">
+<!-- Bio Text -->
+<div class="bg-surface-container-high border-4 border-black p-8 shadow-[8px_8px_0px_0px_#00e5f4]">
+<p class="text-on-background text-body-md font-body-md leading-relaxed">
+                        I am an <span class="text-primary font-bold">IT Student</span> currently navigating the complex dungeons of Computer Science. Specializing in <span class="text-tertiary">system architecture</span> and <span class="text-secondary">web development</span>, I treat every project like a boss battle—strategic, challenging, and rewarding. My mission is to build software that is as durable as an arcade cabinet and as smooth as a 60fps frame-rate.
+                    </p>
+</div>
+<!-- Skills / Progress Bars -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-surface-container-low border-4 border-black p-6">
+<h3 class="text-label-sm font-label-sm text-primary uppercase mb-4">Core_Stats</h3>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between mb-2">
+<span class="text-label-sm font-label-sm uppercase text-on-surface">JavaScript</span>
+<span class="text-label-sm font-label-sm uppercase text-on-surface">80%</span>
+</div>
+<div class="h-6 bg-surface-container-highest border-2 border-black flex gap-1 p-1">
+<div class="w-[80%] h-full bg-primary flex gap-1">
+<div class="h-full w-4 bg-white/20"></div><div class="h-full w-4 bg-white/20"></div><div class="h-full w-4 bg-white/20"></div>
+</div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="text-label-sm font-label-sm uppercase text-on-surface">Python</span>
+<span class="text-label-sm font-label-sm uppercase text-on-surface">65%</span>
+</div>
+<div class="h-6 bg-surface-container-highest border-2 border-black flex gap-1 p-1">
+<div class="w-[65%] h-full bg-tertiary flex gap-1">
+<div class="h-full w-4 bg-white/20"></div><div class="h-full w-4 bg-white/20"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low border-4 border-black p-6">
+<h3 class="text-label-sm font-label-sm text-primary uppercase mb-4">Inventory_Items</h3>
+<div class="flex flex-wrap gap-3">
+<span class="px-3 py-1 border-2 border-tertiary text-tertiary font-label-sm text-label-sm uppercase hover:bg-tertiary hover:text-on-tertiary cursor-default transition-all">React.js</span>
+<span class="px-3 py-1 border-2 border-tertiary text-tertiary font-label-sm text-label-sm uppercase hover:bg-tertiary hover:text-on-tertiary cursor-default transition-all">Node.js</span>
+<span class="px-3 py-1 border-2 border-tertiary text-tertiary font-label-sm text-label-sm uppercase hover:bg-tertiary hover:text-on-tertiary cursor-default transition-all">PostgreSQL</span>
+<span class="px-3 py-1 border-2 border-tertiary text-tertiary font-label-sm text-label-sm uppercase hover:bg-tertiary hover:text-on-tertiary cursor-default transition-all">Docker</span>
+<span class="px-3 py-1 border-2 border-tertiary text-tertiary font-label-sm text-label-sm uppercase hover:bg-tertiary hover:text-on-tertiary cursor-default transition-all">Git_Bash</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Project Quest Log Preview -->
+<section class="mb-24">
+<div class="mb-8 flex justify-between items-end">
+<h2 class="text-headline-lg font-headline-lg text-secondary flex items-center gap-4">
+<span class="bg-secondary text-on-secondary px-3 py-1 border-2 border-black shadow-[4px_4px_0px_0px_#53006f]">02</span>
+                    ACTIVE_QUEST_LOG
+                </h2>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary uppercase flex items-center gap-2" href="#">
+                    View_All_Quests <span class="material-symbols-outlined">trending_flat</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Project Card 1 -->
+<div class="group bg-surface-container-low border-4 border-black hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all shadow-[8px_8px_0px_0px_#701c8e] overflow-hidden">
+<div class="bg-secondary-container p-3 border-b-4 border-black flex justify-between items-center">
+<span class="text-on-secondary-container font-bold uppercase">Quest: AI_CHATBOT_ENGINE</span>
+<span class="text-on-secondary-container material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="p-6 space-y-4">
+<div class="h-48 bg-black border-2 border-surface-container-highest relative overflow-hidden">
+<img alt="AI Visualization" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity" data-alt="A detailed digital rendering of an artificial intelligence neural network visualized as a dense web of glowing neon nodes and interconnected data filaments. The composition uses a deep purple and cyan color scheme, with intense light points representing active data processing. The aesthetic is futuristic and technical, with a slight blocky pixelation effect that evokes early 90s cyberpunk visuals. High contrast and cinematic depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKq_E-IJATVlHiebTzeUSJDqMWrYQCc8GO7YhuBDZ057YtPA5NupXh-P7Tcn4YxlmHP_8K1JzHeNlHQxxPYmOMPyo8WH7MvFEheiDP9axXJXwHlq6TNTSc_c7znd6ICMx_O_0LrjbgmRgevf5R1cXV1FhDaQzCwDqZpSbrF4_Go_lXZGazv8tNBwzDzlJlgddDijJEGFN681H14Yxmf9ycjsGKilW8vtrotLb1Hu-Qvjdhxg08WIgm8z8lTGlIbhfFC4fofVBQ5wQ"/>
+</div>
+<p class="text-on-surface text-body-md">A sophisticated NLP-driven communication interface designed for real-time customer support automation.</p>
+<div class="flex gap-2">
+<span class="text-[10px] border border-secondary text-secondary px-2">PYTHON</span>
+<span class="text-[10px] border border-secondary text-secondary px-2">OPENAI_API</span>
+</div>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="group bg-surface-container-low border-4 border-black hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all shadow-[8px_8px_0px_0px_#00c7d4] overflow-hidden">
+<div class="bg-tertiary-container p-3 border-b-4 border-black flex justify-between items-center">
+<span class="text-on-tertiary-container font-bold uppercase">Quest: DATA_DASHBOARD_OS</span>
+<span class="text-on-tertiary-container material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="p-6 space-y-4">
+<div class="h-48 bg-black border-2 border-surface-container-highest relative overflow-hidden">
+<img alt="Data Analytics" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity" data-alt="An abstract visualization of complex big data analytics, featuring multi-layered bar charts, line graphs, and 3D histograms glowing in vibrant orange and electric blue. The background is a deep navy grid system that feels like a high-end industrial control terminal. Sharp geometric shapes and pixel-perfect elements create a brutalist digital aesthetic. The lighting is low-key, with intense specular highlights on the data points." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsTT4ULmtFTm6CP8M5ldl1tSxjilCndFq9rSDirrVsFJ61UxP438O7z_mc7chrElIJSXahHxOozdcyCIOKT7Qf49vK9Hba312pPfsQcrdCu23a1GnG9EYq5vuktmtEK2YdnYwbhgxW30K6__PtIVuRmY4IBTUtn9EHEvoSvtgXERNg-li7FntiXup6bjI3kB3TEpnZyeZKq3tvh0jknTO1aoJK0zWGsK3KcxXX-PW1n-ui5BBz5fu-DKnjgfdfwrWxeIuSnyHn4qg"/>
+</div>
+<p class="text-on-surface text-body-md">Real-time analytical engine for monitoring network traffic and server health across distributed clusters.</p>
+<div class="flex gap-2">
+<span class="text-[10px] border border-tertiary text-tertiary px-2">REACT</span>
+<span class="text-[10px] border border-tertiary text-tertiary px-2">D3.JS</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto bg-surface-container-lowest dark:bg-surface-container-lowest border-t-4 border-surface-container-highest">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-8 gap-gutter max-w-container-max mx-auto">
+<div class="text-label-sm font-label-sm text-on-surface uppercase">
+                © 199X IT_STUDENT_DEV. ALL RIGHTS RESERVED.
+            </div>
+<div class="flex gap-gutter">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm uppercase" href="#">GITHUB</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm uppercase" href="#">LINKEDIN</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm uppercase" href="#">TERMINAL</a>
+</div>
+<div class="flex items-center gap-2 text-tertiary font-bold font-label-sm text-label-sm uppercase">
+<span class="w-3 h-3 bg-tertiary rounded-full animate-pulse"></span>
+                SYSTEM_ONLINE
+            </div>
+</div>
+</footer>
+<script>
+        // Micro-interaction: Text scramble effect for headers on hover
+        document.querySelectorAll('h1, h2').forEach(header => {
+            const originalText = header.innerText;
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+            let interval = null;
+
+            header.addEventListener("mouseover", event => {  
+                let iteration = 0;
+                clearInterval(interval);
+                
+                interval = setInterval(() => {
+                    header.innerText = header.innerText
+                        .split("")
+                        .map((letter, index) => {
+                            if(index < iteration) {
+                                return originalText[index];
+                            }
+                            return letters[Math.floor(Math.random() * 44)]
+                        })
+                        .join("");
+                    
+                    if(iteration >= originalText.length){ 
+                        clearInterval(interval);
+                    }
+                    
+                    iteration += 1 / 3;
+                }, 30);
+            });
+        });
+
+        // Simple button active state simulation for 8-bit feel
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = "translate(4px, 4px)";
+                btn.style.boxShadow = "none";
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = "";
+                btn.style.boxShadow = "";
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = "";
+                btn.style.boxShadow = "";
+            });
+        });
+    </script>
+</body></html>
