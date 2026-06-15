@@ -107,13 +107,222 @@ body {
   );
 }
 
-.retro-scroll::-webkit-scrollbar {
-  width: 12px;
+.retro-scroll::-webkit-scrollbar { width: 12px; }
+.retro-scroll::-webkit-scrollbar-track { background: #1a1a2e; }
+.retro-scroll::-webkit-scrollbar-thumb { background: #ffc485; border: 3px solid #1a1a2e; }
+
+
+/* ================================================================
+   GAME ANIMATIONS
+   ================================================================ */
+
+/* ------ CURSOR TRAIL ------ */
+.cursor-trail-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  z-index: 9999;
+  image-rendering: pixelated;
+  transform: translate(-50%, -50%);
+  animation: trail-fade 0.5s steps(5) forwards;
 }
-.retro-scroll::-webkit-scrollbar-track {
-  background: #1a1a2e;
+
+@keyframes trail-fade {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  60%  { opacity: 0.6; transform: translate(-50%, -80%) scale(0.7); }
+  100% { opacity: 0; transform: translate(-50%, -120%) scale(0.2); }
 }
-.retro-scroll::-webkit-scrollbar-thumb {
-  background: #ffc485;
-  border: 3px solid #1a1a2e;
+
+
+/* ------ GLITCH EFFECT ------ */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.glitch::before {
+  color: #00e5f4;
+  animation: glitch-clip-1 5s infinite;
+}
+.glitch::after {
+  color: #eeb1ff;
+  animation: glitch-clip-2 5s infinite;
+}
+
+@keyframes glitch-clip-1 {
+  0%, 87%, 100% {
+    clip-path: inset(50% 0 50% 0);
+    transform: translate(0);
+    opacity: 0;
+  }
+  88% {
+    clip-path: inset(5% 0 65% 0);
+    transform: translate(-5px, 2px);
+    opacity: 0.9;
+  }
+  90% {
+    clip-path: inset(70% 0 8% 0);
+    transform: translate(5px, -2px);
+    opacity: 0.9;
+  }
+  92% {
+    clip-path: inset(30% 0 40% 0);
+    transform: translate(-3px, 1px);
+    opacity: 0.9;
+  }
+  93% {
+    clip-path: inset(50% 0 50% 0);
+    opacity: 0;
+  }
+}
+
+@keyframes glitch-clip-2 {
+  0%, 90%, 100% {
+    clip-path: inset(50% 0 50% 0);
+    transform: translate(0);
+    opacity: 0;
+  }
+  91% {
+    clip-path: inset(20% 0 55% 0);
+    transform: translate(5px, 2px);
+    opacity: 0.8;
+  }
+  93% {
+    clip-path: inset(60% 0 15% 0);
+    transform: translate(-5px, -2px);
+    opacity: 0.8;
+  }
+  95% {
+    clip-path: inset(50% 0 50% 0);
+    opacity: 0;
+  }
+}
+
+
+/* ------ FLOAT ANIMATIONS ------ */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-20px) rotate(15deg); }
+}
+@keyframes float-diagonal {
+  0%, 100% { transform: translate(0px, 0px); }
+  50%       { transform: translate(8px, -14px); }
+}
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(10px); }
+}
+
+.float          { animation: float 3s ease-in-out infinite; }
+.float-slow     { animation: float-slow 5s ease-in-out infinite; }
+.float-diagonal { animation: float-diagonal 4s ease-in-out infinite; }
+.float-reverse  { animation: float-reverse 3.5s ease-in-out infinite; }
+
+
+/* ------ TWINKLE ------ */
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50%       { opacity: 0.15; transform: scale(0.4) rotate(45deg); }
+}
+.twinkle      { animation: twinkle 1.8s step-end infinite; }
+.twinkle-slow { animation: twinkle 3.2s step-end infinite; }
+.twinkle-fast { animation: twinkle 0.9s step-end infinite; }
+
+
+/* ------ BOUNCE IN ------ */
+@keyframes bounce-in {
+  0%   { opacity: 0; transform: translateY(24px); }
+  60%  { transform: translateY(-6px); }
+  80%  { transform: translateY(3px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.bounce-in { animation: bounce-in 0.5s ease forwards; }
+
+
+/* ------ SLIDE IN FROM BOTTOM (staggered cards) ------ */
+@keyframes slide-in-up {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.slide-in-up {
+  opacity: 0;
+  animation: slide-in-up 0.4s ease forwards;
+}
+
+
+/* ------ PULSE GLOW BORDER ------ */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 8px 8px 0px 0px #ffc485; }
+  50%       { box-shadow: 8px 8px 0px 0px #ffc485, 0 0 20px 4px rgba(255, 196, 133, 0.4); }
+}
+.pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+
+
+/* ------ PIXEL SHAKE ------ */
+@keyframes pixel-shake {
+  0%, 100% { transform: translate(0, 0); }
+  20%       { transform: translate(-4px, 0); }
+  40%       { transform: translate(4px, 0); }
+  60%       { transform: translate(-4px, 0); }
+  80%       { transform: translate(4px, 0); }
+}
+.shake { animation: pixel-shake 0.35s steps(4) forwards; }
+
+
+/* ------ BOUNCE ARROW ------ */
+@keyframes bounce-arrow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+.bounce-arrow { animation: bounce-arrow 1s steps(4) infinite; }
+
+
+/* ------ HIT FLASH ------ */
+@keyframes hit-flash {
+  0%   { filter: brightness(1); }
+  25%  { filter: brightness(3) saturate(0); }
+  50%  { filter: brightness(1); }
+  75%  { filter: brightness(3) saturate(0); }
+  100% { filter: brightness(1); }
+}
+.hit-flash { animation: hit-flash 0.3s steps(2) forwards; }
+
+
+/* ------ SCORE POP (success notification) ------ */
+@keyframes score-pop {
+  0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+  40%  { opacity: 1; transform: translateY(-20px) scale(1.2); }
+  70%  { opacity: 1; transform: translateY(-32px) scale(1); }
+  100% { opacity: 0; transform: translateY(-48px) scale(0.9); }
+}
+.score-pop {
+  animation: score-pop 1.5s ease forwards;
+  pointer-events: none;
+}
+
+
+/* ------ PAGE TRANSITION ------ */
+.page-enter-active { animation: page-enter 0.25s steps(5) forwards; }
+.page-leave-active { animation: page-leave 0.18s steps(4) forwards; }
+
+@keyframes page-enter {
+  0%   { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes page-leave {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
 }

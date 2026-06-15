@@ -1,194 +1,93 @@
 <template>
   <div class="space-y-16">
-    <!-- Hero Profile Section -->
+
+    <!-- =====================================================
+         SECTION 1: PROFIL HERO
+         Animasi: slide-in-up pada foto & teks
+         ===================================================== -->
     <section class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
-      <div class="md:col-span-4 flex justify-center">
-        <div class="relative w-64 h-64 border-4 border-black bg-surface-container-low shadow-[8px_8px_0px_0px_#701c8e] overflow-hidden">
-          <img 
-            alt="IT Student Avatar" 
-            class="w-full h-full object-cover filter contrast-125 brightness-90 grayscale-[0.3]" 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5w1O49VEEIqjjmvbL-8F2HA0wsBT_Kwqqqp8DmHoa4VrxCWg3uaYL3nnkUQkdgrMeA-i_7AJFo4cjyP-51cozY8fjKNqTvr7uJ6GbroIMXlkkj9N7T5WOUQFBqRDmBqdwSdAkusn1_L6iVrKarmLUVObo0erqR8zE4sqv9_B7gjRzG-cQBCbD-vVz0hAzUQPcXQ26hctilsj0JVKLs54Qv5aE7EnWTVE3atEUZEDPzHtw9Uev1v-fLmfn1E8xYsgK2kaElZyistg"
+      <!-- Foto -->
+      <div class="md:col-span-4 flex justify-center slide-in-up">
+        <div class="relative w-64 h-64 border-4 border-black bg-surface-container-low shadow-[8px_8px_0px_0px_#701c8e] overflow-hidden group">
+          <img
+            :alt="data.personal.name"
+            class="w-full h-full object-cover filter contrast-125 brightness-90 group-hover:scale-105 transition-transform duration-500"
+            :src="data.personal.photoUrl"
           />
-          <div class="absolute inset-0 bg-secondary/10 mix-blend-overlay"></div>
+          <div class="absolute inset-0 bg-secondary/10 mix-blend-overlay group-hover:bg-primary/10 transition-all"></div>
+          <!-- Floating decorasi di atas foto -->
+          <div class="absolute top-2 right-2 w-3 h-3 bg-primary border border-black twinkle-fast opacity-70"></div>
+          <div class="absolute bottom-2 left-2 w-2 h-2 bg-tertiary border border-black twinkle opacity-70" style="animation-delay:0.5s"></div>
         </div>
       </div>
-      <div class="md:col-span-8 space-y-6">
-        <div class="inline-block bg-secondary text-on-secondary px-4 py-1 border-2 border-black font-label-sm text-label-sm font-bold shadow-[4px_4px_0px_0px_#000] uppercase">
-          LVL_22_HUMAN_DEV
+
+      <!-- Info -->
+      <div class="md:col-span-8 space-y-6 slide-in-up" style="animation-delay:0.1s">
+        <div class="inline-block bg-primary text-on-primary px-4 py-1 border-2 border-black font-label-sm text-label-sm font-bold shadow-[4px_4px_0px_0px_#000] uppercase">
+          {{ data.personal.tagline }}
         </div>
-        <h1 
-          class="text-display-lg font-display-lg text-primary leading-none uppercase"
-          @mouseover="scrambleText($event)"
+        <!-- Nama dengan glitch -->
+        <h1
+          class="text-display-lg font-display-lg text-primary leading-none uppercase glitch"
+          :data-text="data.personal.name"
         >
-          USER: <span class="text-white">ALEX_DEV</span><br/>
-          ROLE: <span class="text-tertiary">IT_STUDENT</span>
+          {{ data.personal.name }}
         </h1>
-        <p class="text-body-md font-body-md max-w-xl bg-surface-container-low border-2 border-black p-4 shadow-[4px_4px_0px_0px_#701c8e]">
-          [LOG_START] I build digital architecture and solve hardware puzzles. Passionate about the intersection of legacy low-level systems and modern web frameworks. Currently optimizing my brain for Full-Stack development and Cisco networking. [LOG_END]
+        <p class="text-secondary font-label-sm text-label-sm uppercase tracking-wider">
+          {{ data.personal.role }}
+        </p>
+        <p class="text-body-md font-body-md max-w-xl bg-surface-container-low border-2 border-black p-4 shadow-[4px_4px_0px_0px_#701c8e] leading-relaxed">
+          {{ data.personal.bio }}
         </p>
       </div>
     </section>
 
-    <!-- Stats / Power-ups Bento Grid -->
-    <section class="space-y-8">
-      <h2 
-        class="text-headline-lg font-headline-lg text-primary uppercase flex items-center gap-4"
-        @mouseover="scrambleText($event)"
-      >
-        <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
-        CHARACTER_STATS
+
+    <!-- =====================================================
+         SECTION 2: KEAHLIAN — Animated Skill Bars
+         Animasi: bar mengisi dari 0% ke nilai saat masuk viewport
+         Edit di portfolio.js > skills[]
+         ===================================================== -->
+    <section id="skills-section" class="space-y-8">
+      <h2 class="text-headline-lg font-headline-lg text-primary uppercase flex items-center gap-4 slide-in-up">
+        <span class="material-symbols-outlined text-4xl float">build</span>
+        KEAHLIAN
       </h2>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-        <!-- Coding Stats -->
-        <div class="bg-surface-container-low border-4 border-black p-6 shadow-[8px_8px_0px_0px_#000] space-y-6 group hover:-translate-y-1 transition-transform">
-          <div class="flex justify-between items-center">
-            <span class="material-symbols-outlined text-tertiary text-4xl">code</span>
-            <span class="font-label-sm text-label-sm text-on-surface-variant">INTELLECT +15</span>
+        <div
+          v-for="(category, ci) in data.skills"
+          :key="category.category"
+          class="bg-surface-container-low border-4 border-black p-6 shadow-[8px_8px_0px_0px_#000] space-y-5 slide-in-up hover:-translate-y-1 transition-transform"
+          :style="{ animationDelay: (ci * 0.1) + 's' }"
+        >
+          <!-- Header Kategori -->
+          <div class="flex items-center gap-3 pb-3 border-b-2 border-surface-container-highest">
+            <span :class="['material-symbols-outlined text-3xl float', category.iconColor]" :style="{ animationDelay: (ci * 0.3) + 's' }">{{ category.icon }}</span>
+            <h3 class="font-headline-lg text-base uppercase">{{ category.category }}</h3>
           </div>
-          <h3 class="font-headline-lg text-2xl uppercase">CODING_SCRIPTS</h3>
-          <div class="space-y-4">
-            <!-- JS -->
-            <div class="space-y-1">
-              <div class="flex justify-between text-label-sm font-label-sm uppercase">
-                <span>JavaScript</span>
-                <span class="text-tertiary">90%</span>
-              </div>
-              <div class="flex gap-1">
-                <div 
-                  v-for="i in 10" 
-                  :key="i"
-                  class="skill-block cursor-pointer"
-                  :class="{ filled: i <= 9 }"
-                  @mouseenter="hoverState['js'] = i"
-                  @mouseleave="hoverState['js'] = null"
-                  :style="{ borderColor: hoverState['js'] === i && i > 9 ? '#ffc485' : '#000' }"
-                ></div>
-              </div>
-            </div>
-            <!-- Python -->
-            <div class="space-y-1">
-              <div class="flex justify-between text-label-sm font-label-sm uppercase">
-                <span>Python</span>
-                <span class="text-tertiary">70%</span>
-              </div>
-              <div class="flex gap-1">
-                <div 
-                  v-for="i in 10" 
-                  :key="i"
-                  class="skill-block cursor-pointer"
-                  :class="{ filled: i <= 7 }"
-                  @mouseenter="hoverState['py'] = i"
-                  @mouseleave="hoverState['py'] = null"
-                  :style="{ borderColor: hoverState['py'] === i && i > 7 ? '#ffc485' : '#000' }"
-                ></div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Hardware Stats -->
-        <div class="bg-surface-container-low border-4 border-black p-6 shadow-[8px_8px_0px_0px_#000] space-y-6 group hover:-translate-y-1 transition-transform">
-          <div class="flex justify-between items-center">
-            <span class="material-symbols-outlined text-primary text-4xl">memory</span>
-            <span class="font-label-sm text-label-sm text-on-surface-variant">DEXTERITY +12</span>
-          </div>
-          <h3 class="font-headline-lg text-2xl uppercase">HARDWARE_MODS</h3>
+          <!-- Skill Bars — mengisi secara animasi -->
           <div class="space-y-4">
-            <!-- Assembly -->
-            <div class="space-y-1">
-              <div class="flex justify-between text-label-sm font-label-sm uppercase">
-                <span>System Assembly</span>
-                <span class="text-primary">100%</span>
+            <div v-for="skill in category.items" :key="skill.name">
+              <div class="flex justify-between mb-1">
+                <span class="text-label-sm font-label-sm uppercase text-on-surface">{{ skill.name }}</span>
+                <span class="text-label-sm font-label-sm text-on-surface-variant">{{ skill.percentage }}%</span>
               </div>
-              <div class="flex gap-1">
-                <div 
-                  v-for="i in 10" 
-                  :key="i"
-                  class="skill-block cursor-pointer"
-                  :class="{ filled: i <= 10 }"
-                  class-filled="bg-primary"
-                  @mouseenter="hoverState['assembly'] = i"
-                  @mouseleave="hoverState['assembly'] = null"
-                  :style="{ 
-                    borderColor: hoverState['assembly'] === i && i > 10 ? '#ffc485' : '#000',
-                    backgroundColor: i <= 10 ? '#ffc485' : '#1a1a2e'
+              <!-- Container bar -->
+              <div class="h-5 bg-surface-container-highest border-2 border-black overflow-hidden">
+                <!-- Bar yang bergerak dari 0 → percentage -->
+                <div
+                  class="h-full relative overflow-hidden"
+                  :class="category.iconColor.replace('text-', 'bg-')"
+                  :style="{
+                    width: skillWidths[skill.name] + '%',
+                    transition: 'width 1.2s cubic-bezier(0.17, 0.67, 0.83, 0.67)'
                   }"
-                ></div>
-              </div>
-            </div>
-            <!-- IoT -->
-            <div class="space-y-1">
-              <div class="flex justify-between text-label-sm font-label-sm uppercase">
-                <span>IoT / Arduino</span>
-                <span class="text-primary">60%</span>
-              </div>
-              <div class="flex gap-1">
-                <div 
-                  v-for="i in 10" 
-                  :key="i"
-                  class="skill-block cursor-pointer"
-                  :class="{ filled: i <= 6 }"
-                  @mouseenter="hoverState['iot'] = i"
-                  @mouseleave="hoverState['iot'] = null"
-                  :style="{ 
-                    borderColor: hoverState['iot'] === i && i > 6 ? '#ffc485' : '#000',
-                    backgroundColor: i <= 6 ? '#ffc485' : '#1a1a2e'
-                  }"
-                ></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Networking Stats -->
-        <div class="bg-surface-container-low border-4 border-black p-6 shadow-[8px_8px_0px_0px_#000] space-y-6 group hover:-translate-y-1 transition-transform">
-          <div class="flex justify-between items-center">
-            <span class="material-symbols-outlined text-secondary text-4xl">hub</span>
-            <span class="font-label-sm text-label-sm text-on-surface-variant">SYSTEMS +18</span>
-          </div>
-          <h3 class="font-headline-lg text-2xl uppercase">NET_INFRA</h3>
-          <div class="space-y-4">
-            <!-- TCP/IP -->
-            <div class="space-y-1">
-              <div class="flex justify-between text-label-sm font-label-sm uppercase">
-                <span>TCP/IP Protocols</span>
-                <span class="text-secondary">80%</span>
-              </div>
-              <div class="flex gap-1">
-                <div 
-                  v-for="i in 10" 
-                  :key="i"
-                  class="skill-block cursor-pointer"
-                  :class="{ filled: i <= 8 }"
-                  @mouseenter="hoverState['tcp'] = i"
-                  @mouseleave="hoverState['tcp'] = null"
-                  :style="{ 
-                    borderColor: hoverState['tcp'] === i && i > 8 ? '#ffc485' : '#000',
-                    backgroundColor: i <= 8 ? '#eeb1ff' : '#1a1a2e'
-                  }"
-                ></div>
-              </div>
-            </div>
-            <!-- Server Admin -->
-            <div class="space-y-1">
-              <div class="flex justify-between text-label-sm font-label-sm uppercase">
-                <span>Server Admin</span>
-                <span class="text-secondary">50%</span>
-              </div>
-              <div class="flex gap-1">
-                <div 
-                  v-for="i in 10" 
-                  :key="i"
-                  class="skill-block cursor-pointer"
-                  :class="{ filled: i <= 5 }"
-                  @mouseenter="hoverState['srv'] = i"
-                  @mouseleave="hoverState['srv'] = null"
-                  :style="{ 
-                    borderColor: hoverState['srv'] === i && i > 5 ? '#ffc485' : '#000',
-                    backgroundColor: i <= 5 ? '#eeb1ff' : '#1a1a2e'
-                  }"
-                ></div>
+                >
+                  <!-- Efek shine di dalam bar -->
+                  <div class="absolute inset-y-0 left-0 w-4 bg-white/30 skew-x-12"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -196,133 +95,143 @@
       </div>
     </section>
 
-    <!-- Pixel-Art Timeline -->
-    <section class="space-y-12">
-      <h2 
-        class="text-headline-lg font-headline-lg text-primary uppercase flex items-center gap-4"
-        @mouseover="scrambleText($event)"
-      >
-        <span class="material-symbols-outlined text-4xl">history</span>
-        QUEST_LOG_TIMELINE
+
+    <!-- =====================================================
+         SECTION 3: TECH STACK
+         ===================================================== -->
+    <section class="space-y-6 slide-in-up">
+      <h2 class="text-headline-lg font-headline-lg text-primary uppercase flex items-center gap-4">
+        <span class="material-symbols-outlined text-4xl">layers</span>
+        TECH STACK
       </h2>
-      
-      <div class="relative ml-8 border-l-4 border-dashed border-surface-container-highest pl-12 space-y-12 py-4">
-        <!-- Education Item 1 -->
-        <div class="timeline-step relative bg-surface-container p-6 border-4 border-black shadow-[4px_4px_0px_0px_#ffc485] hover:translate-x-2 transition-transform">
-          <div class="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-4">
-            <span class="font-label-sm text-label-sm text-primary">2022 - PRESENT</span>
-            <div class="flex gap-2 mt-2 md:mt-0">
-              <span class="bg-primary/20 text-primary border border-primary px-2 py-0.5 text-[10px] uppercase">Bachelor Degree</span>
-            </div>
-          </div>
-          <h4 class="font-headline-lg text-xl text-white mb-2 uppercase">Computer Science University</h4>
-          <p class="text-on-surface-variant font-body-md">Specializing in Software Engineering and Artificial Intelligence. Mastering data structures and complex algorithms while maintaining a 3.8 GPA.</p>
-        </div>
-
-        <!-- Education Item 2 -->
-        <div class="timeline-step relative bg-surface-container p-6 border-4 border-black shadow-[4px_4px_0px_0px_#eeb1ff] hover:translate-x-2 transition-transform">
-          <div class="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-4">
-            <span class="font-label-sm text-label-sm text-secondary">2021 - 2022</span>
-            <div class="flex gap-2 mt-2 md:mt-0">
-              <span class="bg-secondary/20 text-secondary border border-secondary px-2 py-0.5 text-[10px] uppercase">Certification</span>
-            </div>
-          </div>
-          <h4 class="font-headline-lg text-xl text-white mb-2 uppercase">Cisco Networking Academy</h4>
-          <p class="text-on-surface-variant font-body-md">Completed CCNA 1 &amp; 2. Gained deep understanding of routing, switching, and network security protocols.</p>
-        </div>
-
-        <!-- Education Item 3 -->
-        <div class="timeline-step relative bg-surface-container p-6 border-4 border-black shadow-[4px_4px_0px_0px_#00e5f4] hover:translate-x-2 transition-transform">
-          <div class="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-4">
-            <span class="font-label-sm text-label-sm text-tertiary">2019 - 2021</span>
-            <div class="flex gap-2 mt-2 md:mt-0">
-              <span class="bg-tertiary/20 text-tertiary border border-tertiary px-2 py-0.5 text-[10px] uppercase">High School Diploma</span>
-            </div>
-          </div>
-          <h4 class="font-headline-lg text-xl text-white mb-2 uppercase">Tech High Vocational School</h4>
-          <p class="text-on-surface-variant font-body-md">Introduction to Computer Architecture and Maintenance. First place in the Regional Robotics Competition.</p>
+      <div class="bg-surface-container-low border-4 border-black p-6 shadow-[4px_4px_0px_0px_#000]">
+        <div class="flex flex-wrap gap-3">
+          <span
+            v-for="(item, i) in data.techStack" :key="item"
+            class="px-4 py-2 border-2 border-tertiary text-tertiary font-label-sm text-label-sm uppercase hover:bg-tertiary hover:text-on-tertiary cursor-default transition-all hover:-translate-y-1 hover:shadow-[2px_2px_0px_#00363a]"
+            :style="{ animationDelay: (i * 0.04) + 's' }"
+          >
+            {{ item }}
+          </span>
         </div>
       </div>
     </section>
 
-    <!-- Terminal Section -->
-    <section class="bg-black border-4 border-primary p-6 shadow-[12px_12px_0px_0px_#000] relative overflow-hidden">
-      <div class="flex gap-2 mb-4 border-b border-primary/30 pb-2">
-        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-        <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-        <span class="text-[10px] text-primary/50 ml-4 font-label-sm">terminal_v2.0.sh</span>
+
+    <!-- =====================================================
+         SECTION 4: PENDIDIKAN — Staggered Timeline
+         Animasi: tiap item masuk bergantian
+         Edit di portfolio.js > education[]
+         ===================================================== -->
+    <section class="space-y-8">
+      <h2 class="text-headline-lg font-headline-lg text-primary uppercase flex items-center gap-4 slide-in-up">
+        <span class="material-symbols-outlined text-4xl">school</span>
+        PENDIDIKAN
+      </h2>
+
+      <div class="relative ml-8 border-l-4 border-dashed border-surface-container-highest pl-12 space-y-10 py-4">
+        <div
+          v-for="(item, i) in data.education"
+          :key="item.institution"
+          class="timeline-step relative bg-surface-container p-6 border-4 border-black hover:translate-x-2 transition-transform slide-in-up"
+          :style="{
+            boxShadow: '4px 4px 0px 0px ' + colorMap[item.color],
+            animationDelay: (i * 0.12) + 's'
+          }"
+        >
+          <div class="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-3 gap-2">
+            <span class="font-label-sm text-label-sm" :class="'text-' + item.color">{{ item.period }}</span>
+            <span class="px-2 py-0.5 text-[11px] uppercase border font-bold" :class="['text-' + item.color, 'border-' + item.color]">
+              {{ item.badge }}
+            </span>
+          </div>
+          <h4 class="font-headline-lg text-lg text-white mb-2 uppercase">{{ item.institution }}</h4>
+          <p class="text-on-surface-variant font-body-md text-sm leading-relaxed">{{ item.description }}</p>
+        </div>
       </div>
-      <div class="space-y-2 text-primary font-body-md overflow-hidden min-h-[120px]">
-        <p><span class="text-green-400">guest@portfolio:~$</span> sudo fetch bio_info</p>
-        <p>[SUCCESS] Data packet retrieved from memory_bank_01.</p>
-        <p>...</p>
+    </section>
+
+
+    <!-- =====================================================
+         SECTION 5: TERMINAL
+         Animasi: efek mengetik
+         ===================================================== -->
+    <section class="bg-black border-4 border-primary p-6 shadow-[12px_12px_0px_0px_#000] slide-in-up">
+      <div class="flex gap-2 mb-4 border-b border-primary/30 pb-2">
+        <div class="w-3 h-3 bg-red-500 rounded-full float-slow" style="animation-delay:0s"></div>
+        <div class="w-3 h-3 bg-yellow-500 rounded-full float-slow" style="animation-delay:0.3s"></div>
+        <div class="w-3 h-3 bg-green-500 rounded-full float-slow" style="animation-delay:0.6s"></div>
+        <span class="text-[10px] text-primary/50 ml-4 font-label-sm">contact_me.sh</span>
+      </div>
+      <div class="space-y-2 text-primary font-body-md min-h-[80px]">
+        <p><span class="text-green-400">guest@portfolio:~$</span> ./hubungi_saya.sh</p>
         <p class="flex items-center">
-          <span class="text-white">{{ terminalText }}</span>
-          <span class="w-2.5 h-5 bg-primary ml-1 blink shrink-0"></span>
+          <span class="text-white text-sm">{{ terminalText }}</span>
+          <span class="w-2 h-5 bg-primary ml-1 blink shrink-0"></span>
         </p>
       </div>
     </section>
+
   </div>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
+import { portfolioData as data } from '~/data/portfolio.js'
 
-// Hover state control for stats power blocks
-const hoverState = reactive({
-  js: null,
-  py: null,
-  assembly: null,
-  iot: null,
-  tcp: null,
-  srv: null
-})
-
-// Scramble text function
-const scrambleText = (event) => {
-  const element = event.target
-  const originalText = element.dataset.original || element.innerText
-  if (!element.dataset.original) {
-    element.dataset.original = originalText
-  }
-  
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
-  let iteration = 0
-  clearInterval(element.interval)
-  
-  element.interval = setInterval(() => {
-    element.innerText = originalText
-      .split("")
-      .map((letter, index) => {
-        if (index < iteration) {
-          return originalText[index]
-        }
-        return letters[Math.floor(Math.random() * letters.length)]
-      })
-      .join("")
-    
-    if (iteration >= originalText.length) { 
-      clearInterval(element.interval)
-    }
-    
-    iteration += 1 / 3
-  }, 30)
+// Peta warna hex untuk shadow pendidikan
+const colorMap = {
+  primary: '#ffc485',
+  secondary: '#eeb1ff',
+  tertiary: '#00e5f4',
 }
 
-// Interactive bash typing emulation
-const terminalText = ref('')
-const fullBio = "I am always looking for new quests to join. If you have a challenge, let's connect!"
+// ---- Animated Skill Bars ----
+// Mulai dari 0, lalu isi ke nilai asli saat bagian ini terlihat
+const skillWidths = reactive({})
+
+// Inisialisasi semua bar ke 0
+data.skills.forEach(cat => {
+  cat.items.forEach(item => {
+    skillWidths[item.name] = 0
+  })
+})
 
 onMounted(() => {
+  // IntersectionObserver: aktifkan animasi saat section skills masuk layar
+  const section = document.getElementById('skills-section')
+  if (!section) return
+
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      // Isi bar dengan stagger per item
+      let delay = 0
+      data.skills.forEach(cat => {
+        cat.items.forEach(item => {
+          setTimeout(() => {
+            skillWidths[item.name] = item.percentage
+          }, delay)
+          delay += 120
+        })
+      })
+      observer.disconnect()
+    }
+  }, { threshold: 0.2 })
+
+  observer.observe(section)
+
+  // ---- Terminal typing animation ----
+  const message = `Halo! Saya ${data.personal.name}. Terbuka untuk kolaborasi proyek dan kesempatan magang.`
   let index = 0
-  const typingTimer = setInterval(() => {
-    if (index < fullBio.length) {
-      terminalText.value += fullBio.charAt(index)
+  const timer = setInterval(() => {
+    if (index < message.length) {
+      terminalText.value += message.charAt(index)
       index++
     } else {
-      clearInterval(typingTimer)
+      clearInterval(timer)
     }
-  }, 50)
+  }, 45)
 })
+
+const terminalText = ref('')
 </script>
