@@ -176,8 +176,12 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
-import { portfolioData as data } from '~/data/portfolio.js'
+import { ref, reactive, computed, watch, onMounted } from 'vue'
+import { portfolioData as defaultData } from '~/data/portfolio.js'
+
+// Ambil data dari API, fallback ke defaultData
+const { data: _apiData } = await useAsyncData('portfolio', () => $fetch('/api/portfolio'))
+const data = computed(() => _apiData.value || defaultData)
 
 // Peta warna hex untuk shadow pendidikan
 const colorMap = {
@@ -187,15 +191,17 @@ const colorMap = {
 }
 
 // ---- Animated Skill Bars ----
-// Mulai dari 0, lalu isi ke nilai asli saat bagian ini terlihat
 const skillWidths = reactive({})
 
-// Inisialisasi semua bar ke 0
-data.skills.forEach(cat => {
-  cat.items.forEach(item => {
-    skillWidths[item.name] = 0
+// Inisialisasi bar ke 0 setiap kali data berubah (misal setelah admin simpan)
+watch(data, (newData) => {
+  if (!newData?.skills) return
+  newData.skills.forEach(cat => {
+    cat.items.forEach(item => {
+      if (skillWidths[item.name] === undefined) skillWidths[item.name] = 0
+    })
   })
-})
+}, { immediate: true })
 
 onMounted(() => {
   // IntersectionObserver: aktifkan animasi saat section skills masuk layar
@@ -206,7 +212,7 @@ onMounted(() => {
     if (entries[0].isIntersecting) {
       // Isi bar dengan stagger per item
       let delay = 0
-      data.skills.forEach(cat => {
+      data.value.skills.forEach(cat => {
         cat.items.forEach(item => {
           setTimeout(() => {
             skillWidths[item.name] = item.percentage
@@ -221,7 +227,7 @@ onMounted(() => {
   observer.observe(section)
 
   // ---- Terminal typing animation ----
-  const message = `Halo! Saya ${data.personal.name}. Terbuka untuk kolaborasi proyek dan kesempatan magang.`
+  const message = `Halo! Saya ${data.value.personal?.name ?? 'saya'}. Terbuka untuk kolaborasi proyek dan kesempatan magang.`
   let index = 0
   const timer = setInterval(() => {
     if (index < message.length) {

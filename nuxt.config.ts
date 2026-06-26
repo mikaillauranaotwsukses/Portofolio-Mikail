@@ -8,6 +8,12 @@ export default defineNuxtConfig({
   css: [
     '~/assets/css/main.css'
   ],
+
+  // Password admin bisa diganti via .env: NUXT_ADMIN_PASSWORD=passwordbaru
+  runtimeConfig: {
+    adminPassword: 'admin2024',
+  },
+
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
@@ -17,4 +23,5 @@ export default defineNuxtConfig({
     }
   }
 })
+
 

@@ -199,8 +199,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { portfolioData as data } from '~/data/portfolio.js'
+import { ref, computed } from 'vue'
+import { portfolioData as defaultData } from '~/data/portfolio.js'
+
+// Ambil data dari API, fallback ke defaultData
+const { data: _apiData } = await useAsyncData('portfolio', () => $fetch('/api/portfolio'))
+const data = computed(() => _apiData.value || defaultData)
 
 // State form dan field aktif
 const focusedField = ref(null)

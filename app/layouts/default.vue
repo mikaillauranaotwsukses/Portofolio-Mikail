@@ -90,8 +90,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import { portfolioData as data } from '~/data/portfolio.js'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { portfolioData as defaultData } from '~/data/portfolio.js'
+
+// Ambil data dari API (jika admin sudah edit & simpan, data terbaru akan muncul)
+// Fallback ke defaultData jika API belum tersedia
+const { data: _apiData } = await useAsyncData('portfolio', () => $fetch('/api/portfolio'))
+const data = computed(() => _apiData.value || defaultData)
+
 
 const isMobileMenuOpen = ref(false)
 
