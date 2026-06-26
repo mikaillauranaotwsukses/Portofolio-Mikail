@@ -98,23 +98,20 @@
                 class="w-full md:w-auto bg-primary-container text-on-primary-container px-10 py-4 border-4 border-black shadow-[4px_4px_0px_0px_#701c8e] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-bold uppercase flex items-center justify-center gap-4 cursor-pointer select-none"
                 type="submit"
                 :disabled="submitState !== 'idle'"
-                @mousedown="onSubmitClick"
+                :class="{
+                  'opacity-50 cursor-not-allowed translate-x-1 translate-y-1 shadow-none': submitState !== 'idle',
+                  'bg-green-500 text-black border-green-700': submitState === 'success'
+                }"
               >
-                <!-- State: Diam -->
-                <template v-if="submitState === 'idle'">
-                  <span class="material-symbols-outlined">send</span>
-                  KIRIM PESAN
-                </template>
-                <!-- State: Uploading -->
-                <template v-else-if="submitState === 'uploading'">
-                  <span class="material-symbols-outlined animate-spin">sync</span>
-                  MENGIRIM...
-                </template>
-                <!-- State: Sukses -->
-                <template v-else-if="submitState === 'success'">
-                  <span class="material-symbols-outlined text-green-400">check_circle</span>
-                  BERHASIL TERKIRIM!
-                </template>
+                <span v-if="submitState === 'idle'" class="flex items-center gap-2">
+                  <span class="material-symbols-outlined">send</span> KIRIM_PESAN
+                </span>
+                <span v-else-if="submitState === 'loading'" class="flex items-center gap-2">
+                  <span class="material-symbols-outlined animate-spin">refresh</span> MEMPROSES...
+                </span>
+                <span v-else-if="submitState === 'success'" class="flex items-center gap-2">
+                  <span class="material-symbols-outlined">check_circle</span> TERKIRIM
+                </span>
               </button>
             </div>
           </form>
@@ -124,58 +121,7 @@
 
       <!-- ---- SIDEBAR (kanan) ---- -->
       <div class="md:col-span-4 space-y-8">
-
-        <!-- Link Sosial Media -->
-        <div class="bg-surface-container-low border-4 border-black shadow-[8px_8px_0px_0px_#00e5f4] p-6">
-          <div class="bg-tertiary text-on-tertiary px-4 py-1 text-label-sm font-bold uppercase mb-4 inline-block">
-            Social Links
-          </div>
-          <div class="flex flex-col gap-4">
-            <!-- GitHub -->
-            <a 
-              :href="data.social.github" 
-              target="_blank"
-              class="group flex items-center gap-4 bg-background p-3 border-4 border-surface-container-highest hover:border-primary transition-colors cursor-pointer"
-            >
-              <div class="w-12 h-12 bg-surface-container-highest flex items-center justify-center group-hover:bg-primary transition-colors">
-                <span class="material-symbols-outlined text-on-background group-hover:text-on-primary">terminal</span>
-              </div>
-              <div>
-                <div class="text-label-sm font-bold text-tertiary uppercase">GitHub</div>
-                <div class="text-label-sm text-surface-variant truncate">{{ data.social.github }}</div>
-              </div>
-            </a>
-
-            <!-- LinkedIn -->
-            <a 
-              :href="data.social.linkedin" 
-              target="_blank"
-              class="group flex items-center gap-4 bg-background p-3 border-4 border-surface-container-highest hover:border-secondary transition-colors cursor-pointer"
-            >
-              <div class="w-12 h-12 bg-surface-container-highest flex items-center justify-center group-hover:bg-secondary transition-colors">
-                <span class="material-symbols-outlined text-on-background group-hover:text-on-secondary">share</span>
-              </div>
-              <div>
-                <div class="text-label-sm font-bold text-tertiary uppercase">LinkedIn</div>
-                <div class="text-label-sm text-surface-variant truncate">{{ data.social.linkedin }}</div>
-              </div>
-            </a>
-
-            <!-- Email -->
-            <a 
-              :href="'mailto:' + data.social.email"
-              class="group flex items-center gap-4 bg-background p-3 border-4 border-surface-container-highest hover:border-tertiary transition-colors cursor-pointer"
-            >
-              <div class="w-12 h-12 bg-surface-container-highest flex items-center justify-center group-hover:bg-tertiary transition-colors">
-                <span class="material-symbols-outlined text-on-background group-hover:text-on-tertiary">mail</span>
-              </div>
-              <div>
-                <div class="text-label-sm font-bold text-tertiary uppercase">Email</div>
-                <div class="text-label-sm text-surface-variant truncate">{{ data.social.email }}</div>
-              </div>
-            </a>
-          </div>
-        </div>
+        <SectionsSocialSection :data="data" />
 
         <!-- Pesan Motivasi / Bio Singkat -->
         <div class="bg-surface-container-low border-4 border-black p-6 space-y-3">
@@ -203,39 +149,58 @@ import { ref, computed } from 'vue'
 import { portfolioData as defaultData } from '~/data/portfolio.js'
 
 // Ambil data dari API, fallback ke defaultData
-const { data: _apiData } = await useAsyncData('portfolio', () => $fetch('/api/portfolio'))
+const { data: _apiData } = await useAsyncData('portfolio-contact', () => $fetch('/api/portfolio'))
 const data = computed(() => _apiData.value || defaultData)
 
-// State form dan field aktif
+// State Form
 const focusedField = ref(null)
-const form = ref({ name: '', email: '', message: '' })
-const submitState = ref('idle') // 'idle' | 'uploading' | 'success'
+const submitState = ref('idle') // idle | loading | success
 const showScorePop = ref(false)
 
-// Shake effect saat klik tombol
-const onSubmitClick = (e) => {
-  const btn = e.currentTarget
-  btn.classList.add('shake')
-  setTimeout(() => btn.classList.remove('shake'), 400)
-}
+const form = ref({
+  name: '',
+  email: '',
+  message: ''
+})
 
-// Simulasi pengiriman form
 const handleSubmit = () => {
   if (submitState.value !== 'idle') return
 
-  submitState.value = 'uploading'
-
+  submitState.value = 'loading'
+  
+  // Simulasi pengiriman data (delay 1.5 detik)
   setTimeout(() => {
     submitState.value = 'success'
-    // Tampilkan score pop!
     showScorePop.value = true
-    setTimeout(() => { showScorePop.value = false }, 1600)
 
-    // Reset form setelah 2 detik
+    // Reset setelah sukses
     setTimeout(() => {
       submitState.value = 'idle'
+      showScorePop.value = false
       form.value = { name: '', email: '', message: '' }
-    }, 2000)
+    }, 3000)
+    
   }, 1500)
 }
 </script>
+
+<style scoped>
+/* Animasi pop-up skor ala game */
+.score-pop {
+  animation: floatUpFade 1.5s ease-out forwards;
+}
+
+@keyframes floatUpFade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -20px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -40px) scale(1);
+  }
+}
+</style>

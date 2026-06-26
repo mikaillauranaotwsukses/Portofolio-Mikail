@@ -47,10 +47,10 @@
 
 
   <!-- DASHBOARD ADMIN: Tampil setelah login -->
-  <div v-else class="min-h-screen flex flex-col">
+  <div v-else class="h-screen flex flex-col">
 
     <!-- ---- TOP BAR ---- -->
-    <header class="sticky top-0 z-50 bg-surface-container-lowest border-b-4 border-black flex items-center justify-between px-6 py-3 shadow-[0_4px_0px_0px_#000]">
+    <header class="shrink-0 z-50 bg-surface-container-lowest border-b-4 border-black flex items-center justify-between px-6 py-3 shadow-[0_4px_0px_0px_#000]">
       <div class="flex items-center gap-3">
         <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
         <div>
@@ -71,7 +71,7 @@
           class="hidden md:flex items-center gap-2 border-2 border-tertiary text-tertiary px-4 py-2 hover:bg-tertiary hover:text-on-tertiary transition-all font-label-sm text-xs uppercase"
         >
           <span class="material-symbols-outlined text-sm">open_in_new</span>
-          Preview
+          Buka Website
         </a>
         <!-- Logout -->
         <button
@@ -85,22 +85,23 @@
     </header>
 
 
-    <!-- ---- MAIN LAYOUT (Sidebar + Content) ---- -->
-    <div class="flex flex-1 overflow-hidden">
+    <!-- ---- MAIN LAYOUT (Sidebar + Form + Live Preview) ---- -->
+    <div class="flex flex-1 overflow-hidden relative">
 
-      <!-- SIDEBAR NAVIGASI TAB -->
-      <aside class="w-48 md:w-56 shrink-0 bg-surface-container-low border-r-4 border-black overflow-y-auto">
+      <!-- 1. SIDEBAR NAVIGASI TAB -->
+      <aside class="w-20 md:w-56 shrink-0 bg-surface-container-low border-r-4 border-black overflow-y-auto flex flex-col justify-between">
         <nav class="p-3 space-y-1">
           <button
             v-for="tab in tabs" :key="tab.id"
-            class="w-full flex items-center gap-3 px-4 py-3 border-2 transition-all font-label-sm text-xs uppercase text-left"
+            class="w-full flex items-center justify-center md:justify-start gap-3 px-4 py-3 border-2 transition-all font-label-sm text-xs uppercase text-left"
             :class="activeTab === tab.id
               ? 'bg-primary-container text-on-primary-container border-black shadow-[3px_3px_0px_0px_#000]'
               : 'border-transparent text-on-surface-variant hover:border-surface-container-highest hover:text-on-background'"
             @click="activeTab = tab.id"
+            :title="tab.label"
           >
             <span class="material-symbols-outlined text-lg">{{ tab.icon }}</span>
-            {{ tab.label }}
+            <span class="hidden md:block">{{ tab.label }}</span>
           </button>
         </nav>
 
@@ -109,74 +110,81 @@
           <button
             class="w-full flex items-center justify-center gap-2 border-2 border-red-500/50 text-red-400 px-3 py-2 hover:bg-red-500/20 transition-all font-label-sm text-xs uppercase"
             @click="doReset"
+            title="Reset Default"
           >
             <span class="material-symbols-outlined text-sm">restart_alt</span>
-            Reset Default
+            <span class="hidden md:block">Reset Data</span>
           </button>
         </div>
       </aside>
 
 
-      <!-- AREA KONTEN FORM -->
-      <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-8">
+      <!-- 2. AREA KONTEN FORM -->
+      <main class="flex-1 md:w-[450px] md:flex-none border-r-4 border-black overflow-y-auto p-6 md:p-8 space-y-8 pb-32">
 
         <!-- ==========================================
              TAB: PROFIL
              ========================================== -->
-        <section v-if="activeTab === 'profil'" class="space-y-6 max-w-2xl">
+        <section v-if="activeTab === 'profil'" class="space-y-6">
           <h2 class="section-title">👤 Informasi Profil</h2>
 
-          <field label="Nama">
+          <AdminField label="Nama">
             <input v-model="form.personal.name" type="text" class="admin-input" placeholder="Nama Anda" />
-          </field>
+          </AdminField>
 
-          <field label="Role / Jabatan">
+          <AdminField label="Role / Jabatan">
             <input v-model="form.personal.role" type="text" class="admin-input" placeholder="IT Student, Web Developer, dll." />
-          </field>
+          </AdminField>
 
-          <field label="Tagline Singkat">
+          <AdminField label="Tagline Singkat">
             <input v-model="form.personal.tagline" type="text" class="admin-input" placeholder="Tagline di bawah nama" />
-          </field>
+          </AdminField>
 
-          <field label="Bio / Deskripsi Diri">
+          <AdminField label="Bio / Deskripsi Diri">
             <textarea v-model="form.personal.bio" class="admin-input resize-none" rows="4" placeholder="Ceritakan tentang diri Anda..."></textarea>
-          </field>
+          </AdminField>
 
-          <field label="URL Foto Profil">
-            <input v-model="form.personal.photoUrl" type="url" class="admin-input" placeholder="https://..." />
+          <AdminField label="URL Foto Profil">
+            <div class="flex items-center gap-2">
+              <input v-model="form.personal.photoUrl" type="url" class="admin-input flex-1" placeholder="https://..." />
+              <label class="admin-btn-add cursor-pointer shrink-0 h-[46px] m-0">
+                <span class="material-symbols-outlined text-sm">upload</span> Upload
+                <input type="file" accept="image/*" class="hidden" @change="e => uploadFile(e, url => form.personal.photoUrl = url)" />
+              </label>
+            </div>
             <div v-if="form.personal.photoUrl" class="mt-3 flex items-center gap-3">
               <img :src="form.personal.photoUrl" alt="preview" class="w-16 h-16 object-cover border-2 border-primary" />
               <span class="text-xs text-on-surface-variant font-label-sm">Preview foto</span>
             </div>
-          </field>
+          </AdminField>
         </section>
 
 
         <!-- ==========================================
              TAB: HERO
              ========================================== -->
-        <section v-if="activeTab === 'hero'" class="space-y-6 max-w-2xl">
+        <section v-if="activeTab === 'hero'" class="space-y-6">
           <h2 class="section-title">🏠 Halaman Utama (Hero)</h2>
 
-          <field label="Judul Besar (Nama / Headline)">
+          <AdminField label="Judul Besar (Nama / Headline)">
             <input v-model="form.hero.title" type="text" class="admin-input" placeholder="Misal: MIKAIL" />
-          </field>
+          </AdminField>
 
-          <field label="Subtitle di Bawah Judul">
+          <AdminField label="Subtitle di Bawah Judul">
             <input v-model="form.hero.subtitle" type="text" class="admin-input" placeholder="IT Student & Web Developer" />
-          </field>
+          </AdminField>
 
-          <field label="Deskripsi Singkat">
+          <AdminField label="Deskripsi Singkat">
             <textarea v-model="form.hero.description" class="admin-input resize-none" rows="3" placeholder="Kalimat deskripsi..."></textarea>
-          </field>
+          </AdminField>
 
-          <field label="Teks Tombol Utama">
+          <AdminField label="Teks Tombol Utama">
             <input v-model="form.hero.ctaPrimary" type="text" class="admin-input" placeholder="LIHAT PROYEK" />
-          </field>
+          </AdminField>
 
-          <field label="Teks Tombol Kedua">
+          <AdminField label="Teks Tombol Kedua">
             <input v-model="form.hero.ctaSecondary" type="text" class="admin-input" placeholder="TENTANG SAYA" />
-          </field>
+          </AdminField>
         </section>
 
 
@@ -185,7 +193,7 @@
              ========================================== -->
         <section v-if="activeTab === 'skills'" class="space-y-6">
           <div class="flex items-center justify-between">
-            <h2 class="section-title">🔧 Keahlian / Skills</h2>
+            <h2 class="section-title mb-0 border-none pb-0">🔧 Keahlian / Skills</h2>
             <button class="admin-btn-add" @click="addSkillCategory">
               <span class="material-symbols-outlined text-sm">add</span> Tambah Kategori
             </button>
@@ -199,20 +207,20 @@
                   <label class="admin-label">Nama Kategori</label>
                   <input v-model="cat.category" type="text" class="admin-input" placeholder="Web Development" />
                 </div>
-                <div class="w-36">
-                  <label class="admin-label">Icon (Material)</label>
+                <div class="w-24">
+                  <label class="admin-label">Icon</label>
                   <input v-model="cat.icon" type="text" class="admin-input" placeholder="code" />
                 </div>
-                <div class="w-44">
+                <div class="w-32">
                   <label class="admin-label">Warna Icon</label>
                   <select v-model="cat.iconColor" class="admin-input">
-                    <option value="text-primary">🟠 Oranye (primary)</option>
-                    <option value="text-secondary">🟣 Ungu (secondary)</option>
-                    <option value="text-tertiary">🔵 Cyan (tertiary)</option>
+                    <option value="text-primary">🟠 Oranye</option>
+                    <option value="text-secondary">🟣 Ungu</option>
+                    <option value="text-tertiary">🔵 Cyan</option>
                   </select>
                 </div>
               </div>
-              <button class="admin-btn-delete mt-5" @click="form.skills.splice(ci, 1)">
+              <button class="admin-btn-delete mt-5 px-2" @click="form.skills.splice(ci, 1)" title="Hapus Kategori">
                 <span class="material-symbols-outlined text-sm">delete</span>
               </button>
             </div>
@@ -223,7 +231,7 @@
               <div v-for="(item, ii) in cat.items" :key="ii" class="flex items-center gap-3 flex-wrap">
                 <input v-model="item.name" type="text" class="admin-input flex-1 min-w-32" placeholder="Nama skill" />
                 <div class="flex items-center gap-2">
-                  <input v-model.number="item.percentage" type="range" min="0" max="100" class="w-28 accent-primary" />
+                  <input v-model.number="item.percentage" type="range" min="0" max="100" class="w-24 accent-primary" />
                   <span class="text-primary font-bold font-label-sm w-10 text-right">{{ item.percentage }}%</span>
                 </div>
                 <button class="admin-btn-delete-sm" @click="cat.items.splice(ii, 1)">✕</button>
@@ -239,7 +247,7 @@
         <!-- ==========================================
              TAB: TECH STACK
              ========================================== -->
-        <section v-if="activeTab === 'techstack'" class="space-y-6 max-w-2xl">
+        <section v-if="activeTab === 'techstack'" class="space-y-6">
           <h2 class="section-title">🏷️ Tech Stack</h2>
           <p class="text-on-surface-variant text-sm font-body-md">Teknologi yang ditampilkan sebagai badge/tag.</p>
 
@@ -264,7 +272,7 @@
              ========================================== -->
         <section v-if="activeTab === 'pendidikan'" class="space-y-6">
           <div class="flex items-center justify-between">
-            <h2 class="section-title">🎓 Riwayat Pendidikan</h2>
+            <h2 class="section-title mb-0 border-none pb-0">🎓 Pendidikan</h2>
             <button class="admin-btn-add" @click="addEducation">
               <span class="material-symbols-outlined text-sm">add</span> Tambah
             </button>
@@ -273,35 +281,35 @@
           <div v-for="(edu, i) in form.education" :key="i" class="bg-surface-container border-4 border-black p-5 shadow-[4px_4px_0px_0px_#000] space-y-4">
             <div class="flex justify-between items-start">
               <p class="text-primary font-bold font-label-sm uppercase">{{ edu.institution || 'Institusi baru' }}</p>
-              <button class="admin-btn-delete" @click="form.education.splice(i, 1)">
+              <button class="admin-btn-delete px-2" @click="form.education.splice(i, 1)">
                 <span class="material-symbols-outlined text-sm">delete</span>
               </button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <field label="Periode (Tahun)">
+              <AdminField label="Periode (Tahun)">
                 <input v-model="edu.period" type="text" class="admin-input" placeholder="2022 - Sekarang" />
-              </field>
-              <field label="Badge / Label">
+              </AdminField>
+              <AdminField label="Badge / Label">
                 <input v-model="edu.badge" type="text" class="admin-input" placeholder="Sarjana, Sertifikasi, SMK" />
-              </field>
+              </AdminField>
             </div>
 
-            <field label="Nama Institusi">
+            <AdminField label="Nama Institusi">
               <input v-model="edu.institution" type="text" class="admin-input" placeholder="Nama universitas / sekolah" />
-            </field>
+            </AdminField>
 
-            <field label="Deskripsi">
+            <AdminField label="Deskripsi">
               <textarea v-model="edu.description" class="admin-input resize-none" rows="2" placeholder="Jurusan, prestasi, dll."></textarea>
-            </field>
+            </AdminField>
 
-            <field label="Warna Kartu">
+            <AdminField label="Warna Kartu">
               <select v-model="edu.color" class="admin-input">
                 <option value="primary">🟠 Oranye (primary)</option>
                 <option value="secondary">🟣 Ungu (secondary)</option>
                 <option value="tertiary">🔵 Cyan (tertiary)</option>
               </select>
-            </field>
+            </AdminField>
           </div>
         </section>
 
@@ -311,9 +319,9 @@
              ========================================== -->
         <section v-if="activeTab === 'proyek'" class="space-y-6">
           <div class="flex items-center justify-between">
-            <h2 class="section-title">🗂️ Proyek</h2>
+            <h2 class="section-title mb-0 border-none pb-0">🗂️ Proyek</h2>
             <button class="admin-btn-add" @click="addProject">
-              <span class="material-symbols-outlined text-sm">add</span> Tambah Proyek
+              <span class="material-symbols-outlined text-sm">add</span> Tambah
             </button>
           </div>
 
@@ -334,41 +342,40 @@
             <!-- Form proyek (muncul saat di-expand) -->
             <div v-if="expandedProject === i" class="p-5 space-y-4">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <field label="Judul Proyek">
+                <AdminField label="Judul Proyek">
                   <input v-model="proj.title" type="text" class="admin-input" placeholder="Nama Proyek" />
-                </field>
-                <field label="Subtitle / Kategori">
+                </AdminField>
+                <AdminField label="Subtitle / Kategori">
                   <input v-model="proj.subtitle" type="text" class="admin-input" placeholder="Web Application" />
-                </field>
+                </AdminField>
               </div>
 
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <field label="Icon (Material Icons)">
+                <AdminField label="Icon (Material)">
                   <input v-model="proj.icon" type="text" class="admin-input" placeholder="database" />
-                  <a class="text-xs text-tertiary underline mt-1 block" href="https://fonts.google.com/icons" target="_blank">Cari nama icon →</a>
-                </field>
-                <field label="Warna Icon">
+                </AdminField>
+                <AdminField label="Warna Icon">
                   <select v-model="proj.iconColor" class="admin-input">
                     <option value="text-primary">🟠 Oranye</option>
                     <option value="text-secondary">🟣 Ungu</option>
                     <option value="text-tertiary">🔵 Cyan</option>
                   </select>
-                </field>
-                <field label="Ukuran Kartu">
+                </AdminField>
+                <AdminField label="Ukuran Kartu">
                   <select v-model="proj.size" class="admin-input">
-                    <option value="large">Large (lebar penuh)</option>
-                    <option value="medium">Medium (setengah)</option>
-                    <option value="small">Small (sepertiga)</option>
+                    <option value="large">Large</option>
+                    <option value="medium">Medium</option>
+                    <option value="small">Small</option>
                   </select>
-                </field>
+                </AdminField>
               </div>
 
-              <field label="Deskripsi Proyek">
+              <AdminField label="Deskripsi Proyek">
                 <textarea v-model="proj.description" class="admin-input resize-none" rows="3" placeholder="Deskripsi singkat proyek..."></textarea>
-              </field>
+              </AdminField>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <field label="Tags Teknologi (pisahkan dengan koma)">
+                <AdminField label="Tags Teknologi (pisahkan koma)">
                   <input
                     :value="proj.tags.join(', ')"
                     type="text"
@@ -376,26 +383,32 @@
                     placeholder="PHP, MySQL, Laravel"
                     @change="proj.tags = $event.target.value.split(',').map(t => t.trim()).filter(Boolean)"
                   />
-                </field>
-                <field label="Warna Tag">
+                </AdminField>
+                <AdminField label="Warna Tag">
                   <select v-model="proj.tagColor" class="admin-input">
                     <option value="primary">🟠 Oranye</option>
                     <option value="secondary">🟣 Ungu</option>
                     <option value="tertiary">🔵 Cyan</option>
                   </select>
-                </field>
+                </AdminField>
               </div>
 
-              <field label="URL Gambar (opsional, kosongkan jika tidak ada)">
-                <input v-model="proj.imageUrl" type="url" class="admin-input" placeholder="https://..." />
+              <AdminField label="URL Gambar (opsional)">
+                <div class="flex items-center gap-2">
+                  <input v-model="proj.imageUrl" type="url" class="admin-input flex-1" placeholder="https://..." />
+                  <label class="admin-btn-add cursor-pointer shrink-0 h-[46px] m-0">
+                    <span class="material-symbols-outlined text-sm">upload</span> Upload
+                    <input type="file" accept="image/*" class="hidden" @change="e => uploadFile(e, url => proj.imageUrl = url)" />
+                  </label>
+                </div>
                 <div v-if="proj.imageUrl" class="mt-2">
                   <img :src="proj.imageUrl" alt="preview" class="h-24 object-cover border-2 border-surface-container-highest" />
                 </div>
-              </field>
+              </AdminField>
 
               <div class="flex justify-end pt-2">
                 <button class="admin-btn-delete flex items-center gap-2" @click="form.projects.splice(i, 1); expandedProject = null">
-                  <span class="material-symbols-outlined text-sm">delete</span> Hapus Proyek Ini
+                  <span class="material-symbols-outlined text-sm">delete</span> Hapus Proyek
                 </button>
               </div>
             </div>
@@ -406,35 +419,35 @@
         <!-- ==========================================
              TAB: SOSIAL
              ========================================== -->
-        <section v-if="activeTab === 'sosial'" class="space-y-6 max-w-2xl">
+        <section v-if="activeTab === 'sosial'" class="space-y-6">
           <h2 class="section-title">🌐 Link Sosial Media</h2>
 
-          <field label="GitHub URL">
+          <AdminField label="GitHub URL">
             <input v-model="form.social.github" type="url" class="admin-input" placeholder="https://github.com/username" />
-          </field>
-          <field label="LinkedIn URL">
+          </AdminField>
+          <AdminField label="LinkedIn URL">
             <input v-model="form.social.linkedin" type="url" class="admin-input" placeholder="https://linkedin.com/in/username" />
-          </field>
-          <field label="Email">
+          </AdminField>
+          <AdminField label="Email">
             <input v-model="form.social.email" type="email" class="admin-input" placeholder="email@contoh.com" />
-          </field>
+          </AdminField>
         </section>
 
 
         <!-- ==========================================
              TAB: PENGATURAN
              ========================================== -->
-        <section v-if="activeTab === 'pengaturan'" class="space-y-6 max-w-2xl">
+        <section v-if="activeTab === 'pengaturan'" class="space-y-6">
           <h2 class="section-title">⚙️ Pengaturan Website</h2>
 
-          <field label="Nama Website (di header)">
+          <AdminField label="Nama Website (di header)">
             <input v-model="form.siteName" type="text" class="admin-input" placeholder="MIKAIL.DEV" />
-          </field>
-          <field label="Teks Copyright (di footer)">
+          </AdminField>
+          <AdminField label="Teks Copyright (di footer)">
             <input v-model="form.footerText" type="text" class="admin-input" placeholder="© 2024 MIKAIL. All Rights Reserved." />
-          </field>
+          </AdminField>
 
-          <div class="bg-surface-container border-2 border-surface-container-highest p-4">
+          <div class="bg-surface-container border-2 border-surface-container-highest p-4 mt-6">
             <p class="text-label-sm font-label-sm text-on-surface-variant uppercase mb-2">Ubah Password Admin</p>
             <p class="text-xs text-on-surface-variant font-body-md">Untuk mengganti password, buka file <code class="text-primary">.env</code> di folder proyek dan tambahkan baris:</p>
             <code class="block mt-2 text-tertiary text-xs bg-black p-3 border border-surface-container-highest">NUXT_ADMIN_PASSWORD=password_baru_anda</code>
@@ -442,34 +455,65 @@
           </div>
         </section>
 
+      </main>
 
-        <!-- ==========================================
-             TOMBOL SIMPAN (selalu terlihat di bawah)
-             ========================================== -->
-        <div class="border-t-4 border-black pt-6 flex flex-wrap items-center gap-4">
-          <div class="relative">
-            <!-- Score pop animation saat berhasil -->
-            <div v-if="showScorePop" class="score-pop absolute -top-4 left-1/2 -translate-x-1/2 text-tertiary font-bold text-xs uppercase whitespace-nowrap">
-              ✓ TERSIMPAN!
-            </div>
-            <button
-              class="bg-primary-container text-on-primary-container px-8 py-4 border-4 border-black shadow-[4px_4px_0px_0px_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-label-sm font-bold uppercase flex items-center gap-3"
-              :disabled="isSaving"
-              @click="saveData"
-            >
-              <span class="material-symbols-outlined" :class="{ 'animate-spin': isSaving }">
-                {{ isSaving ? 'sync' : 'save' }}
-              </span>
-              {{ isSaving ? 'MENYIMPAN...' : 'SIMPAN PERUBAHAN' }}
-            </button>
+
+      <!-- 3. AREA PREVIEW (KANAN) -->
+      <section class="hidden lg:flex flex-1 bg-black flex-col overflow-hidden relative border-l-4 border-surface-container-highest">
+        <!-- Header Preview -->
+        <div class="bg-secondary-container text-on-secondary-container px-6 py-3 border-b-4 border-black flex justify-between items-center shrink-0 z-10 shadow-[0_4px_0px_0px_#000]">
+          <div class="flex items-center gap-2 font-bold font-label-sm text-sm uppercase tracking-wider">
+            <span class="material-symbols-outlined text-sm animate-pulse text-secondary">visibility</span>
+            Live Preview
           </div>
-
-          <p class="text-xs text-on-surface-variant font-label-sm">
-            Perubahan akan langsung tampil di website publik setelah disimpan.
-          </p>
+          <span class="text-xs opacity-70 bg-black/20 px-2 py-1 uppercase rounded-sm border border-black/10">
+            Perubahan Real-time
+          </span>
         </div>
 
-      </main>
+        <!-- Scrollable Preview Area -->
+        <div class="flex-1 overflow-y-auto p-8 relative preview-container">
+          <!-- Transisi agar smooth saat pindah tab -->
+          <transition name="fade" mode="out-in">
+            <div :key="activeTab" class="mx-auto max-w-5xl space-y-12">
+              <SectionsProfileSection v-if="activeTab === 'profil'" :data="form" />
+              <SectionsHeroSection v-if="activeTab === 'hero'" :data="form" />
+              <SectionsSkillsSection v-if="activeTab === 'skills'" :data="form" />
+              <SectionsTechStackSection v-if="activeTab === 'techstack'" :data="form" />
+              <SectionsEducationSection v-if="activeTab === 'pendidikan'" :data="form" />
+              <div v-if="activeTab === 'proyek'">
+                <SectionsProjectsGrid :projects="form.projects" />
+              </div>
+              <SectionsSocialSection v-if="activeTab === 'sosial'" :data="form" />
+
+              <div v-if="activeTab === 'pengaturan'" class="flex items-center justify-center h-64 border-4 border-dashed border-surface-container-highest text-on-surface-variant font-mono">
+                [ Pengaturan sistem tidak memiliki preview visual spesifik ]
+              </div>
+            </div>
+          </transition>
+        </div>
+      </section>
+
+      <!-- TOMBOL SIMPAN MENGAMBANG -->
+      <div class="absolute bottom-6 left-6 md:left-[246px] lg:left-[calc(224px+450px-200px)] z-50">
+        <div class="relative group">
+          <!-- Score pop animation saat berhasil -->
+          <div v-if="showScorePop" class="score-pop absolute -top-8 left-1/2 -translate-x-1/2 text-tertiary font-bold text-xs uppercase whitespace-nowrap bg-black px-3 py-1 border-2 border-tertiary shadow-[2px_2px_0px_0px_#00e5f4]">
+            ✓ DATA TERSIMPAN!
+          </div>
+          <button
+            class="bg-primary-container text-on-primary-container px-6 py-4 border-4 border-black shadow-[6px_6px_0px_0px_#701c8e] hover:translate-x-1 hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_#701c8e] transition-all font-label-sm font-bold uppercase flex items-center gap-3"
+            :disabled="isSaving"
+            @click="saveData"
+          >
+            <span class="material-symbols-outlined" :class="{ 'animate-spin': isSaving }">
+              {{ isSaving ? 'sync' : 'save' }}
+            </span>
+            {{ isSaving ? 'MENYIMPAN...' : 'SIMPAN PERUBAHAN' }}
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -522,6 +566,30 @@ const form = reactive({
   footerText: '',
 })
 
+
+// ============================================================
+// FUNGSI UPLOAD FILE
+// ============================================================
+
+const uploadFile = async (event, callback) => {
+  const file = event.target.files[0]
+  if (!file) return
+
+  const formData = new FormData()
+  formData.append('file', file)
+
+  try {
+    const result = await $fetch('/api/upload', {
+      method: 'POST',
+      body: formData
+    })
+    if (result && result.url) {
+      callback(result.url)
+    }
+  } catch (err) {
+    alert('Gagal mengupload file: ' + (err.data?.statusMessage || err.message))
+  }
+}
 
 // ============================================================
 // FUNGSI AUTH
@@ -659,12 +727,11 @@ onMounted(async () => {
 
 
 <!-- =====================================================
-     STYLE — Komponen helper Field + kelas admin
+     STYLE — Kelas Admin & Transisi
      ===================================================== -->
 <style>
-/* Field wrapper component (inline template di bawah) */
 .section-title {
-  @apply text-headline-lg font-headline-lg text-primary uppercase border-b-4 border-primary pb-2 mb-2;
+  @apply text-headline-lg font-headline-lg text-primary uppercase border-b-4 border-primary pb-2 mb-6;
 }
 .admin-input {
   @apply w-full bg-background border-2 border-surface-container-highest text-on-background px-4 py-3 focus:outline-none focus:border-primary font-body-md transition-colors text-sm;
@@ -684,19 +751,21 @@ onMounted(async () => {
 .admin-btn-delete-sm {
   @apply text-red-400 hover:text-red-300 border border-red-500/50 px-2 py-1 text-xs transition-all;
 }
-</style>
 
-<!-- Komponen Field helper agar tidak berulang-ulang -->
-<script>
-// Definisi komponen Field sederhana (label + slot)
-const field = {
-  props: ['label'],
-  template: `
-    <div>
-      <label class="admin-label">{{ label }}</label>
-      <slot />
-    </div>
-  `
+/* Animasi transisi preview */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
-export default { components: { field } }
-</script>
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Background pola untuk area preview */
+.preview-container {
+  background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+  background-size: 32px 32px;
+}
+</style>
