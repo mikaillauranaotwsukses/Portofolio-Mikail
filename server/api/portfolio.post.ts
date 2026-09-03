@@ -1,4 +1,3 @@
-import { createClient } from '@supabase/supabase-js'
 import defaultPortfolio from '../data/portfolio.json'
 
 // POST /api/portfolio
@@ -19,15 +18,14 @@ export default defineEventHandler(async (event) => {
     return { success: true, message: 'Password benar!' }
   }
 
-  // --- Cek Ketersediaan Supabase Config ---
-  if (!config.supabaseUrl || !config.supabaseServiceKey) {
+  // --- Dapatkan Supabase Client (dengan auto-sanitasi key/url) ---
+  const supabase = getSupabaseClient()
+  if (!supabase) {
     throw createError({
       statusCode: 500,
-      statusMessage: 'NUXT_SUPABASE_URL dan NUXT_SUPABASE_SERVICE_KEY belum diset di Vercel Environment Variables!'
+      statusMessage: 'NUXT_SUPABASE_URL dan NUXT_SUPABASE_SERVICE_KEY belum diset dengan benar di Environment Variables!'
     })
   }
-
-  const supabase = createClient(config.supabaseUrl, config.supabaseServiceKey)
 
   // --- Aksi Reset ke Default ---
   if (action === 'reset') {
@@ -37,7 +35,7 @@ export default defineEventHandler(async (event) => {
 
     if (error) {
       console.error('[API] Gagal reset ke Supabase:', error.message)
-      throw createError({ statusCode: 500, statusMessage: `Gagal mereset data: ${error.message}` })
+      throw createError({ statusCode: 500, statusMessage: 'Gagal mereset data: ' + error.message })
     }
 
     return { success: true, message: 'Data berhasil direset ke default!' }
@@ -50,7 +48,7 @@ export default defineEventHandler(async (event) => {
 
   if (error) {
     console.error('[API] Gagal menyimpan ke Supabase:', error.message)
-    throw createError({ statusCode: 500, statusMessage: `Gagal menyimpan data: ${error.message}` })
+    throw createError({ statusCode: 500, statusMessage: 'Gagal menyimpan data: ' + error.message })
   }
 
   return { success: true, message: 'Data berhasil disimpan!' }

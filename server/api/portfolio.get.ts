@@ -1,22 +1,19 @@
-import { createClient } from '@supabase/supabase-js'
 import defaultPortfolio from '../data/portfolio.json'
 
 // GET /api/portfolio
 // Membaca data portfolio dari Supabase.
 // Jika Supabase belum diset / data kosong → otomatis fallback ke defaultPortfolio lokal
 export default defineEventHandler(async () => {
-  const config = useRuntimeConfig()
   const localData = defaultPortfolio
+  const supabase = getSupabaseClient()
 
   // Jika environment variable Supabase belum diset di Vercel
-  if (!config.supabaseUrl || !config.supabaseServiceKey) {
-    console.warn('[API] NUXT_SUPABASE_URL atau NUXT_SUPABASE_SERVICE_KEY belum diset di Vercel Environment Variables. Menggunakan data lokal bawaan.')
+  if (!supabase) {
+    console.warn('[API] Supabase belum dikonfigurasi di Environment Variables. Menggunakan data lokal bawaan.')
     return localData
   }
 
   try {
-    const supabase = createClient(config.supabaseUrl, config.supabaseServiceKey)
-
     const { data, error } = await supabase
       .from('portfolio')
       .select('data')

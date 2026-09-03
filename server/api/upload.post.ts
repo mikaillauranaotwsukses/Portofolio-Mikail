@@ -1,9 +1,6 @@
-import { createClient } from '@supabase/supabase-js'
-
 // POST /api/upload
 // Upload file gambar ke Supabase Storage (bucket: uploads)
 export default defineEventHandler(async (event) => {
-  const config   = useRuntimeConfig()
   const formData = await readMultipartFormData(event)
 
   if (!formData) {
@@ -17,18 +14,18 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Data file tidak ditemukan.' })
   }
 
-  // Cek ketersediaan config Supabase
-  if (!config.supabaseUrl || !config.supabaseServiceKey) {
+  // Cek ketersediaan config Supabase dengan auto-sanitasi
+  const supabase = getSupabaseClient()
+  if (!supabase) {
     throw createError({
       statusCode: 500,
-      statusMessage: 'NUXT_SUPABASE_URL dan NUXT_SUPABASE_SERVICE_KEY belum diset di Vercel Environment Variables!'
+      statusMessage: 'NUXT_SUPABASE_URL dan NUXT_SUPABASE_SERVICE_KEY belum diset dengan benar di Environment Variables!'
     })
   }
 
-  const supabase  = createClient(config.supabaseUrl, config.supabaseServiceKey)
   const timestamp = Date.now()
   // Buat nama file aman dan unik
-  const safeName  = `${timestamp}-${file.filename.replace(/[^a-zA-Z0-9.-]/g, '_')}`
+  const safeName = `${timestamp}-${file.filename.replace(/[^a-zA-Z0-9.-]/g, '_')}`
 
   // Upload ke Supabase Storage bucket 'uploads'
   const { error } = await supabase.storage
@@ -40,7 +37,7 @@ export default defineEventHandler(async (event) => {
 
   if (error) {
     console.error('[API] Gagal upload ke Supabase Storage:', error.message)
-    throw createError({ statusCode: 500, statusMessage: 'Gagal mengupload file.' })
+    throw createError({ statusCode: 500, statusMessage: 'Gagal mengupload file: ' + error.message })
   }
 
   // Dapatkan URL publik gambar
