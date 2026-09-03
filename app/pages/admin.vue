@@ -320,9 +320,9 @@
               @click="expandedProject = expandedProject === i ? null : i"
             >
               <div class="flex items-center gap-3 flex-wrap">
-                <span class="material-symbols-outlined text-on-surface">{{ proj.icon || 'folder' }}</span>
                 <span class="font-bold font-label-sm uppercase">{{ proj.title || 'Proyek Baru' }}</span>
-                <span class="text-xs text-on-surface-variant border border-surface-container-highest px-2 py-0.5">{{ proj.size }}</span>
+                <span class="text-xs text-primary border border-primary/40 px-2 py-0.5 uppercase font-bold">{{ proj.subtitle || 'Kategori' }}</span>
+                <span class="text-xs text-on-surface-variant border border-surface-container-highest px-2 py-0.5 uppercase">{{ proj.size }}</span>
               </div>
 
               <div class="flex items-center gap-3" @click.stop>
@@ -372,31 +372,18 @@
                 </button>
               </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <AdminField label="Judul Proyek">
                   <input v-model="proj.title" type="text" class="admin-input" placeholder="Nama Proyek" />
                 </AdminField>
-                <AdminField label="Subtitle / Kategori">
-                  <input v-model="proj.subtitle" type="text" class="admin-input" placeholder="Web Application" />
-                </AdminField>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <AdminField label="Icon (Material)">
-                  <input v-model="proj.icon" type="text" class="admin-input" placeholder="database" />
-                </AdminField>
-                <AdminField label="Warna Icon">
-                  <select v-model="proj.iconColor" class="admin-input">
-                    <option value="text-primary">🟠 Oranye</option>
-                    <option value="text-secondary">🟣 Ungu</option>
-                    <option value="text-tertiary">🔵 Cyan</option>
-                  </select>
+                <AdminField label="Kategori Proyek (Custom)">
+                  <input v-model="proj.subtitle" type="text" class="admin-input" placeholder="Game / Web Application / dsb" />
                 </AdminField>
                 <AdminField label="Ukuran Kartu">
                   <select v-model="proj.size" class="admin-input">
-                    <option value="large">Large</option>
-                    <option value="medium">Medium</option>
-                    <option value="small">Small</option>
+                    <option value="large">Large (Penuh)</option>
+                    <option value="medium">Medium (Sedang)</option>
+                    <option value="small">Small (Kecil)</option>
                   </select>
                 </AdminField>
               </div>
@@ -422,6 +409,83 @@
                     <option value="tertiary">🔵 Cyan</option>
                   </select>
                 </AdminField>
+              </div>
+
+              <!-- Section: Link / Tautan Proyek (Bisa ditambah oleh admin) -->
+              <div class="bg-surface-container-high border-4 border-black p-4 space-y-3">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                  <div>
+                    <p class="font-label-sm text-label-sm text-on-background uppercase flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-sm text-primary">link</span>
+                      Link Proyek (Website, Demo, GitHub, dll)
+                    </p>
+                    <p class="text-xs text-on-surface-variant mt-0.5">
+                      Kartu proyek bisa langsung diklik pengunjung menuju link yang Anda tambahkan di bawah ini.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    class="admin-btn-add text-xs py-1.5 px-3 flex items-center gap-1 cursor-pointer"
+                    @click="addProjectLink(proj)"
+                  >
+                    <span class="material-symbols-outlined text-xs">add</span> Tambah Link
+                  </button>
+                </div>
+
+                <!-- Daftar Link yang dapat diedit & ditambah -->
+                <div v-if="proj.links && proj.links.length > 0" class="space-y-2 pt-1">
+                  <div
+                    v-for="(lnk, lIdx) in proj.links"
+                    :key="lIdx"
+                    class="flex items-center gap-2 bg-surface-container p-2.5 border-2 border-surface-container-highest"
+                  >
+                    <!-- Label Link -->
+                    <div class="w-1/3 min-w-[130px]">
+                      <input
+                        v-model="lnk.label"
+                        type="text"
+                        class="admin-input py-2 text-xs"
+                        placeholder="Label (misal: Live Demo, GitHub)"
+                      />
+                    </div>
+
+                    <!-- URL Link -->
+                    <div class="flex-1">
+                      <input
+                        v-model="lnk.url"
+                        type="url"
+                        class="admin-input py-2 text-xs font-mono"
+                        placeholder="https://..."
+                      />
+                    </div>
+
+                    <!-- Tombol Uji Buka Link -->
+                    <a
+                      v-if="lnk.url"
+                      :href="lnk.url"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="p-2 text-primary hover:bg-primary/20 border border-primary/40 text-xs flex items-center justify-center shrink-0 transition-colors cursor-pointer"
+                      title="Uji buka tautan ini di tab baru"
+                    >
+                      <span class="material-symbols-outlined text-sm">open_in_new</span>
+                    </a>
+
+                    <!-- Tombol Hapus Link -->
+                    <button
+                      type="button"
+                      class="p-2 text-red-400 hover:bg-red-400/20 border border-red-400/40 text-xs flex items-center justify-center shrink-0 transition-colors cursor-pointer"
+                      title="Hapus Link Ini"
+                      @click="removeProjectLink(proj, lIdx)"
+                    >
+                      <span class="material-symbols-outlined text-sm">delete</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div v-else class="text-center py-4 border-2 border-dashed border-surface-container-highest text-on-surface-variant text-xs font-mono">
+                  Belum ada link. Klik "Tambah Link" di atas untuk menambahkan tautan web/demo/repo.
+                </div>
               </div>
 
               <!-- Toggle: pakai foto atau tidak -->
@@ -905,13 +969,23 @@ const loadData = async () => {
     })
   }
 
-  // Normalisasi: pastikan setiap proyek punya field useImage & showOnHome
+  // Normalisasi: pastikan setiap proyek punya field useImage, showOnHome, dan links
   if (data.projects) {
-    data.projects = data.projects.map((p, idx) => ({
-      ...p,
-      useImage: p.useImage ?? (!!p.imageUrl),
-      showOnHome: p.showOnHome !== undefined ? !!p.showOnHome : (idx < 2),
-    }))
+    data.projects = data.projects.map((p, idx) => {
+      let links = []
+      if (Array.isArray(p.links) && p.links.length > 0) {
+        links = p.links.map(l => ({ label: l.label || 'Live Demo', url: l.url || '' }))
+      } else {
+        if (p.linkDemo) links.push({ label: 'Live Demo', url: p.linkDemo })
+        if (p.linkRepo) links.push({ label: 'GitHub', url: p.linkRepo })
+      }
+      return {
+        ...p,
+        links,
+        useImage: p.useImage ?? (!!p.imageUrl),
+        showOnHome: p.showOnHome !== undefined ? !!p.showOnHome : (idx < 2),
+      }
+    })
   }
 
   Object.assign(form, data)
@@ -924,9 +998,23 @@ const saveData = async () => {
 
   try {
     const password = sessionStorage.getItem('admin_pass') || ''
+
+    // Sinkronisasi linkDemo & linkRepo untuk kompatibilitas data
+    const payload = JSON.parse(JSON.stringify(form))
+    if (payload.projects) {
+      payload.projects.forEach(p => {
+        if (Array.isArray(p.links) && p.links.length > 0) {
+          const demo = p.links.find(l => /demo|web|live|app|game|play/i.test(l.label || ''))
+          const repo = p.links.find(l => /github|repo|code|source/i.test(l.label || ''))
+          p.linkDemo = demo?.url || (p.links[0]?.url || null)
+          p.linkRepo = repo?.url || (p.links[1]?.url || null)
+        }
+      })
+    }
+
     await $fetch('/api/portfolio', {
       method: 'POST',
-      body: { ...JSON.parse(JSON.stringify(form)), password },
+      body: { ...payload, password },
     })
     saveStatus.value = 'success'
     showScorePop.value = true
@@ -958,7 +1046,7 @@ const doReset = async () => {
 
 
 // ============================================================
-// FUNGSI TAMBAH ITEM
+// FUNGSI TAMBAH / KELOLA ITEM
 // ============================================================
 
 const addEducation = () => {
@@ -989,8 +1077,6 @@ const addProject = () => {
     id: newId,
     title: 'Proyek Baru',
     subtitle: 'Web Application',
-    icon: 'folder',
-    iconColor: 'text-primary',
     size: 'medium',
     description: 'Deskripsi proyek...',
     tags: [],
@@ -998,10 +1084,24 @@ const addProject = () => {
     showOnHome: false,
     useImage: false,
     imageUrl: null,
+    links: [
+      { label: 'Live Demo', url: '' }
+    ],
     linkDemo: null,
     linkRepo: null,
   })
   expandedProject.value = form.projects.length - 1
+}
+
+const addProjectLink = (proj) => {
+  if (!proj.links) proj.links = []
+  proj.links.push({ label: 'Live Demo', url: '' })
+}
+
+const removeProjectLink = (proj, index) => {
+  if (proj.links) {
+    proj.links.splice(index, 1)
+  }
 }
 
 
