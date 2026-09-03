@@ -17,6 +17,14 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Data file tidak ditemukan.' })
   }
 
+  // Cek ketersediaan config Supabase
+  if (!config.supabaseUrl || !config.supabaseServiceKey) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'NUXT_SUPABASE_URL dan NUXT_SUPABASE_SERVICE_KEY belum diset di Vercel Environment Variables!'
+    })
+  }
+
   const supabase  = createClient(config.supabaseUrl, config.supabaseServiceKey)
   const timestamp = Date.now()
   // Buat nama file aman dan unik

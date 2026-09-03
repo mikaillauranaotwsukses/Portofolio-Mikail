@@ -15,6 +15,14 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, statusMessage: 'Password salah! Akses ditolak.' })
   }
 
+  // --- Cek Ketersediaan Supabase Config ---
+  if (!config.supabaseUrl || !config.supabaseServiceKey) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'NUXT_SUPABASE_URL dan NUXT_SUPABASE_SERVICE_KEY belum diset di Vercel Environment Variables!'
+    })
+  }
+
   const supabase = createClient(config.supabaseUrl, config.supabaseServiceKey)
 
   // --- Aksi Reset ke Default ---

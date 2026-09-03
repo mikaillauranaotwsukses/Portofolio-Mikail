@@ -1,179 +1,202 @@
 {
-  "personal": {
-    "name": "Mikail",
-    "role": "Web & Mobile Developer",
-    "tagline": "Keep Learning Keep Growing",
-    "bio": "Saya adalah Mahasiswa Teknologi Informasi di Institut Teknologi Sepuluh Nopember (ITS) sekaligus alumni Rekayasa Perangkat Lunak SMKN 2 Surakarta. Memiliki passion mendalam di dunia teknologi, saya percaya bahwa inovasi digital adalah kunci utama perubahan besar di masa depan.",
-    "photoUrl": "/profile.jpg"
-  },
   "hero": {
     "title": "Mikail",
     "subtitle": "Mahasiswa Teknologi Informasi ITS",
-    "description": "Mahasiswa Teknologi Informasi ITS dengan ketertarikan mendalam pada Web & Mobile App Development, Cybersecurity, IoT, hingga solusi Smart City. Berkomitmen untuk terus belajar dan berinovasi menciptakan teknologi berdampak positif.",
     "ctaPrimary": "About Me",
+    "description": "Mahasiswa Teknologi Informasi ITS dengan ketertarikan mendalam pada Web & Mobile App Development, Cybersecurity, IoT, hingga solusi Smart City. Berkomitmen untuk terus belajar dan berinovasi menciptakan teknologi berdampak positif.",
     "ctaSecondary": "View Projects"
   },
-  "education": [
+  "social": {
+    "email": {
+      "url": "mikailcoding64@gmail.com",
+      "iconUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788417880508-4da2810b42ea6e528cd515695ea198a8-removebg-preview.png"
+    },
+    "github": {
+      "url": "https://github.com/mikaillauranaotwsukses",
+      "iconUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788417866925-GITHUB.png"
+    },
+    "linkedin": {
+      "url": "https://www.linkedin.com/in/muhammad-mikail-721b202b7/",
+      "iconUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788417871856-Salinan_dari_Putih_Biru_Playful_Portofolio_Perancang_Merek_Presentasi-removebg-preview.png"
+    },
+    "instagram": {
+      "url": "https://www.instagram.com/mikailmiko19/",
+      "iconUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788417876613-IG.png"
+    }
+  },
+  "personal": {
+    "bio": "Saya adalah Mahasiswa Teknologi Informasi di Institut Teknologi Sepuluh Nopember (ITS) sekaligus alumni Rekayasa Perangkat Lunak SMKN 2 Surakarta. Memiliki passion mendalam di dunia teknologi, saya percaya bahwa inovasi digital adalah kunci utama perubahan besar di masa depan.",
+    "name": "Mikail",
+    "role": "Web & Mobile Developer",
+    "tagline": "Keep Learning Keep Growing",
+    "photoUrl": "/profile.jpg"
+  },
+  "projects": [
     {
-      "period": "2026 - Sekarang",
-      "color": "primary",
-      "badge": "S1",
-      "institution": "Institut Teknologi Sepuluh Nopember",
-      "subtitle": "Teknologi Informasi",
-      "description": "Diterima melalui jalur SNBT (Seleksi Nasional Berbasis Tes) dengan skor 696. Berkomitmen untuk terus mengasah keterampilan teknis, memperluas wawasan akademis, serta membangun jaringan relasi yang kuat selama masa perkuliahan."
+      "id": "proj-1",
+      "icon": "cloud",
+      "size": "large",
+      "tags": [
+        "JavaScript",
+        "API",
+        "CSS"
+      ],
+      "links": [
+        {
+          "url": "https://ayoramal-mage12.vercel.app/",
+          "label": "Live Demo"
+        }
+      ],
+      "title": "Peramal Cuaca",
+      "imageUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788408370242-Screenshot_2026-09-03_070151.png",
+      "linkDemo": "https://ayoramal-mage12.vercel.app/",
+      "linkRepo": null,
+      "subtitle": "Web Application",
+      "tagColor": "tertiary",
+      "useImage": true,
+      "iconColor": "text-tertiary",
+      "showOnHome": true,
+      "description": "Aplikasi perkiraan cuaca interaktif berbasis web dengan data visualisasi yang akurat, cepat, dan tampilan yang modern."
     },
     {
-      "period": "2023 - 2026",
-      "color": "secondary",
+      "id": "proj-2",
+      "icon": "wallet",
+      "size": "medium",
+      "tags": [
+        "Python",
+        "SQLite",
+        "Tkinter"
+      ],
+      "links": [
+        {
+          "url": "https://github.com/mikaillauranaotwsukses/Apliaksi_Keuangan",
+          "label": "GitHub"
+        }
+      ],
+      "title": "Aplikasi Catatan Keuangan",
+      "imageUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788408327399-image_2026-09-03_110527298.png",
+      "linkDemo": "https://github.com/mikaillauranaotwsukses/Apliaksi_Keuangan",
+      "linkRepo": "https://github.com/mikaillauranaotwsukses/Apliaksi_Keuangan",
+      "subtitle": "Desktop App",
+      "tagColor": "primary",
+      "useImage": true,
+      "iconColor": "text-primary",
+      "showOnHome": true,
+      "description": "Aplikasi manajemen keuangan pribadi untuk mencatat transaksi harian, kategori anggaran, serta grafik laporan bulanan."
+    },
+    {
+      "id": "proj-3",
+      "icon": "desktop_windows",
+      "size": "medium",
+      "tags": [
+        "Python",
+        "Tkinter",
+        "Automation"
+      ],
+      "links": [
+        {
+          "url": "https://github.com/mikaillauranaotwsukses/daily-reminder",
+          "label": "GitHub"
+        }
+      ],
+      "title": "Daily Reminder (PC)",
+      "imageUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788411452701-image_2026-09-03_115732604.png",
+      "linkDemo": "https://github.com/mikaillauranaotwsukses/daily-reminder",
+      "linkRepo": "https://github.com/mikaillauranaotwsukses/daily-reminder",
+      "subtitle": "Desktop App",
+      "tagColor": "secondary",
+      "useImage": true,
+      "iconColor": "text-secondary",
+      "showOnHome": false,
+      "description": "Aplikasi pengingat harian desktop untuk membantu mengatur jadwal tugas, reminder otomatis, dan meningkatkan produktivitas."
+    },
+    {
+      "id": "proj-4",
+      "icon": "assignment",
+      "size": "medium",
+      "tags": [
+        "Python",
+        "Education"
+      ],
+      "links": [
+        {
+          "url": "https://github.com/Mikail-Laurana/Project-DrillSoal",
+          "label": "GitHub"
+        }
+      ],
+      "title": "Aplikasi Drill Soal",
+      "imageUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788409354567-image_2026-09-03_112234474.png",
+      "linkDemo": "https://github.com/Mikail-Laurana/Project-DrillSoal",
+      "linkRepo": "https://github.com/Mikail-Laurana/Project-DrillSoal",
+      "subtitle": "Education App",
+      "tagColor": "tertiary",
+      "useImage": true,
+      "iconColor": "text-tertiary",
+      "showOnHome": true,
+      "description": "Aplikasi interaktif yang dirancang untuk latihan dan simulasi pengerjaan soal-soal secara intensif guna meningkatkan pemahaman dan kesiapan ujian."
+    },
+    {
+      "id": "proj-6",
+      "icon": "sports_esports",
+      "size": "medium",
+      "tags": [
+        "Python",
+        "Pygame"
+      ],
+      "links": [
+        {
+          "url": "https://github.com/Mikail-Laurana/Catfish-Evolution",
+          "label": "GitHub"
+        }
+      ],
+      "title": "Catfish Evolution",
+      "imageUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788408993799-image_2026-09-03_111633697.png",
+      "linkDemo": "https://github.com/Mikail-Laurana/Catfish-Evolution",
+      "linkRepo": "https://github.com/Mikail-Laurana/Catfish-Evolution",
+      "subtitle": "Game",
+      "tagColor": "secondary",
+      "useImage": true,
+      "iconColor": "text-secondary",
+      "showOnHome": false,
+      "description": "Game berbasis Python dengan mekanisme gameplay saling memangsa, di mana pemain mengendalikan karakter ikan (Catfish) untuk tumbuh membesar dan meraih skor tertinggi."
+    }
+  ],
+  "siteName": "Mikail",
+  "education": [
+    {
+      "badge": "S1",
+      "color": "primary",
+      "period": "2026 - Sekarang",
+      "subtitle": "Teknologi Informasi",
+      "description": "Diterima melalui jalur SNBT (Seleksi Nasional Berbasis Tes) dengan skor 696. Berkomitmen untuk terus mengasah keterampilan teknis, memperluas wawasan akademis, serta membangun jaringan relasi yang kuat selama masa perkuliahan.",
+      "institution": "Institut Teknologi Sepuluh Nopember"
+    },
+    {
       "badge": "SMK",
-      "institution": "SMKN 2 Surakarta",
+      "color": "secondary",
+      "period": "2023 - 2026",
       "subtitle": "Rekayasa Perangkat Lunak",
-      "description": "Fokus mendalami pengembangan perangkat lunak dan dasar-dasar pemrograman di tengah pesatnya perkembangan teknologi AI. Aktif sebagai Pengurus OSIS yang merancang berbagai program kerja strategis, sekaligus membangun fondasi pemrograman yang solid untuk dikembangkan di jenjang perguruan tinggi."
+      "description": "Fokus mendalami pengembangan perangkat lunak dan dasar-dasar pemrograman di tengah pesatnya perkembangan teknologi AI. Aktif sebagai Pengurus OSIS yang merancang berbagai program kerja strategis, sekaligus membangun fondasi pemrograman yang solid untuk dikembangkan di jenjang perguruan tinggi.",
+      "institution": "SMKN 2 Surakarta"
     }
   ],
   "experience": [
     {
-      "period": "2023 - 2026",
-      "color": "tertiary",
       "badge": "Organisasi",
-      "institution": "OSIS SMKN 2 Surakarta",
+      "color": "tertiary",
+      "period": "2023 - 2026",
       "subtitle": "Seksi Bidang 4: Pembinaan Prestasi Akademik, Seni, Olahraga dan Ilmiah",
-      "description": "Bertanggung jawab dalam membina serta mengarahkan siswa berprestasi di bidang Akademik maupun Non-Akademik agar dapat mengoptimalkan potensi dan bakat mereka secara maksimal. Selain itu, memprakarsai penyelenggaraan Turnamen E-Sport tingkat sekolah dan berperan penting dalam mendirikan Ekstrakurikuler E-Sport sebagai wadah resmi penyaluran minat siswa secara positif dan kompetitif."
+      "description": "Bertanggung jawab dalam membina serta mengarahkan siswa berprestasi di bidang Akademik maupun Non-Akademik agar dapat mengoptimalkan potensi dan bakat mereka secara maksimal. Selain itu, memprakarsai penyelenggaraan Turnamen E-Sport tingkat sekolah dan berperan penting dalam mendirikan Ekstrakurikuler E-Sport sebagai wadah resmi penyaluran minat siswa secara positif dan kompetitif.",
+      "institution": "OSIS SMKN 2 Surakarta"
     },
     {
-      "period": "Juli 2025 – Januari 2026",
-      "color": "primary",
       "badge": "Magang",
-      "institution": "CV MIB LABS",
+      "color": "primary",
+      "period": "Juli 2025 – Januari 2026",
       "subtitle": "Junior Developer & Web Tester",
-      "description": "Selama 6 bulan masa magang, mendalami aspek pengembangan web modern sekaligus bertindak sebagai Web Tester. Berperan aktif dalam menjamin kualitas (Quality Assurance) dan pengujian fungsionalitas sistem sebelum proses deployment publik. Proyek utama yang ditangani meliputi SPIK (Sistem Perencanaan Integrasi Keuangan) Kabupaten Kudus, Platform Pelatihan Karyawan Perusahaan Rokok Sukun, serta berbagai platform sistem web lainnya."
+      "description": "Selama 6 bulan masa magang, mendalami aspek pengembangan web modern sekaligus bertindak sebagai Web Tester. Berperan aktif dalam menjamin kualitas (Quality Assurance) dan pengujian fungsionalitas sistem sebelum proses deployment publik. Proyek utama yang ditangani meliputi SPIK (Sistem Perencanaan Integrasi Keuangan) Kabupaten Kudus, Platform Pelatihan Karyawan Perusahaan Rokok Sukun, serta berbagai platform sistem web lainnya.",
+      "institution": "CV MIB LABS"
     }
   ],
-  "projects": [
-    {
-      "id": "proj-1",
-      "title": "Peramal Cuaca",
-      "subtitle": "Web Application",
-      "icon": "cloud",
-      "iconColor": "text-tertiary",
-      "size": "large",
-      "description": "Aplikasi perkiraan cuaca interaktif berbasis web dengan data visualisasi yang akurat, cepat, dan tampilan yang modern.",
-      "tags": ["JavaScript", "API", "CSS"],
-      "tagColor": "tertiary",
-      "showOnHome": true,
-      "imageUrl": null,
-      "linkDemo": "https://ayoramal-mage12.vercel.app/",
-      "linkRepo": null
-    },
-    {
-      "id": "proj-2",
-      "title": "Aplikasi Catatan Keuangan",
-      "subtitle": "Desktop App",
-      "icon": "wallet",
-      "iconColor": "text-primary",
-      "size": "medium",
-      "description": "Aplikasi manajemen keuangan pribadi untuk mencatat transaksi harian, kategori anggaran, serta grafik laporan bulanan.",
-      "tags": ["Python", "SQLite", "Tkinter"],
-      "tagColor": "primary",
-      "showOnHome": true,
-      "imageUrl": null,
-      "linkDemo": null,
-      "linkRepo": "https://github.com/mikaillauranaotwsukses/Apliaksi_Keuangan"
-    },
-    {
-      "id": "proj-3",
-      "title": "Daily Reminder (PC)",
-      "subtitle": "Desktop App",
-      "icon": "desktop_windows",
-      "iconColor": "text-secondary",
-      "size": "medium",
-      "description": "Aplikasi pengingat harian desktop untuk membantu mengatur jadwal tugas, reminder otomatis, dan meningkatkan produktivitas.",
-      "tags": ["Python", "Tkinter", "Automation"],
-      "tagColor": "secondary",
-      "showOnHome": false,
-      "imageUrl": null,
-      "linkDemo": null,
-      "linkRepo": "https://github.com/mikaillauranaotwsukses/daily-reminder"
-    },
-    {
-      "id": "proj-4",
-      "title": "Aplikasi Drill Soal",
-      "subtitle": "Education App",
-      "icon": "assignment",
-      "iconColor": "text-tertiary",
-      "size": "small",
-      "description": "Aplikasi interaktif yang dirancang untuk latihan dan simulasi pengerjaan soal-soal secara intensif guna meningkatkan pemahaman dan kesiapan ujian.",
-      "tags": ["Python", "Education"],
-      "tagColor": "tertiary",
-      "showOnHome": false,
-      "imageUrl": null,
-      "linkDemo": null,
-      "linkRepo": "https://github.com/Mikail-Laurana/Project-DrillSoal"
-    },
-    {
-      "id": "proj-5",
-      "title": "YouTube Word Bingo",
-      "subtitle": "Chrome Extension",
-      "icon": "extension",
-      "iconColor": "text-primary",
-      "size": "small",
-      "description": "Ekstensi Chrome inovatif yang mendeteksi kata-kata dari audio video YouTube secara otomatis untuk dijadikan permainan Bingo interaktif.",
-      "tags": ["JavaScript", "Chrome API"],
-      "tagColor": "primary",
-      "showOnHome": false,
-      "imageUrl": null,
-      "linkDemo": null,
-      "linkRepo": "https://github.com/mikaillauranaotwsukses/Fun-BingoGame"
-    },
-    {
-      "id": "proj-6",
-      "title": "Catfish Evolution",
-      "subtitle": "Game",
-      "icon": "sports_esports",
-      "iconColor": "text-secondary",
-      "size": "small",
-      "description": "Game berbasis Python dengan mekanisme gameplay saling memangsa, di mana pemain mengendalikan karakter ikan (Catfish) untuk tumbuh membesar dan meraih skor tertinggi.",
-      "tags": ["Python", "Pygame"],
-      "tagColor": "secondary",
-      "showOnHome": false,
-      "imageUrl": null,
-      "linkDemo": null,
-      "linkRepo": "https://github.com/Mikail-Laurana/Catfish-Evolution"
-    },
-    {
-      "id": "proj-7",
-      "title": "Galeri Bersama Kamu",
-      "subtitle": "Prototype App",
-      "icon": "photo_library",
-      "iconColor": "text-tertiary",
-      "size": "small",
-      "description": "Prototype aplikasi galeri kenangan untuk menyimpan dan mengorganisir foto-foto berkesan agar mudah ditemukan dan diakses kapan saja.",
-      "tags": ["Prototype", "UI/UX"],
-      "tagColor": "tertiary",
-      "showOnHome": false,
-      "imageUrl": null,
-      "linkDemo": null,
-      "linkRepo": "https://github.com/Mikail-Laurana/GaleriBersamaKamu"
-    }
-  ],
-  "social": {
-    "github": {
-      "url": "https://github.com/mikaillauranaotwsukses",
-      "iconUrl": null
-    },
-    "linkedin": {
-      "url": "https://www.linkedin.com/in/muhammad-mikail-721b202b7/",
-      "iconUrl": null
-    },
-    "instagram": {
-      "url": "https://www.instagram.com/mikailmiko19/",
-      "iconUrl": null
-    },
-    "email": {
-      "url": "mikailcoding64@gmail.com",
-      "iconUrl": null
-    }
-  },
-  "siteName": "Mikail",
   "footerText": "© 2026 Mikail. All Rights Reserved."
 }
