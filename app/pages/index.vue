@@ -43,15 +43,19 @@
         </div>
       </div>
 
-      <!-- Bio + Tech Stack -->
+      <!-- Bio -->
       <div class="md:col-span-8 flex flex-col gap-gutter">
         <div class="bg-surface-container-high border-4 border-black p-8 shadow-[8px_8px_0px_0px_#00e5f4] slide-in-up" style="animation-delay:0.15s">
           <p class="text-on-background text-body-md font-body-md leading-relaxed">
             {{ data.personal.bio }}
           </p>
+          <NuxtLink
+            to="/about"
+            class="inline-flex items-center gap-2 mt-6 text-label-sm font-label-sm text-tertiary border-2 border-tertiary px-4 py-2 hover:bg-tertiary hover:text-on-tertiary transition-all uppercase"
+          >
+            Selengkapnya <span class="material-symbols-outlined text-base">trending_flat</span>
+          </NuxtLink>
         </div>
-
-        <SectionsTechStackSection :data="data" />
       </div>
     </section>
 
@@ -70,7 +74,10 @@
         </NuxtLink>
       </div>
 
-      <SectionsProjectsGrid :projects="data.projects.slice(0, 2)" />
+      <SectionsProjectsGrid v-if="featuredProjects.length > 0" :projects="featuredProjects" />
+      <div v-else class="text-center py-12 border-4 border-dashed border-surface-container-highest text-on-surface-variant font-mono">
+        [ Belum ada proyek yang dipilih untuk ditampilkan di beranda ]
+      </div>
     </section>
 
   </div>
@@ -83,4 +90,14 @@ import { portfolioData as defaultData } from '~/data/portfolio.js'
 // Ambil data dari API, fallback ke defaultData
 const { data: _apiData } = await useAsyncData('portfolio-index', () => $fetch('/api/portfolio'))
 const data = computed(() => _apiData.value || defaultData)
+
+// Filter proyek yang dipilih untuk ditampilkan di halaman beranda
+const featuredProjects = computed(() => {
+  const allProjects = data.value?.projects || []
+  const hasConfig = allProjects.some(p => typeof p.showOnHome === 'boolean')
+  if (hasConfig) {
+    return allProjects.filter(p => p.showOnHome)
+  }
+  return allProjects.slice(0, 2)
+})
 </script>

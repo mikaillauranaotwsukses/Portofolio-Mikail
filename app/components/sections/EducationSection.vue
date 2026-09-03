@@ -25,7 +25,8 @@
             {{ item.badge }}
           </span>
         </div>
-        <h4 class="font-headline-lg text-lg text-white mb-2 uppercase">{{ item.institution }}</h4>
+        <h4 class="font-headline-lg text-lg text-white mb-1 uppercase">{{ item.institution }}</h4>
+        <p v-if="item.subtitle" class="text-on-surface-variant text-xs font-label-sm uppercase mb-2">{{ item.subtitle }}</p>
         <p class="text-on-surface-variant font-body-md text-sm leading-relaxed">{{ item.description }}</p>
       </div>
     </div>

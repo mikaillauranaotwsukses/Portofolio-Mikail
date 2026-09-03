@@ -9,9 +9,12 @@ export default defineNuxtConfig({
     '~/assets/css/main.css'
   ],
 
-  // Password admin bisa diganti via .env: NUXT_ADMIN_PASSWORD=passwordbaru
+  // Konfigurasi server-side (aman, tidak terexpose ke browser)
+  // Nilai bisa di-override via .env: NUXT_ADMIN_PASSWORD, NUXT_SUPABASE_URL, dll
   runtimeConfig: {
-    adminPassword: 'admin2024',
+    adminPassword:      'admin2024',
+    supabaseUrl:        '',
+    supabaseServiceKey: '',
   },
 
   app: {

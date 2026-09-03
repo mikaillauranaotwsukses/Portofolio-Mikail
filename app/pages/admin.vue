@@ -189,80 +189,52 @@
 
 
         <!-- ==========================================
-             TAB: SKILLS
+             TAB: PENGALAMAN
              ========================================== -->
-        <section v-if="activeTab === 'skills'" class="space-y-6">
+        <section v-if="activeTab === 'pengalaman'" class="space-y-6">
           <div class="flex items-center justify-between">
-            <h2 class="section-title mb-0 border-none pb-0">🔧 Keahlian / Skills</h2>
-            <button class="admin-btn-add" @click="addSkillCategory">
-              <span class="material-symbols-outlined text-sm">add</span> Tambah Kategori
+            <h2 class="section-title mb-0 border-none pb-0">💼 Pengalaman & Organisasi</h2>
+            <button class="admin-btn-add" @click="addExperience">
+              <span class="material-symbols-outlined text-sm">add</span> Tambah
             </button>
           </div>
 
-          <div v-for="(cat, ci) in form.skills" :key="ci" class="bg-surface-container border-4 border-black p-5 shadow-[4px_4px_0px_0px_#000] space-y-4">
-            <!-- Header Kategori -->
-            <div class="flex items-start justify-between gap-4 flex-wrap">
-              <div class="flex gap-3 flex-wrap flex-1">
-                <div class="flex-1 min-w-32">
-                  <label class="admin-label">Nama Kategori</label>
-                  <input v-model="cat.category" type="text" class="admin-input" placeholder="Web Development" />
-                </div>
-                <div class="w-24">
-                  <label class="admin-label">Icon</label>
-                  <input v-model="cat.icon" type="text" class="admin-input" placeholder="code" />
-                </div>
-                <div class="w-32">
-                  <label class="admin-label">Warna Icon</label>
-                  <select v-model="cat.iconColor" class="admin-input">
-                    <option value="text-primary">🟠 Oranye</option>
-                    <option value="text-secondary">🟣 Ungu</option>
-                    <option value="text-tertiary">🔵 Cyan</option>
-                  </select>
-                </div>
-              </div>
-              <button class="admin-btn-delete mt-5 px-2" @click="form.skills.splice(ci, 1)" title="Hapus Kategori">
+          <div v-for="(exp, i) in form.experience" :key="i" class="bg-surface-container border-4 border-black p-5 shadow-[4px_4px_0px_0px_#000] space-y-4">
+            <div class="flex justify-between items-start">
+              <p class="text-tertiary font-bold font-label-sm uppercase">{{ exp.institution || 'Pengalaman Baru' }}</p>
+              <button class="admin-btn-delete px-2" @click="form.experience.splice(i, 1)">
                 <span class="material-symbols-outlined text-sm">delete</span>
               </button>
             </div>
 
-            <!-- Daftar Item Skill -->
-            <div class="border-t-2 border-surface-container-highest pt-4 space-y-3">
-              <p class="text-label-sm font-label-sm text-on-surface-variant uppercase">Item Skill:</p>
-              <div v-for="(item, ii) in cat.items" :key="ii" class="flex items-center gap-3 flex-wrap">
-                <input v-model="item.name" type="text" class="admin-input flex-1 min-w-32" placeholder="Nama skill" />
-                <div class="flex items-center gap-2">
-                  <input v-model.number="item.percentage" type="range" min="0" max="100" class="w-24 accent-primary" />
-                  <span class="text-primary font-bold font-label-sm w-10 text-right">{{ item.percentage }}%</span>
-                </div>
-                <button class="admin-btn-delete-sm" @click="cat.items.splice(ii, 1)">✕</button>
-              </div>
-              <button class="admin-btn-add-sm" @click="cat.items.push({ name: '', percentage: 50 })">
-                + Tambah Item
-              </button>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <AdminField label="Periode">
+                <input v-model="exp.period" type="text" class="admin-input" placeholder="2023 - 2026" />
+              </AdminField>
+              <AdminField label="Badge / Label">
+                <input v-model="exp.badge" type="text" class="admin-input" placeholder="Magang, Organisasi, Kerja" />
+              </AdminField>
             </div>
-          </div>
-        </section>
 
+            <AdminField label="Nama Instansi / Perusahaan">
+              <input v-model="exp.institution" type="text" class="admin-input" placeholder="Nama perusahaan / organisasi" />
+            </AdminField>
 
-        <!-- ==========================================
-             TAB: TECH STACK
-             ========================================== -->
-        <section v-if="activeTab === 'techstack'" class="space-y-6">
-          <h2 class="section-title">🏷️ Tech Stack</h2>
-          <p class="text-on-surface-variant text-sm font-body-md">Teknologi yang ditampilkan sebagai badge/tag.</p>
+            <AdminField label="Jabatan / Posisi">
+              <input v-model="exp.subtitle" type="text" class="admin-input" placeholder="Web Developer, Ketua OSIS, dll." />
+            </AdminField>
 
-          <!-- Daftar tag -->
-          <div class="flex flex-wrap gap-3">
-            <div v-for="(tech, i) in form.techStack" :key="i" class="flex items-center gap-1 border-2 border-tertiary px-3 py-1">
-              <input v-model="form.techStack[i]" type="text" class="bg-transparent text-tertiary font-label-sm text-xs uppercase focus:outline-none w-24" />
-              <button class="text-red-400 hover:text-red-300 ml-1 text-xs" @click="form.techStack.splice(i, 1)">✕</button>
-            </div>
-          </div>
+            <AdminField label="Deskripsi">
+              <textarea v-model="exp.description" class="admin-input resize-none" rows="3" placeholder="Tanggung jawab dan pencapaian..."></textarea>
+            </AdminField>
 
-          <!-- Tambah baru -->
-          <div class="flex gap-3">
-            <input v-model="newTech" type="text" class="admin-input flex-1" placeholder="Nama teknologi baru..." @keyup.enter="addTech" />
-            <button class="admin-btn-add px-4" @click="addTech">+ Tambah</button>
+            <AdminField label="Warna Kartu">
+              <select v-model="exp.color" class="admin-input">
+                <option value="primary">🟠 Oranye (primary)</option>
+                <option value="secondary">🟣 Ungu (secondary)</option>
+                <option value="tertiary">🔵 Cyan (tertiary)</option>
+              </select>
+            </AdminField>
           </div>
         </section>
 
@@ -319,28 +291,87 @@
              ========================================== -->
         <section v-if="activeTab === 'proyek'" class="space-y-6">
           <div class="flex items-center justify-between">
-            <h2 class="section-title mb-0 border-none pb-0">🗂️ Proyek</h2>
+            <div>
+              <h2 class="section-title mb-0 border-none pb-0">🗂️ Proyek</h2>
+              <p class="text-xs text-on-surface-variant mt-1">
+                Atur daftar proyek dan tentukan mana yang ingin ditampilkan di halaman Beranda.
+              </p>
+            </div>
             <button class="admin-btn-add" @click="addProject">
               <span class="material-symbols-outlined text-sm">add</span> Tambah
             </button>
           </div>
 
+          <!-- Info status tampilan di Beranda -->
+          <div class="bg-surface-container-high border-2 border-surface-container-highest p-3 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+            <div class="flex items-center gap-2 text-on-background">
+              <span class="material-symbols-outlined text-primary text-base">home</span>
+              <span>Tampil di Beranda: <b class="text-primary font-bold">{{ form.projects.filter(p => p.showOnHome).length }}</b> dari {{ form.projects.length }} proyek</span>
+            </div>
+            <span class="text-on-surface-variant text-[11px]">
+              Klik tombol <b class="text-primary">"Di Beranda"</b> pada kartu proyek untuk mengatur
+            </span>
+          </div>
+
           <div v-for="(proj, i) in form.projects" :key="proj.id" class="bg-surface-container border-4 border-black shadow-[4px_4px_0px_0px_#000]">
             <!-- Header proyek (klik untuk expand) -->
-            <button
-              class="w-full flex items-center justify-between px-5 py-4 border-b-4 border-black text-left hover:bg-surface-container-high transition-colors"
+            <div
+              class="w-full flex items-center justify-between px-5 py-4 border-b-4 border-black text-left hover:bg-surface-container-high transition-colors cursor-pointer select-none"
               @click="expandedProject = expandedProject === i ? null : i"
             >
-              <div class="flex items-center gap-3">
-                <span class="material-symbols-outlined text-on-surface" >{{ proj.icon || 'folder' }}</span>
+              <div class="flex items-center gap-3 flex-wrap">
+                <span class="material-symbols-outlined text-on-surface">{{ proj.icon || 'folder' }}</span>
                 <span class="font-bold font-label-sm uppercase">{{ proj.title || 'Proyek Baru' }}</span>
                 <span class="text-xs text-on-surface-variant border border-surface-container-highest px-2 py-0.5">{{ proj.size }}</span>
               </div>
-              <span class="material-symbols-outlined">{{ expandedProject === i ? 'expand_less' : 'expand_more' }}</span>
-            </button>
+
+              <div class="flex items-center gap-3" @click.stop>
+                <!-- Tombol Cepat: Tampilkan di Beranda -->
+                <button
+                  type="button"
+                  class="px-2.5 py-1 text-xs font-bold border-2 transition-all flex items-center gap-1 cursor-pointer select-none"
+                  :class="proj.showOnHome
+                    ? 'bg-primary text-black border-black shadow-[2px_2px_0px_0px_#000]'
+                    : 'bg-surface-container-highest text-on-surface-variant border-surface-container-highest hover:text-on-background'"
+                  @click="proj.showOnHome = !proj.showOnHome"
+                  :title="proj.showOnHome ? 'Klik untuk sembunyikan dari Beranda' : 'Klik untuk tampilkan di Beranda'"
+                >
+                  <span class="material-symbols-outlined text-sm">{{ proj.showOnHome ? 'check_circle' : 'add_circle' }}</span>
+                  <span>{{ proj.showOnHome ? 'Di Beranda' : '+ Beranda' }}</span>
+                </button>
+
+                <span class="material-symbols-outlined text-on-surface-variant">{{ expandedProject === i ? 'expand_less' : 'expand_more' }}</span>
+              </div>
+            </div>
 
             <!-- Form proyek (muncul saat di-expand) -->
             <div v-if="expandedProject === i" class="p-5 space-y-4">
+              <!-- Toggle: Tampilkan di Beranda (Home) -->
+              <div class="bg-surface-container-high border-4 border-black p-4 flex items-center justify-between">
+                <div>
+                  <p class="font-label-sm text-label-sm text-on-background uppercase flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm text-primary">home</span>
+                    Tampilkan di Halaman Utama (Home)
+                  </p>
+                  <p class="text-xs text-on-surface-variant mt-1">
+                    Aktifkan jika ingin memunculkan proyek ini di bagian "02 PROYEK TERBARU" di halaman beranda.
+                  </p>
+                </div>
+                <!-- Toggle Switch -->
+                <button
+                  type="button"
+                  class="relative w-14 h-7 border-2 border-black transition-colors shrink-0 cursor-pointer ml-4"
+                  :class="proj.showOnHome ? 'bg-primary' : 'bg-surface-container-highest'"
+                  @click="proj.showOnHome = !proj.showOnHome"
+                >
+                  <span
+                    class="absolute top-0.5 w-5 h-5 bg-black transition-all border border-black/20"
+                    :class="proj.showOnHome ? 'left-[calc(100%-1.4rem)]' : 'left-0.5'"
+                  />
+                  <span class="sr-only">{{ proj.showOnHome ? 'Nonaktifkan dari Beranda' : 'Aktifkan di Beranda' }}</span>
+                </button>
+              </div>
+
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <AdminField label="Judul Proyek">
                   <input v-model="proj.title" type="text" class="admin-input" placeholder="Nama Proyek" />
@@ -393,18 +424,58 @@
                 </AdminField>
               </div>
 
-              <AdminField label="URL Gambar (opsional)">
-                <div class="flex items-center gap-2">
-                  <input v-model="proj.imageUrl" type="url" class="admin-input flex-1" placeholder="https://..." />
-                  <label class="admin-btn-add cursor-pointer shrink-0 h-[46px] m-0">
-                    <span class="material-symbols-outlined text-sm">upload</span> Upload
-                    <input type="file" accept="image/*" class="hidden" @change="e => uploadFile(e, url => proj.imageUrl = url)" />
-                  </label>
+              <!-- Toggle: pakai foto atau tidak -->
+              <div class="bg-surface-container-high border-4 border-black p-5">
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <p class="font-label-sm text-label-sm text-on-background uppercase">Foto / Thumbnail Proyek</p>
+                    <p class="text-xs text-on-surface-variant mt-1">Aktifkan untuk menyertakan gambar di kartu proyek</p>
+                  </div>
+                  <!-- Toggle Switch -->
+                  <button
+                    class="relative w-14 h-7 border-2 border-black transition-colors"
+                    :class="proj.useImage ? 'bg-tertiary' : 'bg-surface-container-highest'"
+                    @click="proj.useImage = !proj.useImage; if (!proj.useImage) proj.imageUrl = null"
+                  >
+                    <span
+                      class="absolute top-0.5 w-5 h-5 bg-black transition-all border border-black/20"
+                      :class="proj.useImage ? 'left-[calc(100%-1.4rem)]' : 'left-0.5'"
+                    />
+                    <span class="sr-only">{{ proj.useImage ? 'Nonaktifkan' : 'Aktifkan' }}</span>
+                  </button>
                 </div>
-                <div v-if="proj.imageUrl" class="mt-2">
-                  <img :src="proj.imageUrl" alt="preview" class="h-24 object-cover border-2 border-surface-container-highest" />
+
+                <!-- Area upload (hanya tampil saat toggle ON) -->
+                <div v-if="proj.useImage" class="space-y-3">
+                  <!-- Preview gambar saat ini -->
+                  <div v-if="proj.imageUrl" class="relative group w-fit">
+                    <img :src="proj.imageUrl" alt="preview" class="h-32 w-full object-cover border-2 border-tertiary" />
+                    <button
+                      class="absolute top-1 right-1 bg-black/80 text-red-400 px-2 py-0.5 text-xs border border-red-400/50 opacity-0 group-hover:opacity-100 transition-opacity"
+                      @click="proj.imageUrl = null"
+                    >
+                      ✕ Hapus
+                    </button>
+                  </div>
+                  <div v-else class="border-2 border-dashed border-surface-container-highest h-24 flex items-center justify-center text-on-surface-variant text-xs">
+                    Belum ada gambar
+                  </div>
+
+                  <!-- Baris input URL + Upload -->
+                  <div class="flex gap-2">
+                    <input
+                      v-model="proj.imageUrl"
+                      type="url"
+                      class="admin-input flex-1"
+                      placeholder="Paste URL gambar atau upload dari perangkat..."
+                    />
+                    <label class="admin-btn-add cursor-pointer shrink-0 h-[46px] m-0 flex items-center gap-1">
+                      <span class="material-symbols-outlined text-sm">upload</span> Upload
+                      <input type="file" accept="image/*" class="hidden" @change="e => uploadFile(e, url => proj.imageUrl = url)" />
+                    </label>
+                  </div>
                 </div>
-              </AdminField>
+              </div>
 
               <div class="flex justify-end pt-2">
                 <button class="admin-btn-delete flex items-center gap-2" @click="form.projects.splice(i, 1); expandedProject = null">
@@ -421,16 +492,101 @@
              ========================================== -->
         <section v-if="activeTab === 'sosial'" class="space-y-6">
           <h2 class="section-title">🌐 Link Sosial Media</h2>
+          <p class="text-xs text-on-surface-variant font-body-md">Isi URL profil dan opsional upload foto/ikon khusus untuk setiap platform.</p>
 
-          <AdminField label="GitHub URL">
-            <input v-model="form.social.github" type="url" class="admin-input" placeholder="https://github.com/username" />
-          </AdminField>
-          <AdminField label="LinkedIn URL">
-            <input v-model="form.social.linkedin" type="url" class="admin-input" placeholder="https://linkedin.com/in/username" />
-          </AdminField>
-          <AdminField label="Email">
-            <input v-model="form.social.email" type="email" class="admin-input" placeholder="email@contoh.com" />
-          </AdminField>
+          <!-- Kartu per platform -->
+          <div
+            v-for="platform in socialPlatforms"
+            :key="platform.key"
+            class="bg-surface-container border-4 border-black p-5 space-y-4"
+            :style="{ boxShadow: '4px 4px 0px 0px ' + platform.shadowColor }"
+          >
+            <!-- Header Platform -->
+            <div class="flex items-center gap-3 border-b-2 border-surface-container-highest pb-3">
+              <span class="material-symbols-outlined text-xl" :class="platform.color">{{ platform.icon }}</span>
+              <p class="font-bold font-label-sm uppercase" :class="platform.color">{{ platform.label }}</p>
+            </div>
+
+            <!-- URL Input -->
+            <AdminField :label="platform.urlLabel">
+              <input
+                v-model="form.social[platform.key].url"
+                :type="platform.key === 'email' ? 'email' : 'url'"
+                class="admin-input"
+                :placeholder="platform.placeholder"
+              />
+            </AdminField>
+
+            <!-- Toggle: Pakai ikon kustom atau tidak -->
+            <div class="bg-surface-container-high border-2 border-surface-container-highest p-4">
+              <div class="flex items-center justify-between mb-3">
+                <div>
+                  <p class="font-label-sm text-label-sm text-on-background uppercase">Foto / Ikon Kustom</p>
+                  <p class="text-xs text-on-surface-variant mt-0.5">Upload foto profil atau ikon untuk platform ini</p>
+                </div>
+                <button
+                  class="relative w-14 h-7 border-2 border-black transition-colors"
+                  :class="form.social[platform.key].iconUrl ? 'bg-primary' : 'bg-surface-container-highest'"
+                  @click="toggleSocialIcon(platform.key)"
+                >
+                  <span
+                    class="absolute top-0.5 w-5 h-5 bg-black transition-all border border-black/20"
+                    :class="form.social[platform.key].iconUrl ? 'left-[calc(100%-1.4rem)]' : 'left-0.5'"
+                  />
+                </button>
+              </div>
+
+              <!-- Area gambar (aktif jika ada iconUrl) -->
+              <div v-if="form.social[platform.key].iconUrl" class="space-y-3">
+                <div class="flex items-center gap-4">
+                  <div class="relative group shrink-0">
+                    <img
+                      :src="form.social[platform.key].iconUrl"
+                      :alt="platform.label"
+                      class="w-16 h-16 object-cover border-2 border-black"
+                    />
+                    <button
+                      class="absolute -top-1 -right-1 bg-black text-red-400 w-5 h-5 text-xs border border-red-400/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                      @click="form.social[platform.key].iconUrl = null"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <div class="flex-1 space-y-2">
+                    <p class="text-xs text-on-surface-variant">Ganti gambar:</p>
+                    <label class="admin-btn-add cursor-pointer inline-flex items-center gap-1 h-9">
+                      <span class="material-symbols-outlined text-sm">upload</span> Upload Baru
+                      <input
+                        type="file"
+                        accept="image/*"
+                        class="hidden"
+                        @change="e => uploadFile(e, url => form.social[platform.key].iconUrl = url)"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Placeholder saat belum ada ikon -->
+              <div v-else class="flex items-center gap-3">
+                <div class="w-16 h-16 border-2 border-dashed border-surface-container-highest flex items-center justify-center text-on-surface-variant">
+                  <span class="material-symbols-outlined text-2xl">add_photo_alternate</span>
+                </div>
+                <div class="space-y-1">
+                  <p class="text-xs text-on-surface-variant">Belum ada ikon kustom. Klik toggle untuk mengaktifkan.</p>
+                  <label class="admin-btn-add cursor-pointer inline-flex items-center gap-1 h-9">
+                    <span class="material-symbols-outlined text-sm">upload</span> Upload Langsung
+                    <input
+                      type="file"
+                      accept="image/*"
+                      class="hidden"
+                      @change="e => uploadFile(e, url => form.social[platform.key].iconUrl = url)"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
 
@@ -478,12 +634,75 @@
             <div :key="activeTab" class="mx-auto max-w-5xl space-y-12">
               <SectionsProfileSection v-if="activeTab === 'profil'" :data="form" />
               <SectionsHeroSection v-if="activeTab === 'hero'" :data="form" />
-              <SectionsSkillsSection v-if="activeTab === 'skills'" :data="form" />
-              <SectionsTechStackSection v-if="activeTab === 'techstack'" :data="form" />
               <SectionsEducationSection v-if="activeTab === 'pendidikan'" :data="form" />
-              <div v-if="activeTab === 'proyek'">
-                <SectionsProjectsGrid :projects="form.projects" />
+
+              <!-- Preview Pengalaman -->
+              <div v-if="activeTab === 'pengalaman'" class="space-y-6">
+                <h2 class="text-headline-lg font-headline-lg text-secondary uppercase flex items-center gap-4">
+                  <span class="material-symbols-outlined text-4xl">work</span>
+                  PENGALAMAN & ORGANISASI
+                </h2>
+                <div class="relative ml-8 border-l-4 border-dashed border-surface-container-highest pl-12 space-y-10 py-4">
+                  <div
+                    v-for="item in form.experience"
+                    :key="item.institution"
+                    class="relative bg-surface-container p-6 border-4 border-black"
+                    :style="{
+                      boxShadow: '4px 4px 0px 0px ' + (item.color === 'secondary' ? '#eeb1ff' : item.color === 'primary' ? '#ffc485' : '#00e5f4')
+                    }"
+                  >
+                    <div class="flex justify-between items-center mb-3">
+                      <span class="font-label-sm text-label-sm" :class="'text-' + item.color">{{ item.period }}</span>
+                      <span class="px-2 py-0.5 text-[11px] uppercase border font-bold" :class="['text-' + item.color, 'border-' + item.color]">
+                        {{ item.badge }}
+                      </span>
+                    </div>
+                    <h4 class="font-headline-lg text-lg text-white mb-1 uppercase">{{ item.institution }}</h4>
+                    <p v-if="item.subtitle" class="text-on-surface-variant text-xs font-label-sm uppercase mb-2">{{ item.subtitle }}</p>
+                    <p class="text-on-surface-variant font-body-md text-sm leading-relaxed">{{ item.description }}</p>
+                  </div>
+                </div>
               </div>
+
+              <div v-if="activeTab === 'proyek'" class="space-y-6">
+                <!-- Switcher Filter Preview Proyek -->
+                <div class="flex items-center justify-between border-b-2 border-surface-container-highest pb-3">
+                  <div class="flex items-center gap-2 text-xs font-mono text-on-surface-variant uppercase">
+                    <span class="material-symbols-outlined text-sm text-primary">visibility</span>
+                    <span>Tampilan:</span>
+                  </div>
+                  <div class="flex gap-2">
+                    <button
+                      type="button"
+                      class="px-3 py-1 text-xs font-bold border-2 transition-all cursor-pointer flex items-center gap-1"
+                      :class="previewProjectMode === 'home'
+                        ? 'bg-primary text-black border-black shadow-[2px_2px_0px_0px_#000]'
+                        : 'bg-surface-container text-on-surface-variant border-surface-container-highest hover:text-on-background'"
+                      @click="previewProjectMode = 'home'"
+                    >
+                      <span class="material-symbols-outlined text-sm">home</span>
+                      Beranda ({{ form.projects.filter(p => p.showOnHome).length }})
+                    </button>
+                    <button
+                      type="button"
+                      class="px-3 py-1 text-xs font-bold border-2 transition-all cursor-pointer flex items-center gap-1"
+                      :class="previewProjectMode === 'all'
+                        ? 'bg-primary text-black border-black shadow-[2px_2px_0px_0px_#000]'
+                        : 'bg-surface-container text-on-surface-variant border-surface-container-highest hover:text-on-background'"
+                      @click="previewProjectMode = 'all'"
+                    >
+                      <span class="material-symbols-outlined text-sm">folder</span>
+                      Semua ({{ form.projects.length }})
+                    </button>
+                  </div>
+                </div>
+
+                <SectionsProjectsGrid :projects="previewProjectMode === 'home' ? form.projects.filter(p => p.showOnHome) : form.projects" />
+                <div v-if="previewProjectMode === 'home' && form.projects.filter(p => p.showOnHome).length === 0" class="text-center py-8 text-on-surface-variant text-xs font-mono border-2 border-dashed border-surface-container-highest">
+                  [ Tidak ada proyek yang dipilih untuk Beranda. Klik tombol "Di Beranda" pada proyek di sebelah kiri ]
+                </div>
+              </div>
+
               <SectionsSocialSection v-if="activeTab === 'sosial'" :data="form" />
 
               <div v-if="activeTab === 'pengaturan'" class="flex items-center justify-center h-64 border-4 border-dashed border-surface-container-highest text-on-surface-variant font-mono">
@@ -534,20 +753,19 @@ const loginPassword = ref('')
 const loginError    = ref('')
 
 // ---- State UI ----
-const activeTab       = ref('profil')
-const expandedProject = ref(null)
-const isSaving        = ref(false)
-const saveStatus      = ref(null) // 'success' | 'error' | null
-const showScorePop    = ref(false)
-const newTech         = ref('')
+const activeTab          = ref('profil')
+const expandedProject    = ref(null)
+const previewProjectMode = ref('home') // 'home' | 'all'
+const isSaving           = ref(false)
+const saveStatus         = ref(null) // 'success' | 'error' | null
+const showScorePop       = ref(false)
 
 // ---- Daftar Tab Navigasi ----
 const tabs = [
   { id: 'profil',      label: 'Profil',      icon: 'person' },
   { id: 'hero',        label: 'Hero',        icon: 'home' },
-  { id: 'skills',      label: 'Skills',      icon: 'build' },
-  { id: 'techstack',   label: 'Tech Stack',  icon: 'label' },
   { id: 'pendidikan',  label: 'Pendidikan',  icon: 'school' },
+  { id: 'pengalaman',  label: 'Pengalaman',  icon: 'work' },
   { id: 'proyek',      label: 'Proyek',      icon: 'folder' },
   { id: 'sosial',      label: 'Sosial',      icon: 'share' },
   { id: 'pengaturan',  label: 'Pengaturan',  icon: 'settings' },
@@ -555,16 +773,68 @@ const tabs = [
 
 // ---- Form Data (sama strukturnya dengan portfolio.json) ----
 const form = reactive({
-  personal: { name: '', role: '', tagline: '', bio: '', photoUrl: '' },
-  hero:     { title: '', subtitle: '', description: '', ctaPrimary: '', ctaSecondary: '' },
-  skills:   [],
-  techStack: [],
-  education: [],
-  projects:  [],
-  social:    { github: '', linkedin: '', email: '' },
-  siteName:  '',
+  personal:   { name: '', role: '', tagline: '', bio: '', photoUrl: '' },
+  hero:       { title: '', subtitle: '', description: '', ctaPrimary: '', ctaSecondary: '' },
+  education:  [],
+  experience: [],
+  projects:   [],
+  social: {
+    github:    { url: '', iconUrl: null },
+    linkedin:  { url: '', iconUrl: null },
+    instagram: { url: '', iconUrl: null },
+    email:     { url: '', iconUrl: null },
+  },
+  siteName:   '',
   footerText: '',
 })
+
+// ---- Konfigurasi tampilan platform sosial ----
+const socialPlatforms = [
+  {
+    key: 'github',
+    label: 'GitHub',
+    icon: 'code',
+    color: 'text-on-background',
+    shadowColor: '#ffc485',
+    urlLabel: 'GitHub URL',
+    placeholder: 'https://github.com/username',
+  },
+  {
+    key: 'linkedin',
+    label: 'LinkedIn',
+    icon: 'work',
+    color: 'text-tertiary',
+    shadowColor: '#00e5f4',
+    urlLabel: 'LinkedIn URL',
+    placeholder: 'https://linkedin.com/in/username',
+  },
+  {
+    key: 'instagram',
+    label: 'Instagram',
+    icon: 'photo_camera',
+    color: 'text-secondary',
+    shadowColor: '#eeb1ff',
+    urlLabel: 'Instagram URL',
+    placeholder: 'https://instagram.com/username',
+  },
+  {
+    key: 'email',
+    label: 'Email',
+    icon: 'mail',
+    color: 'text-primary',
+    shadowColor: '#ffc485',
+    urlLabel: 'Alamat Email',
+    placeholder: 'nama@contoh.com',
+  },
+]
+
+// Toggle ikon sosial: jika sudah ada iconUrl, hapus; jika belum, buka file picker
+const toggleSocialIcon = (key) => {
+  if (form.social[key].iconUrl) {
+    form.social[key].iconUrl = null
+  }
+  // Jika tidak ada iconUrl, biarkan user upload lewat tombol Upload Langsung
+}
 
 
 // ============================================================
@@ -620,8 +890,31 @@ const doLogout = () => {
 
 const loadData = async () => {
   const result = await $fetch('/api/portfolio')
-  // Salin data ke form (deep copy agar tidak terhubung langsung)
-  Object.assign(form, JSON.parse(JSON.stringify(result)))
+  const data = JSON.parse(JSON.stringify(result))
+
+  // Normalisasi: pastikan social selalu berformat { url, iconUrl }
+  // (agar kompatibel jika data lama masih berupa string)
+  const socialKeys = ['github', 'linkedin', 'instagram', 'email']
+  if (data.social) {
+    socialKeys.forEach(key => {
+      if (typeof data.social[key] === 'string') {
+        data.social[key] = { url: data.social[key], iconUrl: null }
+      } else if (!data.social[key]) {
+        data.social[key] = { url: '', iconUrl: null }
+      }
+    })
+  }
+
+  // Normalisasi: pastikan setiap proyek punya field useImage & showOnHome
+  if (data.projects) {
+    data.projects = data.projects.map((p, idx) => ({
+      ...p,
+      useImage: p.useImage ?? (!!p.imageUrl),
+      showOnHome: p.showOnHome !== undefined ? !!p.showOnHome : (idx < 2),
+    }))
+  }
+
+  Object.assign(form, data)
 }
 
 const saveData = async () => {
@@ -668,22 +961,25 @@ const doReset = async () => {
 // FUNGSI TAMBAH ITEM
 // ============================================================
 
-const addSkillCategory = () => {
-  form.skills.push({
-    category: 'Kategori Baru',
-    icon: 'star',
-    iconColor: 'text-primary',
-    items: [{ name: 'Skill Baru', percentage: 50 }],
-  })
-}
-
 const addEducation = () => {
   form.education.push({
     period: '20XX - 20XX',
     color: 'primary',
     badge: 'Pendidikan',
     institution: 'Nama Institusi',
+    subtitle: 'Jurusan / Program Studi',
     description: 'Deskripsi...',
+  })
+}
+
+const addExperience = () => {
+  form.experience.push({
+    period: '20XX - 20XX',
+    color: 'tertiary',
+    badge: 'Pengalaman',
+    institution: 'Nama Perusahaan / Organisasi',
+    subtitle: 'Jabatan / Posisi',
+    description: 'Deskripsi tanggung jawab...',
   })
 }
 
@@ -699,16 +995,13 @@ const addProject = () => {
     description: 'Deskripsi proyek...',
     tags: [],
     tagColor: 'primary',
+    showOnHome: false,
+    useImage: false,
     imageUrl: null,
+    linkDemo: null,
+    linkRepo: null,
   })
   expandedProject.value = form.projects.length - 1
-}
-
-const addTech = () => {
-  if (newTech.value.trim()) {
-    form.techStack.push(newTech.value.trim())
-    newTech.value = ''
-  }
 }
 
 

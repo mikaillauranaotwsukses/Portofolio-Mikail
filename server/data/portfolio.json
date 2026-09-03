@@ -1,181 +1,179 @@
 {
   "personal": {
-    "name": "MIKAIL",
-    "role": "IT Student",
-    "tagline": "Mahasiswa Teknik Informatika",
-    "bio": "Saya seorang mahasiswa IT yang bersemangat membangun sistem digital. Saat ini fokus belajar pengembangan web full-stack dan jaringan komputer.",
-    "photoUrl": "/uploads/1782460879566-400_x_400_pixel.jpg__1_.jpeg"
+    "name": "Mikail",
+    "role": "Web & Mobile Developer",
+    "tagline": "Keep Learning Keep Growing",
+    "bio": "Saya adalah Mahasiswa Teknologi Informasi di Institut Teknologi Sepuluh Nopember (ITS) sekaligus alumni Rekayasa Perangkat Lunak SMKN 2 Surakarta. Memiliki passion mendalam di dunia teknologi, saya percaya bahwa inovasi digital adalah kunci utama perubahan besar di masa depan.",
+    "photoUrl": "/profile.jpg"
   },
   "hero": {
-    "title": "MIKAIL",
-    "subtitle": "IT Student & Web Developer",
-    "description": "Membangun solusi digital yang fungsional dan efisien. Fokus pada pengembangan web dan jaringan komputer.",
-    "ctaPrimary": "LIHAT PROYEK",
-    "ctaSecondary": "TENTANG SAYA"
+    "title": "Mikail",
+    "subtitle": "Mahasiswa Teknologi Informasi ITS",
+    "description": "Mahasiswa Teknologi Informasi ITS dengan ketertarikan mendalam pada Web & Mobile App Development, Cybersecurity, IoT, hingga solusi Smart City. Berkomitmen untuk terus belajar dan berinovasi menciptakan teknologi berdampak positif.",
+    "ctaPrimary": "About Me",
+    "ctaSecondary": "View Projects"
   },
-  "skills": [
-    {
-      "category": "Web Development",
-      "icon": "code",
-      "iconColor": "text-tertiary",
-      "items": [
-        {
-          "name": "JavaScript",
-          "percentage": 80
-        },
-        {
-          "name": "PHP / Laravel",
-          "percentage": 65
-        },
-        {
-          "name": "HTML & CSS",
-          "percentage": 90
-        }
-      ]
-    },
-    {
-      "category": "Backend & Database",
-      "icon": "storage",
-      "iconColor": "text-primary",
-      "items": [
-        {
-          "name": "MySQL",
-          "percentage": 75
-        },
-        {
-          "name": "Node.js",
-          "percentage": 60
-        },
-        {
-          "name": "PostgreSQL",
-          "percentage": 55
-        }
-      ]
-    },
-    {
-      "category": "Jaringan & Sistem",
-      "icon": "hub",
-      "iconColor": "text-secondary",
-      "items": [
-        {
-          "name": "TCP/IP & Routing",
-          "percentage": 70
-        },
-        {
-          "name": "Linux Server",
-          "percentage": 55
-        },
-        {
-          "name": "Docker",
-          "percentage": 50
-        }
-      ]
-    }
-  ],
-  "techStack": [
-    "JavaScript",
-    "PHP",
-    "React.js",
-    "Node.js",
-    "MySQL",
-    "Docker",
-    "Git",
-    "Linux"
-  ],
   "education": [
     {
-      "period": "2022 - Sekarang",
+      "period": "2026 - Sekarang",
       "color": "primary",
-      "badge": "Sarjana (S1)",
-      "institution": "Universitas Teknologi Indonesia",
-      "description": "Jurusan Teknik Informatika. Fokus pada Rekayasa Perangkat Lunak dan Kecerdasan Buatan."
+      "badge": "S1",
+      "institution": "Institut Teknologi Sepuluh Nopember",
+      "subtitle": "Teknologi Informasi",
+      "description": "Diterima melalui jalur SNBT (Seleksi Nasional Berbasis Tes) dengan skor 696. Berkomitmen untuk terus mengasah keterampilan teknis, memperluas wawasan akademis, serta membangun jaringan relasi yang kuat selama masa perkuliahan."
     },
     {
-      "period": "2021 - 2022",
+      "period": "2023 - 2026",
       "color": "secondary",
-      "badge": "Sertifikasi",
-      "institution": "Cisco Networking Academy",
-      "description": "Menyelesaikan CCNA 1 & 2. Memahami routing, switching, dan protokol keamanan jaringan."
+      "badge": "SMK",
+      "institution": "SMKN 2 Surakarta",
+      "subtitle": "Rekayasa Perangkat Lunak",
+      "description": "Fokus mendalami pengembangan perangkat lunak dan dasar-dasar pemrograman di tengah pesatnya perkembangan teknologi AI. Aktif sebagai Pengurus OSIS yang merancang berbagai program kerja strategis, sekaligus membangun fondasi pemrograman yang solid untuk dikembangkan di jenjang perguruan tinggi."
+    }
+  ],
+  "experience": [
+    {
+      "period": "2023 - 2026",
+      "color": "tertiary",
+      "badge": "Organisasi",
+      "institution": "OSIS SMKN 2 Surakarta",
+      "subtitle": "Seksi Bidang 4: Pembinaan Prestasi Akademik, Seni, Olahraga dan Ilmiah",
+      "description": "Bertanggung jawab dalam membina serta mengarahkan siswa berprestasi di bidang Akademik maupun Non-Akademik agar dapat mengoptimalkan potensi dan bakat mereka secara maksimal. Selain itu, memprakarsai penyelenggaraan Turnamen E-Sport tingkat sekolah dan berperan penting dalam mendirikan Ekstrakurikuler E-Sport sebagai wadah resmi penyaluran minat siswa secara positif dan kompetitif."
     },
     {
-      "period": "2019 - 2021",
-      "color": "tertiary",
-      "badge": "SMK",
-      "institution": "SMK Negeri Teknik Komputer",
-      "description": "Jurusan Teknik Komputer Jaringan. Juara 1 Lomba Robotik Tingkat Provinsi."
+      "period": "Juli 2025 – Januari 2026",
+      "color": "primary",
+      "badge": "Magang",
+      "institution": "CV MIB LABS",
+      "subtitle": "Junior Developer & Web Tester",
+      "description": "Selama 6 bulan masa magang, mendalami aspek pengembangan web modern sekaligus bertindak sebagai Web Tester. Berperan aktif dalam menjamin kualitas (Quality Assurance) dan pengujian fungsionalitas sistem sebelum proses deployment publik. Proyek utama yang ditangani meliputi SPIK (Sistem Perencanaan Integrasi Keuangan) Kabupaten Kudus, Platform Pelatihan Karyawan Perusahaan Rokok Sukun, serta berbagai platform sistem web lainnya."
     }
   ],
   "projects": [
     {
       "id": "proj-1",
-      "title": "Sistem Absensi Online",
+      "title": "Peramal Cuaca",
       "subtitle": "Web Application",
-      "icon": "database",
+      "icon": "cloud",
       "iconColor": "text-tertiary",
-      "size": "medium",
-      "description": "Sistem absensi berbasis web dengan QR Code untuk mahasiswa dan dosen. Dilengkapi dashboard monitoring real-time.",
-      "tags": [
-        "PHP",
-        "MySQL",
-        "Laravel"
-      ],
+      "size": "large",
+      "description": "Aplikasi perkiraan cuaca interaktif berbasis web dengan data visualisasi yang akurat, cepat, dan tampilan yang modern.",
+      "tags": ["JavaScript", "API", "CSS"],
       "tagColor": "tertiary",
-      "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuCvC9_LWmtFIK36O-1aTUd0W7qh1aukEzKcnxudC6plWlYhV6DFQmCNVjpptgCHnS1sj5Vw6m9vR7-yVMrv-ANEFOUhbaYbMuJ2joU28Z7HaEcCos6qKcYLmb2SPFI11-L1Ayl2bGvWntmaLeeg1nRIctJ5F2s2hIYCY-YrKT8QxtPVovwGKNEPmr0lE0X3fg4pfII-c5tZbtQtGYlL9rPdj7-p8bxsLEXvm5Q6ZCicO0C9lLMJBgmU3TWOP8ah38sUPw86M_G2l1I"
+      "showOnHome": true,
+      "imageUrl": null,
+      "linkDemo": "https://ayoramal-mage12.vercel.app/",
+      "linkRepo": null
     },
     {
       "id": "proj-2",
-      "title": "Dashboard Monitor",
-      "subtitle": "Data Visualization",
-      "icon": "monitoring",
+      "title": "Aplikasi Catatan Keuangan",
+      "subtitle": "Desktop App",
+      "icon": "wallet",
       "iconColor": "text-primary",
       "size": "medium",
-      "description": "Dashboard visualisasi data untuk memantau performa jaringan komputer kampus secara real-time.",
-      "tags": [
-        "React",
-        "D3.js",
-        "Node.js"
-      ],
+      "description": "Aplikasi manajemen keuangan pribadi untuk mencatat transaksi harian, kategori anggaran, serta grafik laporan bulanan.",
+      "tags": ["Python", "SQLite", "Tkinter"],
       "tagColor": "primary",
-      "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuDsTT4ULmtFTm6CP8M5ldl1tSxjilCndFq9rSDirrVsFJ61UxP438O7z_mc7chrElIJSXahHxOozdcyCIOKT7Qf49vK9Hba312pPfsQcrdCu23a1GnG9EYq5vuktmtEK2YdnYwbhgxW30K6__PtIVuRmY4IBTUtn9EHEvoSvtgXERNg-li7FntiXup6bjI3kB3TEpnZyeZKq3tvh0jknTO1aoJK0zWGsK3KcxXX-PW1n-ui5BBz5fu-DKnjgfdfwrWxeIuSnyHn4qg"
+      "showOnHome": true,
+      "imageUrl": null,
+      "linkDemo": null,
+      "linkRepo": "https://github.com/mikaillauranaotwsukses/Apliaksi_Keuangan"
     },
     {
       "id": "proj-3",
-      "title": "Chatbot Kampus",
-      "subtitle": "AI Integration",
-      "icon": "smart_toy",
+      "title": "Daily Reminder (PC)",
+      "subtitle": "Desktop App",
+      "icon": "desktop_windows",
       "iconColor": "text-secondary",
       "size": "medium",
-      "description": "Chatbot berbasis NLP untuk menjawab pertanyaan seputar kampus secara otomatis.",
-      "tags": [
-        "Python",
-        "Flask",
-        "NLP"
-      ],
+      "description": "Aplikasi pengingat harian desktop untuk membantu mengatur jadwal tugas, reminder otomatis, dan meningkatkan produktivitas.",
+      "tags": ["Python", "Tkinter", "Automation"],
       "tagColor": "secondary",
-      "imageUrl": null
+      "showOnHome": false,
+      "imageUrl": null,
+      "linkDemo": null,
+      "linkRepo": "https://github.com/mikaillauranaotwsukses/daily-reminder"
     },
     {
       "id": "proj-4",
-      "title": "Aplikasi Kasir",
-      "subtitle": "Desktop App",
-      "icon": "point_of_sale",
+      "title": "Aplikasi Drill Soal",
+      "subtitle": "Education App",
+      "icon": "assignment",
       "iconColor": "text-tertiary",
-      "size": "medium",
-      "description": "Aplikasi kasir sederhana untuk UMKM dengan fitur laporan penjualan harian.",
-      "tags": [
-        "Python",
-        "Tkinter",
-        "SQLite"
-      ],
+      "size": "small",
+      "description": "Aplikasi interaktif yang dirancang untuk latihan dan simulasi pengerjaan soal-soal secara intensif guna meningkatkan pemahaman dan kesiapan ujian.",
+      "tags": ["Python", "Education"],
       "tagColor": "tertiary",
-      "imageUrl": null
+      "showOnHome": false,
+      "imageUrl": null,
+      "linkDemo": null,
+      "linkRepo": "https://github.com/Mikail-Laurana/Project-DrillSoal"
+    },
+    {
+      "id": "proj-5",
+      "title": "YouTube Word Bingo",
+      "subtitle": "Chrome Extension",
+      "icon": "extension",
+      "iconColor": "text-primary",
+      "size": "small",
+      "description": "Ekstensi Chrome inovatif yang mendeteksi kata-kata dari audio video YouTube secara otomatis untuk dijadikan permainan Bingo interaktif.",
+      "tags": ["JavaScript", "Chrome API"],
+      "tagColor": "primary",
+      "showOnHome": false,
+      "imageUrl": null,
+      "linkDemo": null,
+      "linkRepo": "https://github.com/mikaillauranaotwsukses/Fun-BingoGame"
+    },
+    {
+      "id": "proj-6",
+      "title": "Catfish Evolution",
+      "subtitle": "Game",
+      "icon": "sports_esports",
+      "iconColor": "text-secondary",
+      "size": "small",
+      "description": "Game berbasis Python dengan mekanisme gameplay saling memangsa, di mana pemain mengendalikan karakter ikan (Catfish) untuk tumbuh membesar dan meraih skor tertinggi.",
+      "tags": ["Python", "Pygame"],
+      "tagColor": "secondary",
+      "showOnHome": false,
+      "imageUrl": null,
+      "linkDemo": null,
+      "linkRepo": "https://github.com/Mikail-Laurana/Catfish-Evolution"
+    },
+    {
+      "id": "proj-7",
+      "title": "Galeri Bersama Kamu",
+      "subtitle": "Prototype App",
+      "icon": "photo_library",
+      "iconColor": "text-tertiary",
+      "size": "small",
+      "description": "Prototype aplikasi galeri kenangan untuk menyimpan dan mengorganisir foto-foto berkesan agar mudah ditemukan dan diakses kapan saja.",
+      "tags": ["Prototype", "UI/UX"],
+      "tagColor": "tertiary",
+      "showOnHome": false,
+      "imageUrl": null,
+      "linkDemo": null,
+      "linkRepo": "https://github.com/Mikail-Laurana/GaleriBersamaKamu"
     }
   ],
   "social": {
-    "github": "https://github.com/username-anda",
-    "linkedin": "https://linkedin.com/in/username-anda",
-    "email": "email@anda.com"
+    "github": {
+      "url": "https://github.com/mikaillauranaotwsukses",
+      "iconUrl": null
+    },
+    "linkedin": {
+      "url": "https://www.linkedin.com/in/muhammad-mikail-721b202b7/",
+      "iconUrl": null
+    },
+    "instagram": {
+      "url": "https://www.instagram.com/mikailmiko19/",
+      "iconUrl": null
+    },
+    "email": {
+      "url": "mikailcoding64@gmail.com",
+      "iconUrl": null
+    }
   },
-  "siteName": "MIKAIL.DEV",
-  "footerText": "© 2024 MIKAIL. All Rights Reserved."
+  "siteName": "Mikail",
+  "footerText": "© 2026 Mikail. All Rights Reserved."
 }
