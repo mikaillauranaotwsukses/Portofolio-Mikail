@@ -4,8 +4,10 @@ export const portfolioData = {
     "title": "Mikail",
     "subtitle": "Mahasiswa Teknologi Informasi ITS",
     "ctaPrimary": "About Me",
+    "ctaPrimaryLink": "/about",
     "description": "Mahasiswa Teknologi Informasi ITS dengan ketertarikan mendalam pada Web & Mobile App Development, Cybersecurity, IoT, hingga solusi Smart City. Berkomitmen untuk terus belajar dan berinovasi menciptakan teknologi berdampak positif.",
-    "ctaSecondary": "View Projects"
+    "ctaSecondary": "View Projects",
+    "ctaSecondaryLink": "/projects"
   },
   "social": {
     "email": {

@@ -46,24 +46,28 @@
         {{ data.hero?.description }}
       </p>
 
-      <!-- Tombol CTA -->
+      <!-- Tombol CTA dengan resolusi link & icon yang sesuai dengan teksnya -->
       <div class="flex flex-col md:flex-row items-center justify-center gap-gutter pt-4 bounce-in" style="animation-delay:0.4s">
         <NuxtLink
-          to="/projects"
+          :to="resolveLink(data.hero?.ctaPrimaryLink, data.hero?.ctaPrimary, '/about')"
           class="bg-primary-container text-on-primary-container px-10 py-4 border-4 border-black shadow-[6px_6px_0px_0px_#701c8e] hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_#701c8e] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all inline-block font-headline-lg uppercase"
           @mousedown="onBtnClick"
         >
           <span class="flex items-center gap-2">
-            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">folder_open</span>
-            {{ data.hero?.ctaPrimary }}
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">
+              {{ resolveIcon(data.hero?.ctaPrimary, 'person') }}
+            </span>
+            {{ data.hero?.ctaPrimary || 'About Me' }}
           </span>
         </NuxtLink>
         <NuxtLink
-          to="/about"
+          :to="resolveLink(data.hero?.ctaSecondaryLink, data.hero?.ctaSecondary, '/projects')"
           class="text-on-background hover:text-tertiary font-label-sm text-label-sm uppercase flex items-center gap-2 transition-colors border-2 border-surface-container-highest px-6 py-4 hover:border-tertiary"
         >
-          <span class="material-symbols-outlined">person</span>
-          {{ data.hero?.ctaSecondary }}
+          <span class="material-symbols-outlined">
+            {{ resolveIcon(data.hero?.ctaSecondary, 'folder_open') }}
+          </span>
+          {{ data.hero?.ctaSecondary || 'View Projects' }}
         </NuxtLink>
       </div>
 
@@ -87,6 +91,41 @@ defineProps({
     required: true
   }
 })
+
+// Resolusi link tujuan tombol berdasarkan link kustom atau teksnya
+const resolveLink = (explicitLink, text, defaultLink) => {
+  if (explicitLink && typeof explicitLink === 'string' && explicitLink.trim()) {
+    return explicitLink.trim()
+  }
+  if (!text || typeof text !== 'string') return defaultLink
+  const lower = text.toLowerCase()
+  if (lower.includes('about') || lower.includes('tentang') || lower.includes('profil') || lower.includes('biodata') || lower.includes('saya')) {
+    return '/about'
+  }
+  if (lower.includes('project') || lower.includes('proyek') || lower.includes('portofolio') || lower.includes('karya')) {
+    return '/projects'
+  }
+  if (lower.includes('contact') || lower.includes('kontak') || lower.includes('hubungi') || lower.includes('email')) {
+    return '/contact'
+  }
+  return defaultLink
+}
+
+// Resolusi ikon tombol berdasarkan teksnya
+const resolveIcon = (text, defaultIcon) => {
+  if (!text || typeof text !== 'string') return defaultIcon
+  const lower = text.toLowerCase()
+  if (lower.includes('about') || lower.includes('tentang') || lower.includes('profil') || lower.includes('biodata') || lower.includes('saya')) {
+    return 'person'
+  }
+  if (lower.includes('project') || lower.includes('proyek') || lower.includes('portofolio') || lower.includes('karya')) {
+    return 'folder_open'
+  }
+  if (lower.includes('contact') || lower.includes('kontak') || lower.includes('hubungi') || lower.includes('email')) {
+    return 'mail'
+  }
+  return defaultIcon
+}
 
 // Shake effect saat klik tombol CTA
 const onBtnClick = (e) => {
