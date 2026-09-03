@@ -929,16 +929,31 @@ const uploadFile = async (event, callback) => {
 // FUNGSI AUTH
 // ============================================================
 
-const doLogin = () => {
+const doLogin = async () => {
   loginError.value = ''
-  // Simpan password di sessionStorage, dikirim ke server saat menyimpan
-  sessionStorage.setItem('admin_pass', loginPassword.value)
-  // Coba fetch data dulu untuk validasi (indikasi koneksi ok)
-  loadData().then(() => {
+  if (!loginPassword.value) {
+    loginError.value = 'Silakan masukkan password admin.'
+    return
+  }
+
+  try {
+    // 1. Verifikasi password ke server
+    await $fetch('/api/portfolio', {
+      method: 'POST',
+      body: { password: loginPassword.value, action: 'verify' }
+    })
+
+    // 2. Simpan session dan login
+    sessionStorage.setItem('admin_pass', loginPassword.value)
+    await loadData()
     isLoggedIn.value = true
-  }).catch(() => {
-    loginError.value = 'Gagal terhubung ke server. Pastikan server berjalan.'
-  })
+  } catch (err) {
+    if (err.statusCode === 401) {
+      loginError.value = 'Password salah! Periksa kembali password Anda.'
+    } else {
+      loginError.value = 'Gagal terhubung ke server: ' + (err.data?.statusMessage || err.message || 'Pastikan server berjalan.')
+    }
+  }
 }
 
 const doLogout = () => {
@@ -954,6 +969,7 @@ const doLogout = () => {
 
 const loadData = async () => {
   const result = await $fetch('/api/portfolio')
+  if (!result) return
   const data = JSON.parse(JSON.stringify(result))
 
   // Normalisasi: pastikan social selalu berformat { url, iconUrl }
