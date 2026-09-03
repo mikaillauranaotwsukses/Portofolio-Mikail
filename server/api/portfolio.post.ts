@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
 
     if (error) {
       console.error('[API] Gagal reset ke Supabase:', error.message)
-      throw createError({ statusCode: 500, statusMessage: 'Gagal mereset data.' })
+      throw createError({ statusCode: 500, statusMessage: `Gagal mereset data: ${error.message}` })
     }
 
     return { success: true, message: 'Data berhasil direset ke default!' }
@@ -50,7 +50,7 @@ export default defineEventHandler(async (event) => {
 
   if (error) {
     console.error('[API] Gagal menyimpan ke Supabase:', error.message)
-    throw createError({ statusCode: 500, statusMessage: 'Gagal menyimpan data.' })
+    throw createError({ statusCode: 500, statusMessage: `Gagal menyimpan data: ${error.message}` })
   }
 
   return { success: true, message: 'Data berhasil disimpan!' }
