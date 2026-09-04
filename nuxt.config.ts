@@ -12,9 +12,9 @@ export default defineNuxtConfig({
   // Konfigurasi server-side (aman, tidak terexpose ke browser)
   // Nilai bisa di-override via .env: NUXT_ADMIN_PASSWORD, NUXT_SUPABASE_URL, dll
   runtimeConfig: {
-    adminPassword:      'admin2024',
-    supabaseUrl:        '',
-    supabaseServiceKey: '',
+    adminPassword:      process.env.NUXT_ADMIN_PASSWORD || 'admin123',
+    supabaseUrl:        process.env.NUXT_SUPABASE_URL || '',
+    supabaseServiceKey: process.env.NUXT_SUPABASE_SERVICE_KEY || '',
     public: {
       emailjsServiceId:  process.env.NUXT_PUBLIC_EMAILJS_SERVICE_ID || '',
       emailjsTemplateId: process.env.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
