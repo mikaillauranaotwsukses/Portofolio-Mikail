@@ -179,31 +179,21 @@
           </AdminField>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <AdminField label="Teks Tombol 1 (Oranye / Utama)">
-                <input v-model="form.hero.ctaPrimary" type="text" class="admin-input" placeholder="About Me" />
-              </AdminField>
-              <AdminField label="Tujuan Link Tombol 1">
-                <select v-model="form.hero.ctaPrimaryLink" class="admin-input">
-                  <option value="/about">👤 Halaman Tentang (/about)</option>
-                  <option value="/projects">📁 Halaman Proyek (/projects)</option>
-                  <option value="/contact">✉️ Halaman Kontak (/contact)</option>
-                </select>
-              </AdminField>
-            </div>
+            <AdminField label="Teks Tombol Utama">
+              <input v-model="form.hero.ctaPrimary" type="text" class="admin-input" placeholder="About Me" />
+            </AdminField>
+            <AdminField label="Tujuan Link Tombol Utama (Opsional)">
+              <input v-model="form.hero.ctaPrimaryLink" type="text" class="admin-input" placeholder="/about (otomatis jika kosong)" />
+            </AdminField>
+          </div>
 
-            <div>
-              <AdminField label="Teks Tombol 2 (Kedua)">
-                <input v-model="form.hero.ctaSecondary" type="text" class="admin-input" placeholder="View Projects" />
-              </AdminField>
-              <AdminField label="Tujuan Link Tombol 2">
-                <select v-model="form.hero.ctaSecondaryLink" class="admin-input">
-                  <option value="/projects">📁 Halaman Proyek (/projects)</option>
-                  <option value="/about">👤 Halaman Tentang (/about)</option>
-                  <option value="/contact">✉️ Halaman Kontak (/contact)</option>
-                </select>
-              </AdminField>
-            </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <AdminField label="Teks Tombol Kedua">
+              <input v-model="form.hero.ctaSecondary" type="text" class="admin-input" placeholder="View Projects" />
+            </AdminField>
+            <AdminField label="Tujuan Link Tombol Kedua (Opsional)">
+              <input v-model="form.hero.ctaSecondaryLink" type="text" class="admin-input" placeholder="/projects (otomatis jika kosong)" />
+            </AdminField>
           </div>
         </section>
 
@@ -858,7 +848,7 @@ const tabs = [
 // ---- Form Data (sama strukturnya dengan portfolio.json) ----
 const form = reactive({
   personal:   { name: '', role: '', tagline: '', bio: '', photoUrl: '' },
-  hero:       { title: '', subtitle: '', description: '', ctaPrimary: '', ctaSecondary: '', ctaPrimaryLink: '/about', ctaSecondaryLink: '/projects' },
+  hero:       { title: '', subtitle: '', description: '', ctaPrimary: '', ctaSecondary: '', ctaPrimaryLink: '', ctaSecondaryLink: '' },
   education:  [],
   experience: [],
   projects:   [],
@@ -1005,14 +995,10 @@ const loadData = async () => {
     })
   }
 
-  // Normalisasi hero CTA links jika belum ada
+  // Normalisasi hero links
   if (data.hero) {
-    if (!data.hero.ctaPrimaryLink) {
-      data.hero.ctaPrimaryLink = /about|tentang|profil/i.test(data.hero.ctaPrimary || '') ? '/about' : '/projects'
-    }
-    if (!data.hero.ctaSecondaryLink) {
-      data.hero.ctaSecondaryLink = /project|proyek|karya/i.test(data.hero.ctaSecondary || '') ? '/projects' : '/about'
-    }
+    if (!data.hero.ctaPrimaryLink) data.hero.ctaPrimaryLink = ''
+    if (!data.hero.ctaSecondaryLink) data.hero.ctaSecondaryLink = ''
   }
 
   // Normalisasi: pastikan setiap proyek punya field useImage, showOnHome, dan links

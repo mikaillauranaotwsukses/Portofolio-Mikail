@@ -46,28 +46,24 @@
         {{ data.hero?.description }}
       </p>
 
-      <!-- Tombol CTA dengan resolusi link & icon yang sesuai dengan teksnya -->
+      <!-- Tombol CTA -->
       <div class="flex flex-col md:flex-row items-center justify-center gap-gutter pt-4 bounce-in" style="animation-delay:0.4s">
         <NuxtLink
-          :to="resolveLink(data.hero?.ctaPrimaryLink, data.hero?.ctaPrimary, '/about')"
+          :to="primaryBtn.to"
           class="bg-primary-container text-on-primary-container px-10 py-4 border-4 border-black shadow-[6px_6px_0px_0px_#701c8e] hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_#701c8e] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all inline-block font-headline-lg uppercase"
           @mousedown="onBtnClick"
         >
           <span class="flex items-center gap-2">
-            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">
-              {{ resolveIcon(data.hero?.ctaPrimary, 'person') }}
-            </span>
-            {{ data.hero?.ctaPrimary || 'About Me' }}
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">{{ primaryBtn.icon }}</span>
+            {{ data.hero?.ctaPrimary }}
           </span>
         </NuxtLink>
         <NuxtLink
-          :to="resolveLink(data.hero?.ctaSecondaryLink, data.hero?.ctaSecondary, '/projects')"
+          :to="secondaryBtn.to"
           class="text-on-background hover:text-tertiary font-label-sm text-label-sm uppercase flex items-center gap-2 transition-colors border-2 border-surface-container-highest px-6 py-4 hover:border-tertiary"
         >
-          <span class="material-symbols-outlined">
-            {{ resolveIcon(data.hero?.ctaSecondary, 'folder_open') }}
-          </span>
-          {{ data.hero?.ctaSecondary || 'View Projects' }}
+          <span class="material-symbols-outlined">{{ secondaryBtn.icon }}</span>
+          {{ data.hero?.ctaSecondary }}
         </NuxtLink>
       </div>
 
@@ -85,47 +81,14 @@
 </template>
 
 <script setup>
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
   data: {
     type: Object,
     required: true
   }
 })
-
-// Resolusi link tujuan tombol berdasarkan link kustom atau teksnya
-const resolveLink = (explicitLink, text, defaultLink) => {
-  if (explicitLink && typeof explicitLink === 'string' && explicitLink.trim()) {
-    return explicitLink.trim()
-  }
-  if (!text || typeof text !== 'string') return defaultLink
-  const lower = text.toLowerCase()
-  if (lower.includes('about') || lower.includes('tentang') || lower.includes('profil') || lower.includes('biodata') || lower.includes('saya')) {
-    return '/about'
-  }
-  if (lower.includes('project') || lower.includes('proyek') || lower.includes('portofolio') || lower.includes('karya')) {
-    return '/projects'
-  }
-  if (lower.includes('contact') || lower.includes('kontak') || lower.includes('hubungi') || lower.includes('email')) {
-    return '/contact'
-  }
-  return defaultLink
-}
-
-// Resolusi ikon tombol berdasarkan teksnya
-const resolveIcon = (text, defaultIcon) => {
-  if (!text || typeof text !== 'string') return defaultIcon
-  const lower = text.toLowerCase()
-  if (lower.includes('about') || lower.includes('tentang') || lower.includes('profil') || lower.includes('biodata') || lower.includes('saya')) {
-    return 'person'
-  }
-  if (lower.includes('project') || lower.includes('proyek') || lower.includes('portofolio') || lower.includes('karya')) {
-    return 'folder_open'
-  }
-  if (lower.includes('contact') || lower.includes('kontak') || lower.includes('hubungi') || lower.includes('email')) {
-    return 'mail'
-  }
-  return defaultIcon
-}
 
 // Shake effect saat klik tombol CTA
 const onBtnClick = (e) => {
@@ -133,4 +96,47 @@ const onBtnClick = (e) => {
   el.classList.add('shake')
   setTimeout(() => el.classList.remove('shake'), 400)
 }
+
+const resolveCta = (text, customLink, defaultTo, defaultIcon) => {
+  if (customLink && typeof customLink === 'string' && customLink.trim()) {
+    const to = customLink.trim()
+    let icon = defaultIcon
+    const lowerTo = to.toLowerCase()
+    if (lowerTo.includes('about') || lowerTo.includes('tentang')) icon = 'person'
+    else if (lowerTo.includes('project') || lowerTo.includes('proyek')) icon = 'folder_open'
+    else if (lowerTo.includes('contact') || lowerTo.includes('kontak')) icon = 'mail'
+    return { to, icon }
+  }
+
+  if (!text) return { to: defaultTo, icon: defaultIcon }
+  const lower = text.toLowerCase()
+  if (lower.includes('about') || lower.includes('tentang') || lower.includes('profil') || lower.includes('profile') || lower.includes('saya') || lower.includes(' me')) {
+    return { to: '/about', icon: 'person' }
+  }
+  if (lower.includes('project') || lower.includes('proyek') || lower.includes('portofolio') || lower.includes('portfolio') || lower.includes('karya')) {
+    return { to: '/projects', icon: 'folder_open' }
+  }
+  if (lower.includes('contact') || lower.includes('kontak') || lower.includes('hubungi') || lower.includes('pesan')) {
+    return { to: '/contact', icon: 'mail' }
+  }
+  return { to: defaultTo, icon: defaultIcon }
+}
+
+const primaryBtn = computed(() => {
+  return resolveCta(
+    props.data?.hero?.ctaPrimary,
+    props.data?.hero?.ctaPrimaryLink,
+    '/about',
+    'person'
+  )
+})
+
+const secondaryBtn = computed(() => {
+  return resolveCta(
+    props.data?.hero?.ctaSecondary,
+    props.data?.hero?.ctaSecondaryLink,
+    '/projects',
+    'folder_open'
+  )
+})
 </script>
