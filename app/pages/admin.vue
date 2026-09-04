@@ -665,6 +665,109 @@
 
 
         <!-- ==========================================
+             TAB: KONTAK & EMAILJS
+             ========================================== -->
+        <section v-if="activeTab === 'kontak'" class="space-y-6">
+          <h2 class="section-title">📬 Pengaturan Kontak & EmailJS</h2>
+
+          <!-- Info Box EmailJS -->
+          <div class="bg-surface-container border-4 border-black p-5 shadow-[4px_4px_0px_0px_#00e5f4] space-y-3">
+            <div class="flex items-center gap-2 text-tertiary font-bold font-label-sm uppercase">
+              <span class="material-symbols-outlined text-lg">mark_email_read</span>
+              Integrasi Email.js (Formulir Kontak)
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed font-body-md">
+              Formulir di halaman <strong class="text-primary">/contact</strong> dapat mengirim pesan langsung ke inbox email Anda menggunakan <strong>EmailJS</strong>. Masukkan Service ID, Template ID, dan Public Key Anda di bawah ini:
+            </p>
+          </div>
+
+          <!-- Kredensial EmailJS -->
+          <div class="space-y-4 bg-surface-container-low border-4 border-black p-5 shadow-[4px_4px_0px_0px_#ffc485]">
+            <p class="text-xs font-bold uppercase text-primary font-label-sm flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm">key</span>
+              Kredensial API EmailJS
+            </p>
+
+            <AdminField label="Service ID">
+              <input
+                v-model="form.contact.emailjsServiceId"
+                type="text"
+                class="admin-input font-mono text-sm"
+                placeholder="service_xxxxxxx"
+              />
+            </AdminField>
+
+            <AdminField label="Template ID">
+              <input
+                v-model="form.contact.emailjsTemplateId"
+                type="text"
+                class="admin-input font-mono text-sm"
+                placeholder="template_xxxxxxx"
+              />
+            </AdminField>
+
+            <AdminField label="Public Key (User ID)">
+              <input
+                v-model="form.contact.emailjsPublicKey"
+                type="text"
+                class="admin-input font-mono text-sm"
+                placeholder="public_key_xxxxxxx"
+              />
+            </AdminField>
+
+            <!-- Panduan EmailJS -->
+            <details class="text-xs bg-background border-2 border-surface-container-highest p-3 mt-3 cursor-pointer">
+              <summary class="font-bold text-tertiary uppercase flex items-center gap-2 select-none">
+                <span class="material-symbols-outlined text-sm">help_outline</span>
+                Panduan Mendapatkan Kredensial EmailJS (Gratis)
+              </summary>
+              <ol class="mt-3 space-y-2 list-decimal list-inside text-on-surface-variant leading-relaxed">
+                <li>Buka dan daftar akun gratis di <a href="https://www.emailjs.com" target="_blank" class="text-primary underline font-bold">emailjs.com</a></li>
+                <li>Buka menu <strong>Email Services</strong> &gt; Pilih <strong>Gmail</strong> &gt; Hubungkan email Anda (<code class="text-white">{{ form.social?.email?.url || 'mikailcoding64@gmail.com' }}</code>) &gt; Salin <strong>Service ID</strong>.</li>
+                <li>Buka menu <strong>Email Templates</strong> &gt; Buat Template baru. Di template, gunakan variabel: <code class="text-white" v-pre>{{from_name}}</code>, <code class="text-white" v-pre>{{from_email}}</code>, dan <code class="text-white" v-pre>{{message}}</code> &gt; Simpan &amp; salin <strong>Template ID</strong>.</li>
+                <li>Buka menu <strong>Account</strong> (ikon profil kiri bawah) &gt; tab <strong>API Keys</strong> &gt; Salin <strong>Public Key</strong>.</li>
+                <li>Tempelkan ketiga nilai tersebut di kolom atas, lalu klik <strong>SIMPAN DATA</strong>!</li>
+              </ol>
+            </details>
+          </div>
+
+          <!-- Pengaturan Link Email Langsung (Mailto) -->
+          <div class="space-y-4 bg-surface-container-low border-4 border-black p-5 shadow-[4px_4px_0px_0px_#eeb1ff]">
+            <p class="text-xs font-bold uppercase text-secondary font-label-sm flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm">alternate_email</span>
+              Link Email Langsung (Mailto)
+            </p>
+            <p class="text-xs text-on-surface-variant leading-relaxed font-body-md">
+              Ketika tombol/link email diklik di website (halaman kontak, sidebar, atau footer), browser akan langsung membuka aplikasi email pengunjung untuk menulis email ke alamat ini:
+            </p>
+
+            <AdminField label="Alamat Email Tujuan (Otomatis sinkron dengan Sosial &gt; Email)">
+              <input
+                v-model="form.social.email.url"
+                type="email"
+                class="admin-input"
+                placeholder="mikailcoding64@gmail.com"
+              />
+            </AdminField>
+
+            <AdminField label="Subject Default Email Langsung">
+              <input
+                v-model="form.contact.directEmailSubject"
+                type="text"
+                class="admin-input"
+                placeholder="Pesan dari Portfolio Website"
+              />
+            </AdminField>
+
+            <div class="bg-black p-3 border border-surface-container-highest text-xs text-on-surface-variant font-mono space-y-1">
+              <span class="text-primary font-bold">Preview Target Mailto:</span><br/>
+              <span class="text-white break-all">mailto:{{ form.social?.email?.url || 'mikailcoding64@gmail.com' }}?subject={{ encodeURIComponent(form.contact?.directEmailSubject || 'Pesan dari Portfolio Website') }}</span>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ==========================================
              TAB: PENGATURAN
              ========================================== -->
         <section v-if="activeTab === 'pengaturan'" class="space-y-6">
@@ -779,6 +882,30 @@
 
               <SectionsSocialSection v-if="activeTab === 'sosial'" :data="form" />
 
+              <!-- Preview Kontak -->
+              <div v-if="activeTab === 'kontak'" class="space-y-6">
+                <div class="bg-surface-container-low border-4 border-black p-6 space-y-4 shadow-[6px_6px_0px_0px_#ffc485]">
+                  <div class="bg-primary text-on-primary px-3 py-1 font-bold text-xs uppercase inline-block">
+                    Preview Integrasi Kontak & Email
+                  </div>
+                  <div class="space-y-2 text-xs font-mono">
+                    <p class="text-on-surface-variant">Email Tujuan: <span class="text-primary font-bold">{{ form.social?.email?.url || 'mikailcoding64@gmail.com' }}</span></p>
+                    <p class="text-on-surface-variant">Subject Default: <span class="text-white">{{ form.contact?.directEmailSubject || 'Pesan dari Portfolio Website' }}</span></p>
+                    <p class="text-on-surface-variant">Status EmailJS: 
+                      <span v-if="form.contact?.emailjsServiceId && form.contact?.emailjsTemplateId && form.contact?.emailjsPublicKey" class="text-green-400 font-bold">✓ TERHUBUNG (SIAP KIRIM)</span>
+                      <span v-else class="text-amber-400 font-bold">⚠ STANDBY (MASUKKAN KREDENSIAL DI KIRI)</span>
+                    </p>
+                  </div>
+                  <a
+                    :href="'mailto:' + (form.social?.email?.url || 'mikailcoding64@gmail.com') + '?subject=' + encodeURIComponent(form.contact?.directEmailSubject || 'Pesan dari Portfolio Website')"
+                    class="block bg-primary-container text-on-primary-container p-3 border-2 border-black font-bold uppercase text-xs text-center shadow-[3px_3px_0px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-transform"
+                    title="Klik untuk tes membuka email client"
+                  >
+                    Test Buka Email Client (Mailto)
+                  </a>
+                </div>
+              </div>
+
               <div v-if="activeTab === 'pengaturan'" class="flex items-center justify-center h-64 border-4 border-dashed border-surface-container-highest text-on-surface-variant font-mono">
                 [ Pengaturan sistem tidak memiliki preview visual spesifik ]
               </div>
@@ -842,6 +969,7 @@ const tabs = [
   { id: 'pengalaman',  label: 'Pengalaman',  icon: 'work' },
   { id: 'proyek',      label: 'Proyek',      icon: 'folder' },
   { id: 'sosial',      label: 'Sosial',      icon: 'share' },
+  { id: 'kontak',      label: 'Kontak',      icon: 'mail' },
   { id: 'pengaturan',  label: 'Pengaturan',  icon: 'settings' },
 ]
 
@@ -857,6 +985,13 @@ const form = reactive({
     linkedin:  { url: '', iconUrl: null },
     instagram: { url: '', iconUrl: null },
     email:     { url: '', iconUrl: null },
+  },
+  contact: {
+    emailjsServiceId: '',
+    emailjsTemplateId: '',
+    emailjsPublicKey: '',
+    directEmailSubject: 'Pesan dari Portfolio Website',
+    directEmailBody: 'Halo Mikail, saya tertarik dengan profil dan proyek Anda. Mari kita diskusikan peluang kerja sama.',
   },
   siteName:   '',
   footerText: '',
@@ -1018,6 +1153,17 @@ const loadData = async () => {
         showOnHome: p.showOnHome !== undefined ? !!p.showOnHome : (idx < 2),
       }
     })
+  }
+
+  // Normalisasi kontak & EmailJS
+  if (!data.contact) {
+    data.contact = {
+      emailjsServiceId: '',
+      emailjsTemplateId: '',
+      emailjsPublicKey: '',
+      directEmailSubject: 'Pesan dari Portfolio Website',
+      directEmailBody: 'Halo Mikail, saya tertarik dengan profil dan proyek Anda. Mari kita diskusikan peluang kerja sama.',
+    }
   }
 
   Object.assign(form, data)

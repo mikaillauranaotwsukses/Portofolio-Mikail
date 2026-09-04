@@ -72,8 +72,9 @@
 
       <!-- Email -->
       <a
-        :href="'mailto:' + resolveUrl(data.social?.email)"
+        :href="getMailtoUrl(data.social?.email)"
         class="group flex items-center gap-4 bg-background p-3 border-4 border-surface-container-highest hover:border-primary transition-colors cursor-pointer"
+        :title="'Tulis email ke ' + resolveUrl(data.social?.email)"
       >
         <div class="w-12 h-12 bg-surface-container-highest flex items-center justify-center group-hover:bg-primary transition-colors overflow-hidden shrink-0">
           <img
@@ -111,5 +112,12 @@ const resolveUrl = (item) => {
 const resolveIconUrl = (item) => {
   if (!item || typeof item === 'string') return null
   return item.iconUrl || null
+}
+
+const getMailtoUrl = (item) => {
+  const email = resolveUrl(item)
+  if (!email) return '#'
+  const cleanEmail = email.replace(/^mailto:/i, '').trim()
+  return `mailto:${cleanEmail}?subject=${encodeURIComponent('Pesan dari Portfolio Website')}`
 }
 </script>

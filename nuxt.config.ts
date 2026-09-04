@@ -15,6 +15,19 @@ export default defineNuxtConfig({
     adminPassword:      'admin2024',
     supabaseUrl:        '',
     supabaseServiceKey: '',
+    public: {
+      emailjsServiceId:  process.env.NUXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+      emailjsTemplateId: process.env.NUXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+      emailjsPublicKey:  process.env.NUXT_PUBLIC_EMAILJS_PUBLIC_KEY || '',
+    }
+  },
+
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@emailjs/browser'
+      ]
+    }
   },
 
   app: {

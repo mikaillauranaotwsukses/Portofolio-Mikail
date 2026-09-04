@@ -78,7 +78,7 @@
         <div class="flex gap-gutter my-4 md:my-0">
           <a :href="resolveUrl(data.social?.github)" target="_blank" class="text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm uppercase">GITHUB</a>
           <a :href="resolveUrl(data.social?.linkedin)" target="_blank" class="text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm uppercase">LINKEDIN</a>
-          <a :href="'mailto:' + resolveUrl(data.social?.email)" class="text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm uppercase">EMAIL</a>
+          <a :href="getMailtoUrl(data.social?.email)" class="text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm uppercase" :title="'Tulis email ke ' + resolveUrl(data.social?.email)">EMAIL</a>
         </div>
         <div class="flex items-center gap-2 text-tertiary font-bold font-label-sm text-label-sm uppercase">
           <span class="w-3 h-3 bg-tertiary rounded-full animate-pulse"></span>
@@ -102,6 +102,13 @@ const data = computed(() => _apiData.value || defaultData)
 const resolveUrl = (item) => {
   if (!item) return ''
   return typeof item === 'string' ? item : (item.url ?? '')
+}
+
+const getMailtoUrl = (item) => {
+  const email = resolveUrl(item)
+  if (!email) return '#'
+  const cleanEmail = email.replace(/^mailto:/i, '').trim()
+  return `mailto:${cleanEmail}?subject=${encodeURIComponent('Pesan dari Portfolio Website')}`
 }
 
 

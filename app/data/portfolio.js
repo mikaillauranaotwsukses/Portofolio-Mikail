@@ -27,6 +27,13 @@ export const portfolioData = {
       "iconUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788417876613-IG.png"
     }
   },
+  "contact": {
+    "emailjsServiceId": "",
+    "emailjsTemplateId": "",
+    "emailjsPublicKey": "",
+    "directEmailSubject": "Pesan dari Portfolio Website",
+    "directEmailBody": "Halo Mikail, saya tertarik dengan profil dan proyek Anda. Mari kita diskusikan peluang kerja sama."
+  },
   "personal": {
     "bio": "Saya adalah Mahasiswa Teknologi Informasi di Institut Teknologi Sepuluh Nopember (ITS) sekaligus alumni Rekayasa Perangkat Lunak SMKN 2 Surakarta. Memiliki passion mendalam di dunia teknologi, saya percaya bahwa inovasi digital adalah kunci utama perubahan besar di masa depan.",
     "name": "Mikail",
