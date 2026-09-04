@@ -370,9 +370,12 @@ const handleSubmit = async () => {
       user_email: form.value.email,
       reply_to: form.value.email,
       message: form.value.message,
+      title: form.value.name ? `Pesan dari ${form.value.name}` : 'Pesan Baru Portfolio',
+      subject: form.value.name ? `Pesan dari ${form.value.name}` : 'Pesan Baru Portfolio',
+      time: new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }),
+      date: new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }),
       to_name: data.value.personal?.name || 'Mikail',
       to_email: ownerEmail.value,
-      date: new Date().toLocaleString('id-ID'),
     }
 
     await emailjs.send(serviceId, templateId, templateParams, publicKey)
