@@ -53,9 +53,9 @@
     <header class="shrink-0 z-50 bg-surface-container-lowest border-b-4 border-black flex items-center justify-between px-6 py-3 shadow-[0_4px_0px_0px_#000]">
       <div class="flex items-center gap-3">
         <img
-          :src="form.siteLogo || '/logo.png'"
+          :src="(form.siteLogo || '/logo.png') + '?v=2'"
           alt="Logo"
-          class="w-9 h-9 object-contain rounded-lg border-2 border-primary shadow-[2px_2px_0px_0px_#00e5f4]"
+          class="w-9 h-9 object-contain rounded-xl border-2 border-primary-container shadow-[2px_2px_0px_0px_#ff9d00]"
         />
         <div>
           <p class="text-primary font-bold font-label-sm uppercase text-sm">Admin Panel</p>
@@ -784,9 +784,9 @@
           <AdminField label="Logo Website (di header)">
             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-surface-container border-2 border-surface-container-highest p-4">
               <img
-                :src="form.siteLogo || '/logo.png'"
+                :src="(form.siteLogo || '/logo.png') + '?v=2'"
                 alt="Logo Preview"
-                class="w-14 h-14 object-contain rounded-lg border-2 border-primary bg-black p-1 shadow-[3px_3px_0px_0px_#00e5f4] shrink-0"
+                class="w-14 h-14 object-contain rounded-xl border-2 border-primary-container bg-black p-1 shadow-[3px_3px_0px_0px_#ff9d00] shrink-0"
               />
               <div class="space-y-2 flex-1 w-full">
                 <input

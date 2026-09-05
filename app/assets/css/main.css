@@ -44,7 +44,7 @@ body {
 .scanline {
   width: 100%;
   height: 2px;
-  background: rgba(0, 229, 244, 0.1);
+  background: rgba(255, 157, 0, 0.08);
   position: fixed;
   top: 0;
   left: 0;
@@ -265,8 +265,8 @@ body {
 
 /* ------ PULSE GLOW BORDER ------ */
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 8px 8px 0px 0px #ffc485; }
-  50%       { box-shadow: 8px 8px 0px 0px #ffc485, 0 0 20px 4px rgba(255, 196, 133, 0.4); }
+  0%, 100% { box-shadow: 8px 8px 0px 0px #ff9d00; }
+  50%       { box-shadow: 8px 8px 0px 0px #ff9d00, 0 0 24px 6px rgba(255, 157, 0, 0.45); }
 }
 .pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
 

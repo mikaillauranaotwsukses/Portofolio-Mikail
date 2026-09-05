@@ -13,11 +13,11 @@
           class="flex items-center gap-3 cursor-pointer select-none group"
         >
           <img
-            :src="data.siteLogo || '/logo.png'"
+            :src="(data.siteLogo || '/logo.png') + '?v=2'"
             alt="Logo"
-            class="w-9 h-9 md:w-10 md:h-10 object-contain rounded-lg border-2 border-primary shadow-[2px_2px_0px_0px_#00e5f4] group-hover:scale-105 transition-transform shrink-0"
+            class="w-9 h-9 md:w-10 md:h-10 object-contain rounded-xl border-2 border-primary-container shadow-[2px_2px_0px_0px_#ff9d00] group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(255,157,0,0.65)] group-hover:border-primary transition-all shrink-0"
           />
-          <span class="text-headline-lg font-headline-lg font-extrabold text-primary uppercase tracking-tighter group-hover:text-primary/80 transition-colors">
+          <span class="text-headline-lg font-headline-lg font-extrabold text-primary uppercase tracking-tighter group-hover:text-primary-container group-hover:drop-shadow-[0_0_10px_rgba(255,157,0,0.5)] transition-all">
             {{ data.siteName }}
           </span>
         </NuxtLink>
@@ -136,7 +136,7 @@ const shakeBtn = (e) => {
 }
 
 // ---- Pixel Cursor Trail ----
-const trailColors = ['#ffc485', '#eeb1ff', '#00e5f4', '#ffc485']
+const trailColors = ['#ff9d00', '#ffc485', '#ffb869', '#eeb1ff']
 let lastTrailTime = 0
 
 const createTrail = (e) => {
