@@ -10,9 +10,16 @@
         <!-- Logo -->
         <NuxtLink
           to="/"
-          class="text-headline-lg font-headline-lg font-extrabold text-primary uppercase tracking-tighter cursor-pointer select-none hover:text-primary/80 transition-colors"
+          class="flex items-center gap-3 cursor-pointer select-none group"
         >
-          {{ data.siteName }}
+          <img
+            :src="data.siteLogo || '/logo.png'"
+            alt="Logo"
+            class="w-9 h-9 md:w-10 md:h-10 object-contain rounded-lg border-2 border-primary shadow-[2px_2px_0px_0px_#00e5f4] group-hover:scale-105 transition-transform shrink-0"
+          />
+          <span class="text-headline-lg font-headline-lg font-extrabold text-primary uppercase tracking-tighter group-hover:text-primary/80 transition-colors">
+            {{ data.siteName }}
+          </span>
         </NuxtLink>
 
         <!-- Desktop Menu -->

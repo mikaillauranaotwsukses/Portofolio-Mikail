@@ -52,7 +52,11 @@
     <!-- ---- TOP BAR ---- -->
     <header class="shrink-0 z-50 bg-surface-container-lowest border-b-4 border-black flex items-center justify-between px-6 py-3 shadow-[0_4px_0px_0px_#000]">
       <div class="flex items-center gap-3">
-        <span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+        <img
+          :src="form.siteLogo || '/logo.png'"
+          alt="Logo"
+          class="w-9 h-9 object-contain rounded-lg border-2 border-primary shadow-[2px_2px_0px_0px_#00e5f4]"
+        />
         <div>
           <p class="text-primary font-bold font-label-sm uppercase text-sm">Admin Panel</p>
           <p class="text-on-surface-variant text-xs font-label-sm">Portfolio OS v1.0</p>
@@ -776,6 +780,45 @@
           <AdminField label="Nama Website (di header)">
             <input v-model="form.siteName" type="text" class="admin-input" placeholder="MIKAIL.DEV" />
           </AdminField>
+
+          <AdminField label="Logo Website (di header)">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-surface-container border-2 border-surface-container-highest p-4">
+              <img
+                :src="form.siteLogo || '/logo.png'"
+                alt="Logo Preview"
+                class="w-14 h-14 object-contain rounded-lg border-2 border-primary bg-black p-1 shadow-[3px_3px_0px_0px_#00e5f4] shrink-0"
+              />
+              <div class="space-y-2 flex-1 w-full">
+                <input
+                  v-model="form.siteLogo"
+                  type="text"
+                  class="admin-input text-xs font-mono"
+                  placeholder="/logo.png"
+                />
+                <div class="flex gap-2">
+                  <label class="inline-flex items-center gap-2 border-2 border-primary text-primary px-3 py-1.5 text-xs font-bold uppercase cursor-pointer hover:bg-primary hover:text-black transition-colors">
+                    <span class="material-symbols-outlined text-sm">upload</span>
+                    Ganti Logo (Upload)
+                    <input
+                      type="file"
+                      accept="image/*"
+                      class="hidden"
+                      @change="e => uploadFile(e, url => form.siteLogo = url)"
+                    />
+                  </label>
+                  <button
+                    v-if="form.siteLogo && form.siteLogo !== '/logo.png'"
+                    type="button"
+                    class="border-2 border-surface-container-highest text-on-surface-variant px-3 py-1.5 text-xs uppercase hover:text-white transition-colors"
+                    @click="form.siteLogo = '/logo.png'"
+                  >
+                    Reset Default
+                  </button>
+                </div>
+              </div>
+            </div>
+          </AdminField>
+
           <AdminField label="Teks Copyright (di footer)">
             <input v-model="form.footerText" type="text" class="admin-input" placeholder="© 2024 MIKAIL. All Rights Reserved." />
           </AdminField>
@@ -994,6 +1037,7 @@ const form = reactive({
     directEmailBody: 'Halo Mikail, saya tertarik dengan profil dan proyek Anda. Mari kita diskusikan peluang kerja sama.',
   },
   siteName:   '',
+  siteLogo:   '/logo.png',
   footerText: '',
 })
 
@@ -1164,6 +1208,11 @@ const loadData = async () => {
       directEmailSubject: 'Pesan dari Portfolio Website',
       directEmailBody: 'Halo Mikail, saya tertarik dengan profil dan proyek Anda. Mari kita diskusikan peluang kerja sama.',
     }
+  }
+
+  // Normalisasi siteLogo
+  if (!data.siteLogo) {
+    data.siteLogo = '/logo.png'
   }
 
   Object.assign(form, data)

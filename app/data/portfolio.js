@@ -172,6 +172,7 @@ export const portfolioData = {
     }
   ],
   "siteName": "Mikail",
+  "siteLogo": "/logo.png",
   "education": [
     {
       "badge": "S1",
