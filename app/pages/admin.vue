@@ -161,6 +161,25 @@
               <span class="text-xs text-on-surface-variant font-label-sm">Preview foto</span>
             </div>
           </AdminField>
+
+          <AdminField label="Dokumen CV (Curriculum Vitae)">
+            <div class="flex items-center gap-2">
+              <input v-model="form.cvUrl" type="text" class="admin-input flex-1 font-mono text-xs" placeholder="/CV_Muhammad_Mikail_Laurana.docx atau https://..." />
+              <label class="admin-btn-add cursor-pointer shrink-0 h-[46px] m-0" title="Upload file CV baru (PDF/Word)">
+                <span class="material-symbols-outlined text-sm">upload_file</span> Upload CV
+                <input type="file" accept=".pdf,.doc,.docx" class="hidden" @change="e => uploadFile(e, url => form.cvUrl = url)" />
+              </label>
+            </div>
+            <div v-if="form.cvUrl" class="mt-2 flex items-center justify-between text-xs font-mono bg-black/40 p-2.5 border border-surface-container-highest">
+              <div class="flex items-center gap-2 truncate max-w-[240px]">
+                <span class="material-symbols-outlined text-base text-primary">description</span>
+                <span class="text-primary truncate">{{ form.cvUrl }}</span>
+              </div>
+              <a :href="form.cvUrl" target="_blank" download class="text-tertiary hover:underline flex items-center gap-1 font-bold uppercase shrink-0">
+                <span class="material-symbols-outlined text-xs">download</span> Unduh / Cek
+              </a>
+            </div>
+          </AdminField>
         </section>
 
 
@@ -198,6 +217,373 @@
             <AdminField label="Tujuan Link Tombol Kedua (Opsional)">
               <input v-model="form.hero.ctaSecondaryLink" type="text" class="admin-input" placeholder="/projects (otomatis jika kosong)" />
             </AdminField>
+          </div>
+        </section>
+
+
+        <!-- ==========================================
+             TAB: SKILL & TEKNOLOGI
+             ========================================== -->
+        <section v-if="activeTab === 'skill'" class="space-y-6">
+          <div class="flex items-center justify-between border-b-4 border-tertiary pb-2 mb-6">
+            <div>
+              <h2 class="text-headline-lg font-headline-lg text-tertiary uppercase m-0">💻 Skill &amp; Teknologi</h2>
+              <p class="text-xs text-on-surface-variant font-label-sm mt-1">Dikelompokkan ke dalam 4 kategori (tampil di halaman /about)</p>
+            </div>
+          </div>
+
+          <!-- Kategori 1: Bahasa Pemrograman (languages) -->
+          <div class="bg-surface-container border-4 border-black p-5 shadow-[4px_4px_0px_0px_#00e5f4] space-y-4">
+            <div class="flex justify-between items-center border-b-2 border-surface-container-highest pb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 bg-tertiary border border-black inline-block"></span>
+                <h3 class="font-headline-lg text-sm text-tertiary uppercase font-bold">Bahasa Pemrograman</h3>
+              </div>
+              <span class="text-[11px] font-mono px-2 py-0.5 bg-tertiary/10 text-tertiary border border-tertiary font-bold">
+                {{ (form.skills?.languages || []).length }} Skill
+              </span>
+            </div>
+
+            <!-- Chips list -->
+            <div class="flex flex-wrap gap-2 min-h-[42px] p-2.5 bg-black/40 border border-surface-container-highest">
+              <span
+                v-for="(item, idx) in form.skills?.languages || []"
+                :key="idx"
+                class="inline-flex items-center gap-1.5 px-3 py-1 bg-tertiary/10 border-2 border-tertiary text-tertiary text-xs font-bold font-mono shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]"
+              >
+                {{ item }}
+                <button
+                  type="button"
+                  @click="removeSkill('languages', idx)"
+                  class="text-tertiary/70 hover:text-red-400 hover:scale-125 transition-all text-sm font-bold leading-none cursor-pointer"
+                  title="Hapus skill"
+                >×</button>
+              </span>
+              <span v-if="!form.skills?.languages || form.skills.languages.length === 0" class="text-xs text-on-surface-variant italic font-mono py-1">
+                Belum ada bahasa pemrograman ditambahkan.
+              </span>
+            </div>
+
+            <!-- Input tambah skill -->
+            <div class="flex items-center gap-2">
+              <input
+                v-model="newSkillInput.languages"
+                type="text"
+                class="admin-input flex-1 text-xs"
+                placeholder="Ketik bahasa (contoh: TypeScript, Rust) lalu tekan Enter"
+                @keydown.enter.prevent="addSkill('languages')"
+              />
+              <button
+                type="button"
+                @click="addSkill('languages')"
+                class="admin-btn-add shrink-0 h-[46px] m-0 cursor-pointer"
+              >
+                <span class="material-symbols-outlined text-sm">add</span> Tambah
+              </button>
+            </div>
+          </div>
+
+          <!-- Kategori 2: Framework & Library (frameworks) -->
+          <div class="bg-surface-container border-4 border-black p-5 shadow-[4px_4px_0px_0px_#eeb1ff] space-y-4">
+            <div class="flex justify-between items-center border-b-2 border-surface-container-highest pb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 bg-secondary border border-black inline-block"></span>
+                <h3 class="font-headline-lg text-sm text-secondary uppercase font-bold">Framework &amp; Library</h3>
+              </div>
+              <span class="text-[11px] font-mono px-2 py-0.5 bg-secondary/10 text-secondary border border-secondary font-bold">
+                {{ (form.skills?.frameworks || []).length }} Skill
+              </span>
+            </div>
+
+            <!-- Chips list -->
+            <div class="flex flex-wrap gap-2 min-h-[42px] p-2.5 bg-black/40 border border-surface-container-highest">
+              <span
+                v-for="(item, idx) in form.skills?.frameworks || []"
+                :key="idx"
+                class="inline-flex items-center gap-1.5 px-3 py-1 bg-secondary/10 border-2 border-secondary text-secondary text-xs font-bold font-mono shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]"
+              >
+                {{ item }}
+                <button
+                  type="button"
+                  @click="removeSkill('frameworks', idx)"
+                  class="text-secondary/70 hover:text-red-400 hover:scale-125 transition-all text-sm font-bold leading-none cursor-pointer"
+                  title="Hapus skill"
+                >×</button>
+              </span>
+              <span v-if="!form.skills?.frameworks || form.skills.frameworks.length === 0" class="text-xs text-on-surface-variant italic font-mono py-1">
+                Belum ada framework ditambahkan.
+              </span>
+            </div>
+
+            <!-- Input tambah skill -->
+            <div class="flex items-center gap-2">
+              <input
+                v-model="newSkillInput.frameworks"
+                type="text"
+                class="admin-input flex-1 text-xs"
+                placeholder="Ketik framework (contoh: TailwindCSS, Express) lalu tekan Enter"
+                @keydown.enter.prevent="addSkill('frameworks')"
+              />
+              <button
+                type="button"
+                @click="addSkill('frameworks')"
+                class="admin-btn-add shrink-0 h-[46px] m-0 cursor-pointer"
+              >
+                <span class="material-symbols-outlined text-sm">add</span> Tambah
+              </button>
+            </div>
+          </div>
+
+          <!-- Kategori 3: Tools & Platform (tools) -->
+          <div class="bg-surface-container border-4 border-black p-5 shadow-[4px_4px_0px_0px_#ff9d00] space-y-4">
+            <div class="flex justify-between items-center border-b-2 border-surface-container-highest pb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 bg-primary border border-black inline-block"></span>
+                <h3 class="font-headline-lg text-sm text-primary uppercase font-bold">Tools &amp; Platform</h3>
+              </div>
+              <span class="text-[11px] font-mono px-2 py-0.5 bg-primary/10 text-primary border border-primary font-bold">
+                {{ (form.skills?.tools || []).length }} Skill
+              </span>
+            </div>
+
+            <!-- Chips list -->
+            <div class="flex flex-wrap gap-2 min-h-[42px] p-2.5 bg-black/40 border border-surface-container-highest">
+              <span
+                v-for="(item, idx) in form.skills?.tools || []"
+                :key="idx"
+                class="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/10 border-2 border-primary text-primary text-xs font-bold font-mono shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]"
+              >
+                {{ item }}
+                <button
+                  type="button"
+                  @click="removeSkill('tools', idx)"
+                  class="text-primary/70 hover:text-red-400 hover:scale-125 transition-all text-sm font-bold leading-none cursor-pointer"
+                  title="Hapus skill"
+                >×</button>
+              </span>
+              <span v-if="!form.skills?.tools || form.skills.tools.length === 0" class="text-xs text-on-surface-variant italic font-mono py-1">
+                Belum ada tools ditambahkan.
+              </span>
+            </div>
+
+            <!-- Input tambah skill -->
+            <div class="flex items-center gap-2">
+              <input
+                v-model="newSkillInput.tools"
+                type="text"
+                class="admin-input flex-1 text-xs"
+                placeholder="Ketik tools (contoh: Docker, Supabase) lalu tekan Enter"
+                @keydown.enter.prevent="addSkill('tools')"
+              />
+              <button
+                type="button"
+                @click="addSkill('tools')"
+                class="admin-btn-add shrink-0 h-[46px] m-0 cursor-pointer"
+              >
+                <span class="material-symbols-outlined text-sm">add</span> Tambah
+              </button>
+            </div>
+          </div>
+
+          <!-- Kategori 4: Kemampuan Lainnya (other) -->
+          <div class="bg-surface-container border-4 border-black p-5 shadow-[4px_4px_0px_0px_#544433] space-y-4">
+            <div class="flex justify-between items-center border-b-2 border-surface-container-highest pb-3">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 bg-surface-bright border border-black inline-block"></span>
+                <h3 class="font-headline-lg text-sm text-on-surface uppercase font-bold">Kemampuan Lainnya (Other)</h3>
+              </div>
+              <span class="text-[11px] font-mono px-2 py-0.5 bg-surface-container-high text-on-surface-variant border border-surface-container-highest font-bold">
+                {{ (form.skills?.other || []).length }} Skill
+              </span>
+            </div>
+
+            <!-- Chips list -->
+            <div class="flex flex-wrap gap-2 min-h-[42px] p-2.5 bg-black/40 border border-surface-container-highest">
+              <span
+                v-for="(item, idx) in form.skills?.other || []"
+                :key="idx"
+                class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-high border-2 border-surface-container-highest text-on-background text-xs font-bold font-mono shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]"
+              >
+                {{ item }}
+                <button
+                  type="button"
+                  @click="removeSkill('other', idx)"
+                  class="text-on-surface-variant hover:text-red-400 hover:scale-125 transition-all text-sm font-bold leading-none cursor-pointer"
+                  title="Hapus skill"
+                >×</button>
+              </span>
+              <span v-if="!form.skills?.other || form.skills.other.length === 0" class="text-xs text-on-surface-variant italic font-mono py-1">
+                Belum ada keahlian lainnya ditambahkan.
+              </span>
+            </div>
+
+            <!-- Input tambah skill -->
+            <div class="flex items-center gap-2">
+              <input
+                v-model="newSkillInput.other"
+                type="text"
+                class="admin-input flex-1 text-xs"
+                placeholder="Ketik keahlian (contoh: UI/UX Design, IoT) lalu tekan Enter"
+                @keydown.enter.prevent="addSkill('other')"
+              />
+              <button
+                type="button"
+                @click="addSkill('other')"
+                class="admin-btn-add shrink-0 h-[46px] m-0 cursor-pointer"
+              >
+                <span class="material-symbols-outlined text-sm">add</span> Tambah
+              </button>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ==========================================
+             TAB: PRESTASI & PENGHARGAAN
+             ========================================== -->
+        <section v-if="activeTab === 'prestasi'" class="space-y-6">
+          <div class="flex items-center justify-between border-b-4 border-primary pb-2 mb-6">
+            <div>
+              <h2 class="text-headline-lg font-headline-lg text-primary uppercase m-0">🏆 Prestasi &amp; Penghargaan</h2>
+              <p class="text-xs text-on-surface-variant font-label-sm mt-1">Kelola daftar penghargaan &amp; pencapaian di halaman /about</p>
+            </div>
+            <button class="admin-btn-add cursor-pointer" @click="addAchievement">
+              <span class="material-symbols-outlined text-sm">add</span> Tambah Prestasi
+            </button>
+          </div>
+
+          <div v-if="!form.achievements || form.achievements.length === 0" class="text-center py-12 border-4 border-dashed border-surface-container-highest text-on-surface-variant font-mono">
+            [ Belum ada data prestasi. Klik tombol "+ Tambah Prestasi" di atas ]
+          </div>
+
+          <div
+            v-for="(item, i) in form.achievements || []"
+            :key="item.id || i"
+            class="bg-surface-container border-4 border-black p-5 space-y-4"
+            :style="{
+              boxShadow: '4px 4px 0px 0px ' + (item.color === 'secondary' ? '#eeb1ff' : item.color === 'tertiary' ? '#00e5f4' : '#ffc485')
+            }"
+          >
+            <!-- Card Header bar -->
+            <div class="flex items-center justify-between border-b-2 border-surface-container-highest pb-3">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span
+                  class="w-8 h-8 border-2 border-black flex items-center justify-center shrink-0"
+                  :class="'bg-' + (item.color || 'primary')"
+                >
+                  <span class="material-symbols-outlined text-base text-black" style="font-variation-settings: 'FILL' 1;">
+                    {{ item.icon || 'emoji_events' }}
+                  </span>
+                </span>
+                <span class="font-bold text-sm text-white font-headline-lg truncate">
+                  {{ item.title || ('Prestasi #' + (i + 1)) }}
+                </span>
+              </div>
+              <div class="flex items-center gap-1 shrink-0">
+                <button
+                  type="button"
+                  class="p-1 border border-surface-container-highest hover:border-primary text-on-surface-variant hover:text-primary transition-colors disabled:opacity-30 cursor-pointer"
+                  :disabled="i === 0"
+                  @click="moveAchievement(i, -1)"
+                  title="Pindah ke Atas"
+                >
+                  <span class="material-symbols-outlined text-sm">arrow_upward</span>
+                </button>
+                <button
+                  type="button"
+                  class="p-1 border border-surface-container-highest hover:border-primary text-on-surface-variant hover:text-primary transition-colors disabled:opacity-30 cursor-pointer"
+                  :disabled="i === (form.achievements.length - 1)"
+                  @click="moveAchievement(i, 1)"
+                  title="Pindah ke Bawah"
+                >
+                  <span class="material-symbols-outlined text-sm">arrow_downward</span>
+                </button>
+                <button
+                  type="button"
+                  class="admin-btn-delete px-2 ml-1 cursor-pointer"
+                  @click="form.achievements.splice(i, 1)"
+                  title="Hapus Prestasi"
+                >
+                  <span class="material-symbols-outlined text-sm">delete</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Title & Year -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="md:col-span-2">
+                <AdminField label="Judul Prestasi">
+                  <input v-model="item.title" type="text" class="admin-input" placeholder="Contoh: Medali Perunggu OSN" />
+                </AdminField>
+              </div>
+              <div>
+                <AdminField label="Tahun">
+                  <input v-model="item.year" type="text" class="admin-input" placeholder="2025" />
+                </AdminField>
+              </div>
+            </div>
+
+            <!-- Event / Kategori -->
+            <AdminField label="Nama Event / Lomba / Kategori">
+              <input v-model="item.event" type="text" class="admin-input" placeholder="Contoh: OSN Bidang Komputer / Beasiswa / Sertifikasi" />
+            </AdminField>
+
+            <!-- Deskripsi -->
+            <AdminField label="Deskripsi Singkat">
+              <textarea v-model="item.description" class="admin-input resize-none" rows="2" placeholder="Jelaskan pencapaian ini..."></textarea>
+            </AdminField>
+
+            <!-- Warna & Ikon -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1 border-t border-surface-container-highest">
+              <!-- Warna -->
+              <AdminField label="Warna Aksen">
+                <div class="grid grid-cols-3 gap-2 mt-1">
+                  <button
+                    type="button"
+                    class="py-2 px-1 text-xs font-bold uppercase border-2 transition-all flex items-center justify-center gap-1 cursor-pointer"
+                    :class="item.color === 'primary' ? 'bg-primary text-black border-black shadow-[2px_2px_0px_0px_#000]' : 'bg-black text-primary border-primary/40 hover:border-primary'"
+                    @click="item.color = 'primary'"
+                  >
+                    <span class="w-2.5 h-2.5 bg-primary rounded-full inline-block"></span> Emas
+                  </button>
+                  <button
+                    type="button"
+                    class="py-2 px-1 text-xs font-bold uppercase border-2 transition-all flex items-center justify-center gap-1 cursor-pointer"
+                    :class="item.color === 'secondary' ? 'bg-secondary text-black border-black shadow-[2px_2px_0px_0px_#000]' : 'bg-black text-secondary border-secondary/40 hover:border-secondary'"
+                    @click="item.color = 'secondary'"
+                  >
+                    <span class="w-2.5 h-2.5 bg-secondary rounded-full inline-block"></span> Ungu
+                  </button>
+                  <button
+                    type="button"
+                    class="py-2 px-1 text-xs font-bold uppercase border-2 transition-all flex items-center justify-center gap-1 cursor-pointer"
+                    :class="item.color === 'tertiary' ? 'bg-tertiary text-black border-black shadow-[2px_2px_0px_0px_#000]' : 'bg-black text-tertiary border-tertiary/40 hover:border-tertiary'"
+                    @click="item.color = 'tertiary'"
+                  >
+                    <span class="w-2.5 h-2.5 bg-tertiary rounded-full inline-block"></span> Cyan
+                  </button>
+                </div>
+              </AdminField>
+
+              <!-- Ikon -->
+              <AdminField label="Ikon Material">
+                <input v-model="item.icon" type="text" class="admin-input text-xs font-mono" placeholder="emoji_events" />
+                <!-- Quick Icon Palette -->
+                <div class="flex items-center gap-1.5 mt-2 flex-wrap">
+                  <button
+                    v-for="ic in presetAchievementIcons"
+                    :key="ic"
+                    type="button"
+                    class="w-7 h-7 flex items-center justify-center border transition-all cursor-pointer"
+                    :class="item.icon === ic ? 'border-primary bg-primary text-black' : 'border-surface-container-highest text-on-surface-variant hover:text-white hover:border-white'"
+                    :title="ic"
+                    @click="item.icon = ic"
+                  >
+                    <span class="material-symbols-outlined text-sm">{{ ic }}</span>
+                  </button>
+                </div>
+              </AdminField>
+            </div>
           </div>
         </section>
 
@@ -854,6 +1240,133 @@
             <div :key="activeTab" class="mx-auto max-w-5xl space-y-12">
               <SectionsProfileSection v-if="activeTab === 'profil'" :data="form" />
               <SectionsHeroSection v-if="activeTab === 'hero'" :data="form" />
+
+              <!-- Preview Skill -->
+              <div v-if="activeTab === 'skill'" class="space-y-8">
+                <div class="flex items-center justify-between border-b-2 border-surface-container-highest pb-3">
+                  <h2 class="text-headline-lg font-headline-lg text-tertiary uppercase flex items-center gap-3">
+                    <span class="bg-tertiary text-on-tertiary px-3 py-1 border-2 border-black shadow-[4px_4px_0px_0px_#00363a]">
+                      <span class="material-symbols-outlined text-2xl" style="vertical-align:middle">code</span>
+                    </span>
+                    SKILL &amp; TEKNOLOGI
+                  </h2>
+                </div>
+
+                <div class="space-y-6">
+                  <!-- Bahasa Pemrograman -->
+                  <div v-if="form.skills?.languages?.length">
+                    <p class="text-label-sm font-label-sm uppercase text-on-surface-variant mb-3 flex items-center gap-2">
+                      <span class="w-2 h-2 border-2 border-current inline-block rotate-45"></span>
+                      Bahasa Pemrograman ({{ form.skills.languages.length }})
+                    </p>
+                    <div class="flex flex-wrap gap-2.5">
+                      <span
+                        v-for="s in form.skills.languages" :key="s"
+                        class="px-4 py-2 border-2 font-label-sm text-xs font-bold uppercase border-tertiary text-tertiary bg-tertiary/10"
+                      >{{ s }}</span>
+                    </div>
+                  </div>
+
+                  <!-- Framework & Library -->
+                  <div v-if="form.skills?.frameworks?.length">
+                    <p class="text-label-sm font-label-sm uppercase text-on-surface-variant mb-3 flex items-center gap-2">
+                      <span class="w-2 h-2 border-2 border-current inline-block rotate-45"></span>
+                      Framework &amp; Library ({{ form.skills.frameworks.length }})
+                    </p>
+                    <div class="flex flex-wrap gap-2.5">
+                      <span
+                        v-for="s in form.skills.frameworks" :key="s"
+                        class="px-4 py-2 border-2 font-label-sm text-xs font-bold uppercase border-secondary text-secondary bg-secondary/10"
+                      >{{ s }}</span>
+                    </div>
+                  </div>
+
+                  <!-- Tools & Platform -->
+                  <div v-if="form.skills?.tools?.length">
+                    <p class="text-label-sm font-label-sm uppercase text-on-surface-variant mb-3 flex items-center gap-2">
+                      <span class="w-2 h-2 border-2 border-current inline-block rotate-45"></span>
+                      Tools &amp; Platform ({{ form.skills.tools.length }})
+                    </p>
+                    <div class="flex flex-wrap gap-2.5">
+                      <span
+                        v-for="s in form.skills.tools" :key="s"
+                        class="px-4 py-2 border-2 font-label-sm text-xs font-bold uppercase border-primary text-primary bg-primary/10"
+                      >{{ s }}</span>
+                    </div>
+                  </div>
+
+                  <!-- Lainnya -->
+                  <div v-if="form.skills?.other?.length">
+                    <p class="text-label-sm font-label-sm uppercase text-on-surface-variant mb-3 flex items-center gap-2">
+                      <span class="w-2 h-2 border-2 border-current inline-block rotate-45"></span>
+                      Kemampuan Lainnya ({{ form.skills.other.length }})
+                    </p>
+                    <div class="flex flex-wrap gap-2.5">
+                      <span
+                        v-for="s in form.skills.other" :key="s"
+                        class="px-4 py-2 border-2 font-label-sm text-xs font-bold uppercase border-surface-container-highest text-on-surface-variant bg-surface-container"
+                      >{{ s }}</span>
+                    </div>
+                  </div>
+
+                  <div v-if="!form.skills?.languages?.length && !form.skills?.frameworks?.length && !form.skills?.tools?.length && !form.skills?.other?.length" class="text-center py-12 border-2 border-dashed border-surface-container-highest text-on-surface-variant font-mono text-xs">
+                    [ Belum ada skill yang ditambahkan. Tambahkan skill pada panel di sebelah kiri ]
+                  </div>
+                </div>
+              </div>
+
+              <!-- Preview Prestasi -->
+              <div v-if="activeTab === 'prestasi'" class="space-y-8">
+                <div class="flex items-center justify-between border-b-2 border-surface-container-highest pb-3">
+                  <h2 class="text-headline-lg font-headline-lg text-primary uppercase flex items-center gap-3">
+                    <span class="bg-primary text-on-primary px-3 py-1 border-2 border-black shadow-[4px_4px_0px_0px_#ffc485]">
+                      <span class="material-symbols-outlined text-2xl" style="vertical-align:middle; font-variation-settings: 'FILL' 1;">emoji_events</span>
+                    </span>
+                    PRESTASI &amp; PENGHARGAAN ({{ (form.achievements || []).length }})
+                  </h2>
+                </div>
+
+                <div v-if="!form.achievements || form.achievements.length === 0" class="text-center py-12 border-2 border-dashed border-surface-container-highest text-on-surface-variant font-mono text-xs">
+                  [ Belum ada data prestasi. Tambahkan prestasi pada panel di sebelah kiri ]
+                </div>
+
+                <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div
+                    v-for="item in form.achievements"
+                    :key="item.id"
+                    class="bg-surface-container border-4 border-black p-5 relative"
+                    :style="{
+                      boxShadow: '4px 4px 0px 0px ' + (item.color === 'secondary' ? '#eeb1ff' : item.color === 'tertiary' ? '#00e5f4' : '#ffc485')
+                    }"
+                  >
+                    <div class="flex items-start justify-between mb-3">
+                      <div
+                        class="w-9 h-9 border-2 border-black flex items-center justify-center shrink-0"
+                        :class="'bg-' + (item.color || 'primary')"
+                      >
+                        <span class="material-symbols-outlined text-base text-black" style="font-variation-settings: 'FILL' 1;">
+                          {{ item.icon || 'emoji_events' }}
+                        </span>
+                      </div>
+                      <span
+                        class="text-[11px] font-bold font-label-sm border px-2 py-0.5 uppercase"
+                        :class="['text-' + (item.color || 'primary'), 'border-' + (item.color || 'primary')]"
+                      >{{ item.year }}</span>
+                    </div>
+
+                    <h4 class="font-headline-lg text-sm text-white uppercase leading-tight mb-1">
+                      {{ item.title }}
+                    </h4>
+                    <p class="text-[11px] font-label-sm uppercase mb-2" :class="'text-' + (item.color || 'primary')">
+                      {{ item.event }}
+                    </p>
+                    <p class="text-on-surface-variant font-body-md text-xs leading-relaxed">
+                      {{ item.description }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <SectionsEducationSection v-if="activeTab === 'pendidikan'" :data="form" />
 
               <!-- Preview Pengalaman -->
@@ -1008,6 +1521,8 @@ const showScorePop       = ref(false)
 const tabs = [
   { id: 'profil',      label: 'Profil',      icon: 'person' },
   { id: 'hero',        label: 'Hero',        icon: 'home' },
+  { id: 'skill',       label: 'Skill',       icon: 'code' },
+  { id: 'prestasi',    label: 'Prestasi',    icon: 'emoji_events' },
   { id: 'pendidikan',  label: 'Pendidikan',  icon: 'school' },
   { id: 'pengalaman',  label: 'Pengalaman',  icon: 'work' },
   { id: 'proyek',      label: 'Proyek',      icon: 'folder' },
@@ -1020,6 +1535,14 @@ const tabs = [
 const form = reactive({
   personal:   { name: '', role: '', tagline: '', bio: '', photoUrl: '' },
   hero:       { title: '', subtitle: '', description: '', ctaPrimary: '', ctaSecondary: '', ctaPrimaryLink: '', ctaSecondaryLink: '' },
+  skills: {
+    languages: [],
+    frameworks: [],
+    tools: [],
+    other: [],
+  },
+  achievements: [],
+  cvUrl: '/CV_Muhammad_Mikail_Laurana.docx',
   education:  [],
   experience: [],
   projects:   [],
@@ -1210,6 +1733,38 @@ const loadData = async () => {
     }
   }
 
+  // Normalisasi skills
+  if (!data.skills || typeof data.skills !== 'object') {
+    data.skills = { languages: [], frameworks: [], tools: [], other: [] }
+  } else {
+    data.skills = {
+      languages: Array.isArray(data.skills.languages) ? [...data.skills.languages] : [],
+      frameworks: Array.isArray(data.skills.frameworks) ? [...data.skills.frameworks] : [],
+      tools: Array.isArray(data.skills.tools) ? [...data.skills.tools] : [],
+      other: Array.isArray(data.skills.other) ? [...data.skills.other] : [],
+    }
+  }
+
+  // Normalisasi achievements
+  if (!Array.isArray(data.achievements)) {
+    data.achievements = []
+  } else {
+    data.achievements = data.achievements.map((a, idx) => ({
+      id: a.id || ('ach-' + (idx + 1)),
+      icon: a.icon || 'emoji_events',
+      color: a.color || 'primary',
+      title: a.title || '',
+      event: a.event || '',
+      year: a.year || '',
+      description: a.description || '',
+    }))
+  }
+
+  // Normalisasi cvUrl
+  if (data.cvUrl === undefined) {
+    data.cvUrl = '/CV_Muhammad_Mikail_Laurana.docx'
+  }
+
   // Normalisasi siteLogo
   if (!data.siteLogo) {
     data.siteLogo = '/logo.png'
@@ -1275,6 +1830,69 @@ const doReset = async () => {
 // ============================================================
 // FUNGSI TAMBAH / KELOLA ITEM
 // ============================================================
+
+// ---- State & Helper Skills ----
+const newSkillInput = reactive({
+  languages: '',
+  frameworks: '',
+  tools: '',
+  other: '',
+})
+
+const addSkill = (category) => {
+  const val = newSkillInput[category]?.trim()
+  if (!val) return
+  if (!form.skills) {
+    form.skills = { languages: [], frameworks: [], tools: [], other: [] }
+  }
+  if (!form.skills[category]) {
+    form.skills[category] = []
+  }
+
+  // Pisahkan dengan koma jika paste beberapa skill sekaligus
+  const items = val.split(',').map(s => s.trim()).filter(Boolean)
+  items.forEach(item => {
+    if (!form.skills[category].includes(item)) {
+      form.skills[category].push(item)
+    }
+  })
+  newSkillInput[category] = ''
+}
+
+const removeSkill = (category, index) => {
+  if (form.skills && form.skills[category]) {
+    form.skills[category].splice(index, 1)
+  }
+}
+
+// ---- State & Helper Prestasi (Achievements) ----
+const presetAchievementIcons = [
+  'emoji_events', 'military_tech', 'workspace_premium', 'star',
+  'verified', 'trophy', 'code', 'sports_esports',
+  'school', 'psychology', 'badge', 'bookmark'
+]
+
+const addAchievement = () => {
+  if (!form.achievements) form.achievements = []
+  form.achievements.push({
+    id: 'ach-' + Date.now(),
+    icon: 'emoji_events',
+    color: 'primary',
+    title: 'Prestasi Baru',
+    event: 'Nama Event / Lomba / Kategori',
+    year: new Date().getFullYear().toString(),
+    description: 'Deskripsi pencapaian prestasi...',
+  })
+}
+
+const moveAchievement = (index, direction) => {
+  if (!form.achievements) return
+  const targetIndex = index + direction
+  if (targetIndex < 0 || targetIndex >= form.achievements.length) return
+  const temp = form.achievements[index]
+  form.achievements[index] = form.achievements[targetIndex]
+  form.achievements[targetIndex] = temp
+}
 
 const addEducation = () => {
   form.education.push({

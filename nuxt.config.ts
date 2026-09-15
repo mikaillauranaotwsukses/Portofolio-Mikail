@@ -25,7 +25,9 @@ export default defineNuxtConfig({
   vite: {
     optimizeDeps: {
       include: [
-        '@emailjs/browser'
+        '@emailjs/browser',
+        '@vue/devtools-core',
+        '@vue/devtools-kit'
       ]
     }
   },
