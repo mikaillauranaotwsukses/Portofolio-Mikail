@@ -1,13 +1,47 @@
-// Data default portfolio (fallback jika database belum terhubung)
 export const portfolioData = {
   "hero": {
     "title": "Mikail",
     "subtitle": "Mahasiswa Teknologi Informasi ITS",
     "ctaPrimary": "About Me",
-    "ctaPrimaryLink": "/about",
     "description": "Mahasiswa Teknologi Informasi ITS dengan ketertarikan mendalam pada Web & Mobile App Development, Cybersecurity, IoT, hingga solusi Smart City. Berkomitmen untuk terus belajar dan berinovasi menciptakan teknologi berdampak positif.",
     "ctaSecondary": "View Projects",
-    "ctaSecondaryLink": "/projects"
+    "ctaPrimaryLink": "",
+    "ctaSecondaryLink": ""
+  },
+  "cvUrl": "/CV_Muhammad Mikail Laurana_5027261053.docx",
+  "skills": {
+    "languages": [
+      "JavaScript",
+      "Python",
+      "Dart",
+      "PHP",
+      "Node.js",
+      "HTML/CSS"
+    ],
+    "frameworks": [
+      "Vue.js",
+      "Nuxt.js",
+      "React",
+      "Flutter",
+      "LangChain (AI)"
+    ],
+    "tools": [
+      "PostgreSQL",
+      "Firebase",
+      "Figma",
+      "GitHub",
+      "Canva",
+      "CapCut",
+      "Microsoft Office"
+    ],
+    "other": [
+      "Website Testing (QA)",
+      "Desain Grafis & UI/UX",
+      "Operasional Teknis (FOH)",
+      "Bahasa Inggris (TOEIC 870, TEFL 550)",
+      "Problem Solving",
+      "Kepemimpinan & Organisasi"
+    ]
   },
   "social": {
     "email": {
@@ -28,14 +62,14 @@ export const portfolioData = {
     }
   },
   "contact": {
-    "emailjsServiceId": "",
-    "emailjsTemplateId": "",
-    "emailjsPublicKey": "",
-    "directEmailSubject": "Pesan dari Portfolio Website",
-    "directEmailBody": "Halo Mikail, saya tertarik dengan profil dan proyek Anda. Mari kita diskusikan peluang kerja sama."
+    "directEmailBody": "Halo Mikail, saya tertarik dengan profil dan proyek Anda. Mari kita diskusikan peluang kerja sama.",
+    "emailjsPublicKey": "HEz32vHZOjSR10gEp",
+    "emailjsServiceId": "service_tj7f3tk",
+    "emailjsTemplateId": "template_txldu8p",
+    "directEmailSubject": "Pesan dari Portfolio Website"
   },
   "personal": {
-    "bio": "Saya adalah Mahasiswa Teknologi Informasi di Institut Teknologi Sepuluh Nopember (ITS) sekaligus alumni Rekayasa Perangkat Lunak SMKN 2 Surakarta. Memiliki passion mendalam di dunia teknologi, saya percaya bahwa inovasi digital adalah kunci utama perubahan besar di masa depan.",
+    "bio": "Mahasiswa baru Program Studi Teknologi Informasi di Institut Teknologi Sepuluh Nopember (ITS) dengan pengalaman praktis dalam pengembangan perangkat lunak, pengujian situs web, dan pengelolaan basis data. Memiliki rekam jejak kepemimpinan yang kuat dalam organisasi sekolah melalui manajemen logistik, operasional teknis acara, hingga inisiasi program baru. Kombinasi kemampuan teknis dan keterampilan interpersonal yang solid siap diterapkan untuk berkontribusi aktif dalam proyek-proyek teknologi.",
     "name": "Mikail",
     "role": "Web & Mobile Developer",
     "tagline": "Keep Learning Keep Growing",
@@ -55,12 +89,16 @@ export const portfolioData = {
         {
           "url": "https://ayoramal-mage12.vercel.app/",
           "label": "Live Demo"
+        },
+        {
+          "url": "https://github.com/mikaillauranaotwsukses/project-Mage12-Miko",
+          "label": "Github"
         }
       ],
       "title": "Peramal Cuaca",
       "imageUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788408370242-Screenshot_2026-09-03_070151.png",
       "linkDemo": "https://ayoramal-mage12.vercel.app/",
-      "linkRepo": null,
+      "linkRepo": "https://github.com/mikaillauranaotwsukses/project-Mage12-Miko",
       "subtitle": "Web Application",
       "tagColor": "tertiary",
       "useImage": true,
@@ -73,9 +111,8 @@ export const portfolioData = {
       "icon": "wallet",
       "size": "medium",
       "tags": [
-        "Python",
-        "SQLite",
-        "Tkinter"
+        "Flutter",
+        "Firebase"
       ],
       "links": [
         {
@@ -87,7 +124,7 @@ export const portfolioData = {
       "imageUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788408327399-image_2026-09-03_110527298.png",
       "linkDemo": "https://github.com/mikaillauranaotwsukses/Apliaksi_Keuangan",
       "linkRepo": "https://github.com/mikaillauranaotwsukses/Apliaksi_Keuangan",
-      "subtitle": "Desktop App",
+      "subtitle": "Mobile App",
       "tagColor": "primary",
       "useImage": true,
       "iconColor": "text-primary",
@@ -125,8 +162,8 @@ export const portfolioData = {
       "icon": "assignment",
       "size": "medium",
       "tags": [
-        "Python",
-        "Education"
+        "Flutter",
+        "Firebase"
       ],
       "links": [
         {
@@ -169,10 +206,61 @@ export const portfolioData = {
       "iconColor": "text-secondary",
       "showOnHome": false,
       "description": "Game berbasis Python dengan mekanisme gameplay saling memangsa, di mana pemain mengendalikan karakter ikan (Catfish) untuk tumbuh membesar dan meraih skor tertinggi."
+    },
+    {
+      "id": "proj-1788422284996",
+      "size": "medium",
+      "tags": [
+        "React",
+        "Node.JS",
+        "Postgres.SQL"
+      ],
+      "links": [
+        {
+          "url": "e-learning-simpel.vercel.app",
+          "label": "Live Demo"
+        },
+        {
+          "url": "https://github.com/mikaillauranaotwsukses/Project-Sekolah",
+          "label": "Github"
+        }
+      ],
+      "title": "E-Learning Sederhana",
+      "imageUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788422358991-Screenshot_2026-09-03_133409.png",
+      "linkDemo": "e-learning-simpel.vercel.app",
+      "linkRepo": "https://github.com/mikaillauranaotwsukses/Project-Sekolah",
+      "subtitle": "Web Application",
+      "tagColor": "primary",
+      "useImage": true,
+      "showOnHome": false,
+      "description": "Platform e-learning berbasis web untuk memudahkan distribusi dan pengerjaan tugas antara guru dan siswa, dilengkapi panel admin, sistem autentikasi multi-role, serta chatbot AI interaktif."
+    },
+    {
+      "id": "proj-1788448716825",
+      "size": "medium",
+      "tags": [
+        "PHP",
+        "MYSQL",
+        "CSS"
+      ],
+      "links": [
+        {
+          "url": "https://github.com/mikaillauranaotwsukses/ukk2026-MikailLaurana",
+          "label": "GITHUB"
+        }
+      ],
+      "title": "E-LIBRARY MANAGEMENT SYSTEM",
+      "imageUrl": "https://sdutvamcopicoradplah.supabase.co/storage/v1/object/public/uploads/1788448893113-Screenshot_2026-09-03_172847.png",
+      "linkDemo": "https://github.com/mikaillauranaotwsukses/ukk2026-MikailLaurana",
+      "linkRepo": "https://github.com/mikaillauranaotwsukses/ukk2026-MikailLaurana",
+      "subtitle": "Web Application",
+      "tagColor": "primary",
+      "useImage": true,
+      "showOnHome": false,
+      "description": "Platform otomasi operasional perpustakaan dengan fitur autentikasi dua level hak akses (Admin & User), CRUD buku, tracking status peminjaman, dan riwayat transaksi buku secara real-time."
     }
   ],
   "siteName": "Mikail",
-  "siteLogo": "/logo.png",
   "education": [
     {
       "badge": "S1",
@@ -195,7 +283,7 @@ export const portfolioData = {
     {
       "badge": "Organisasi",
       "color": "tertiary",
-      "period": "2023 - 2026",
+      "period": "2024 - 2026",
       "subtitle": "Seksi Bidang 4: Pembinaan Prestasi Akademik, Seni, Olahraga dan Ilmiah",
       "description": "Bertanggung jawab dalam membina serta mengarahkan siswa berprestasi di bidang Akademik maupun Non-Akademik agar dapat mengoptimalkan potensi dan bakat mereka secara maksimal. Selain itu, memprakarsai penyelenggaraan Turnamen E-Sport tingkat sekolah dan berperan penting dalam mendirikan Ekstrakurikuler E-Sport sebagai wadah resmi penyaluran minat siswa secara positif dan kompetitif.",
       "institution": "OSIS SMKN 2 Surakarta"
@@ -207,97 +295,100 @@ export const portfolioData = {
       "subtitle": "Junior Developer & Web Tester",
       "description": "Selama 6 bulan masa magang, mendalami aspek pengembangan web modern sekaligus bertindak sebagai Web Tester. Berperan aktif dalam menjamin kualitas (Quality Assurance) dan pengujian fungsionalitas sistem sebelum proses deployment publik. Proyek utama yang ditangani meliputi SPIK (Sistem Perencanaan Integrasi Keuangan) Kabupaten Kudus, Platform Pelatihan Karyawan Perusahaan Rokok Sukun, serta berbagai platform sistem web lainnya.",
       "institution": "CV MIB LABS"
+    },
+    {
+      "badge": "Organisasi",
+      "color": "secondary",
+      "period": "2023 - 2025",
+      "subtitle": "Staff Publikasi, Desain dan Dokumentasi",
+      "description": "Bertanggung jawab merancang seluruh kebutuhan publikasi dan media visual acara, mengelola konten Feed Instagram secara kreatif dan konsisten untuk meningkatkan engagement serta citra positif organisasi, sekaligus memimpin pelaksanaan dokumentasi kegiatan Rohis secara menyeluruh.",
+      "institution": "Rohis SMAKADUTA"
     }
   ],
   "footerText": "© 2026 Mikail. All Rights Reserved.",
-  "skills": {
-    "languages": ["JavaScript", "Python", "Dart", "PHP", "HTML/CSS"],
-    "frameworks": ["Vue.js", "Nuxt.js", "React", "Node.js", "Flutter"],
-    "tools": ["PostgreSQL", "Firebase", "Figma", "Git", "Supabase"],
-    "other": ["UI/UX Design", "IoT", "REST API", "Cybersecurity Basics", "Agile/Scrum"]
-  },
   "achievements": [
     {
       "id": "ach-1",
-      "icon": "emoji_events",
+      "icon": "school",
       "color": "primary",
-      "title": "Medali Perunggu Olimpiade Sains Nasional",
-      "event": "OSN Bidang Komputer",
-      "year": "2025",
-      "description": "Meraih medali perunggu dalam Olimpiade Sains Nasional tingkat nasional bidang Komputer."
+      "title": "Awardee BSI Scholarship Unggulan",
+      "event": "Beasiswa BSI (Bumi Putra Santri Indonesia)",
+      "year": "2026",
+      "description": "Penerima beasiswa penuh BSI Scholarship Unggulan jenjang S1 untuk mendukung perkuliahan di Program Studi Teknologi Informasi ITS Surabaya."
     },
     {
       "id": "ach-2",
-      "icon": "military_tech",
-      "color": "secondary",
-      "title": "Beasiswa BSI (Bumi Putra Santri Indonesia)",
-      "event": "Beasiswa Bergengsi",
+      "icon": "emoji_events",
+      "color": "primary",
+      "title": "Peserta Terbaik 1 Divisi Official Mechatrons",
+      "event": "Mechatrons 2026",
       "year": "2026",
-      "description": "Penerima beasiswa penuh BSI untuk mendukung pendidikan di ITS Surabaya."
+      "description": "Meraih penghargaan sebagai Peserta Terbaik 1 pada Divisi Official atas kontribusi manajemen dan operasional teknis dalam ajang Mechatrons 2026."
     },
     {
       "id": "ach-3",
-      "icon": "workspace_premium",
-      "color": "tertiary",
-      "title": "Juara 1 LKS (Lomba Kompetensi Siswa) Tingkat Kota",
-      "event": "LKS Web Technology",
-      "year": "2025",
-      "description": "Menjuarai LKS bidang Web Technology tingkat kota Surakarta."
+      "icon": "code",
+      "color": "secondary",
+      "title": "Peserta Terbaik 2 Divisi Programming Mechatrons",
+      "event": "Mechatrons 2026",
+      "year": "2026",
+      "description": "Meraih penghargaan sebagai Peserta Terbaik 2 pada Divisi Programming dalam kompetisi pengembangan teknologi Mechatrons 2026."
     },
     {
       "id": "ach-4",
-      "icon": "star",
+      "icon": "military_tech",
       "color": "primary",
-      "title": "TOEIC Score 870",
-      "event": "English Proficiency Test",
-      "year": "2025",
-      "description": "Meraih skor TOEIC 870, membuktikan kemampuan bahasa Inggris tingkat profesional."
+      "title": "Medali Emas IYSHO Bidang Bahasa Indonesia",
+      "event": "Indonesian Youth Science and Health Olympiad",
+      "year": "2024",
+      "description": "Meraih Medali Emas tingkat nasional dalam kompetisi Indonesian Youth Science and Health Olympiad (IYSHO) Bidang Bahasa Indonesia."
     },
     {
       "id": "ach-5",
-      "icon": "verified",
+      "icon": "military_tech",
       "color": "secondary",
-      "title": "TEFL Score 550",
-      "event": "TEFL Certification",
-      "year": "2025",
-      "description": "Meraih skor TEFL 550 sebagai bukti kompetensi bahasa Inggris akademis."
+      "title": "Medali Perak IYSHO Bidang Bahasa Inggris",
+      "event": "Indonesian Youth Science and Health Olympiad",
+      "year": "2024",
+      "description": "Meraih Medali Perak tingkat nasional dalam kompetisi Indonesian Youth Science and Health Olympiad (IYSHO) Bidang Bahasa Inggris."
     },
     {
       "id": "ach-6",
-      "icon": "trophy",
+      "icon": "workspace_premium",
       "color": "tertiary",
-      "title": "Diterima SNBT dengan Skor 696",
-      "event": "Seleksi Nasional Berbasis Tes",
-      "year": "2026",
-      "description": "Lolos seleksi masuk ITS Surabaya melalui jalur SNBT dengan skor tinggi 696."
+      "title": "Juara 1 Video ILM \"Cukai untuk si(apa)\"",
+      "event": "Lomba Video Iklan Layanan Masyarakat Tingkat Kota",
+      "year": "2024",
+      "description": "Meraih Juara 1 tingkat Kota Surakarta dalam kompetisi video Iklan Layanan Masyarakat bertema \"Cukai untuk si(apa)\"."
     },
     {
       "id": "ach-7",
-      "icon": "code",
+      "icon": "star",
       "color": "primary",
-      "title": "Juara Hackathon Internal SMKN 2 Surakarta",
-      "event": "Hackathon Sekolah",
-      "year": "2025",
-      "description": "Memenangkan kompetisi hackathon tingkat sekolah dalam pengembangan aplikasi inovatif."
+      "title": "Peserta Terbaik 1 Tryout SNBT UPITRA X GENZA #2",
+      "event": "Tryout Akbar SNBT UPITRA X GENZA",
+      "year": "2026",
+      "description": "Meraih peringkat Peserta Terbaik 1 se-peserta simulasi dalam Tryout Akbar SNBT kolaborasi UPITRA X GENZA gelombang ke-2."
     },
     {
       "id": "ach-8",
-      "icon": "emoji_events",
+      "icon": "star",
       "color": "secondary",
-      "title": "Pendiri Ekstrakurikuler E-Sport",
-      "event": "Kepemimpinan & Inovasi",
-      "year": "2024",
-      "description": "Memprakarsai dan mendirikan ekstrakurikuler E-Sport resmi di SMKN 2 Surakarta."
+      "title": "Peserta Terbaik 2 Tryout SNBT UPITRA X GENZA #1",
+      "event": "Tryout Akbar SNBT UPITRA X GENZA",
+      "year": "2026",
+      "description": "Meraih peringkat Peserta Terbaik 2 se-peserta simulasi dalam Tryout Akbar SNBT kolaborasi UPITRA X GENZA gelombang ke-1."
     },
     {
       "id": "ach-9",
-      "icon": "sports_esports",
+      "icon": "psychology",
       "color": "tertiary",
-      "title": "Penyelenggara Turnamen E-Sport Tingkat Sekolah",
-      "event": "Turnamen E-Sport",
-      "year": "2024",
-      "description": "Menginisiasi dan menyelenggarakan turnamen E-Sport pertama tingkat sekolah."
+      "title": "Peserta OSN-K Informatika",
+      "event": "Olimpiade Sains Nasional Tingkat Kota (OSN-K)",
+      "year": "2025",
+      "description": "Terpilih sebagai perwakilan sekolah dan peserta resmi Olimpiade Sains Nasional Tingkat Kota (OSN-K) Bidang Informatika/Komputer."
     }
-  ],
-  "cvUrl": "/CV_Muhammad_Mikail_Laurana.docx"
-}
+  ]
+};
+
+export default portfolioData;
