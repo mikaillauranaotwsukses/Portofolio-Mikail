@@ -208,5 +208,95 @@
       "institution": "CV MIB LABS"
     }
   ],
-  "footerText": "© 2026 Mikail. All Rights Reserved."
+  "footerText": "© 2026 Mikail. All Rights Reserved.",
+  "skills": {
+    "languages": ["JavaScript", "Python", "Dart", "PHP", "HTML/CSS"],
+    "frameworks": ["Vue.js", "Nuxt.js", "React", "Node.js", "Flutter"],
+    "tools": ["PostgreSQL", "Firebase", "Figma", "Git", "Supabase"],
+    "other": ["UI/UX Design", "IoT", "REST API", "Cybersecurity Basics", "Agile/Scrum"]
+  },
+  "achievements": [
+    {
+      "id": "ach-1",
+      "icon": "emoji_events",
+      "color": "primary",
+      "title": "Medali Perunggu Olimpiade Sains Nasional",
+      "event": "OSN Bidang Komputer",
+      "year": "2025",
+      "description": "Meraih medali perunggu dalam Olimpiade Sains Nasional tingkat nasional bidang Komputer."
+    },
+    {
+      "id": "ach-2",
+      "icon": "military_tech",
+      "color": "secondary",
+      "title": "Beasiswa BSI (Bumi Putra Santri Indonesia)",
+      "event": "Beasiswa Bergengsi",
+      "year": "2026",
+      "description": "Penerima beasiswa penuh BSI untuk mendukung pendidikan di ITS Surabaya."
+    },
+    {
+      "id": "ach-3",
+      "icon": "workspace_premium",
+      "color": "tertiary",
+      "title": "Juara 1 LKS Tingkat Kota",
+      "event": "LKS Web Technology",
+      "year": "2025",
+      "description": "Menjuarai LKS bidang Web Technology tingkat kota Surakarta."
+    },
+    {
+      "id": "ach-4",
+      "icon": "star",
+      "color": "primary",
+      "title": "TOEIC Score 870",
+      "event": "English Proficiency Test",
+      "year": "2025",
+      "description": "Meraih skor TOEIC 870, membuktikan kemampuan bahasa Inggris tingkat profesional."
+    },
+    {
+      "id": "ach-5",
+      "icon": "verified",
+      "color": "secondary",
+      "title": "TEFL Score 550",
+      "event": "TEFL Certification",
+      "year": "2025",
+      "description": "Meraih skor TEFL 550 sebagai bukti kompetensi bahasa Inggris akademis."
+    },
+    {
+      "id": "ach-6",
+      "icon": "trophy",
+      "color": "tertiary",
+      "title": "Diterima SNBT dengan Skor 696",
+      "event": "Seleksi Nasional Berbasis Tes",
+      "year": "2026",
+      "description": "Lolos seleksi masuk ITS Surabaya melalui jalur SNBT dengan skor tinggi 696."
+    },
+    {
+      "id": "ach-7",
+      "icon": "code",
+      "color": "primary",
+      "title": "Juara Hackathon Internal SMKN 2 Surakarta",
+      "event": "Hackathon Sekolah",
+      "year": "2025",
+      "description": "Memenangkan kompetisi hackathon tingkat sekolah dalam pengembangan aplikasi inovatif."
+    },
+    {
+      "id": "ach-8",
+      "icon": "emoji_events",
+      "color": "secondary",
+      "title": "Pendiri Ekstrakurikuler E-Sport",
+      "event": "Kepemimpinan & Inovasi",
+      "year": "2024",
+      "description": "Memprakarsai dan mendirikan ekstrakurikuler E-Sport resmi di SMKN 2 Surakarta."
+    },
+    {
+      "id": "ach-9",
+      "icon": "sports_esports",
+      "color": "tertiary",
+      "title": "Penyelenggara Turnamen E-Sport Tingkat Sekolah",
+      "event": "Turnamen E-Sport",
+      "year": "2024",
+      "description": "Menginisiasi dan menyelenggarakan turnamen E-Sport pertama tingkat sekolah."
+    }
+  ],
+  "cvUrl": "/CV_Muhammad_Mikail_Laurana.docx"
 }
