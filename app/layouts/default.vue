@@ -1,12 +1,18 @@
 <template>
-  <div class="bg-background text-on-background font-body-md custom-cursor min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+  <div class="bg-background text-on-background font-body-md custom-cursor min-h-screen flex flex-col relative overflow-x-clip selection:bg-primary-container selection:text-on-primary-container">
     <!-- CRT Screen Overlay Effects -->
     <div class="scanlines"></div>
     <div class="scanline"></div>
 
-    <!-- Top Navigation Bar -->
-    <header class="w-full top-0 sticky z-50 bg-background border-b-4 border-surface-container-highest shadow-[4px_4px_0px_0px_#701c8e]">
-      <nav class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+    <!-- Top Navigation Bar (Dinamis Mengikuti Scroll) -->
+    <header
+      class="w-full top-0 sticky z-50 transition-all duration-300 border-b-4 border-surface-container-highest"
+      :class="isScrolled ? 'bg-background/90 backdrop-blur-md shadow-[0_4px_24px_rgba(112,28,142,0.5)]' : 'bg-background shadow-[4px_4px_0px_0px_#701c8e]'"
+    >
+      <nav
+        class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop transition-all duration-300 max-w-container-max mx-auto"
+        :class="isScrolled ? 'py-2.5 md:py-3' : 'py-4'"
+      >
         <!-- Logo -->
         <NuxtLink
           to="/"
@@ -33,18 +39,20 @@
             {{ link.label }}
           </NuxtLink>
 
-          <button
-            class="bg-primary-container text-on-primary-container px-6 py-2 border-4 border-black shadow-[4px_4px_0px_0px_#701c8e] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-label-sm text-label-sm font-bold uppercase"
+          <NuxtLink
+            to="/admin"
+            class="bg-primary-container text-on-primary-container px-6 py-2 border-4 border-black shadow-[4px_4px_0px_0px_#701c8e] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all font-label-sm text-label-sm font-bold uppercase inline-block"
             @mousedown="shakeBtn"
           >
             LOGIN_CMD
-          </button>
+          </NuxtLink>
         </div>
 
         <!-- Mobile Toggle -->
         <button
           class="md:hidden text-primary"
           @click="isMobileMenuOpen = !isMobileMenuOpen"
+          aria-label="Buka Menu"
         >
           <span class="material-symbols-outlined text-4xl">
             {{ isMobileMenuOpen ? 'close' : 'menu' }}
@@ -120,11 +128,19 @@ const getMailtoUrl = (item) => {
 
 
 const isMobileMenuOpen = ref(false)
+const isScrolled = ref(false)
+
+const handleScroll = () => {
+  if (typeof window !== 'undefined') {
+    isScrolled.value = window.scrollY > 20
+  }
+}
 
 const navLinks = [
   { to: '/',         label: 'Home' },
   { to: '/about',    label: 'About' },
   { to: '/projects', label: 'Projects' },
+  { to: '/prestasi', label: 'Prestasi' },
   { to: '/contact',  label: 'Contact' },
 ]
 
@@ -157,12 +173,15 @@ const createTrail = (e) => {
 onMounted(() => {
   if (typeof window !== 'undefined') {
     window.addEventListener('mousemove', createTrail)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
   }
 })
 
 onUnmounted(() => {
   if (typeof window !== 'undefined') {
     window.removeEventListener('mousemove', createTrail)
+    window.removeEventListener('scroll', handleScroll)
   }
 })
 </script>

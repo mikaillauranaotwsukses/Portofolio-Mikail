@@ -59,11 +59,66 @@
       </div>
     </section>
 
+    <!-- =====================================================
+         SECTION 02: KEAHLIAN & TEKNOLOGI
+         ===================================================== -->
+    <section class="space-y-8" v-if="skillGroups.length > 0">
+      <div class="mb-6 flex justify-between items-end slide-in-up">
+        <h2 class="text-headline-lg font-headline-lg text-primary flex items-center gap-4 uppercase">
+          <span class="bg-primary text-on-primary px-3 py-1 border-2 border-black shadow-[4px_4px_0px_0px_#ffc485]">02</span>
+          KEAHLIAN &amp; TEKNOLOGI
+        </h2>
+        <span class="hidden sm:flex text-label-sm font-label-sm text-on-surface-variant font-mono items-center gap-2">
+          <span class="w-2 h-2 bg-primary rounded-full animate-ping"></span>
+          STACK_VERIFIED
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div
+          v-for="group in skillGroups"
+          :key="group.key"
+          class="bg-surface-container border-4 border-black p-6 slide-in-up transition-all hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
+          :style="{ boxShadow: '4px 4px 0px 0px ' + group.shadowColor }"
+        >
+          <!-- Category Header -->
+          <div class="flex items-center justify-between mb-4 pb-3 border-b-2 border-surface-container-highest">
+            <div class="flex items-center gap-3">
+              <span
+                class="w-8 h-8 border-2 border-black flex items-center justify-center font-bold text-xs"
+                :class="group.badgeBg"
+              >
+                <span class="material-symbols-outlined text-base text-black">{{ group.icon }}</span>
+              </span>
+              <h3 class="font-headline-lg text-sm text-white uppercase tracking-wider font-bold">
+                {{ group.label }}
+              </h3>
+            </div>
+            <span class="text-[11px] font-mono px-2 py-0.5 border font-bold uppercase" :class="group.countClass">
+              {{ group.items.length }} Skill
+            </span>
+          </div>
+
+          <!-- Badges -->
+          <div class="flex flex-wrap gap-2.5">
+            <span
+              v-for="item in group.items"
+              :key="item"
+              class="px-3 py-1.5 border-2 font-label-sm text-xs font-bold uppercase transition-all hover:-translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] cursor-default select-none"
+              :class="group.tagClass"
+            >
+              {{ item }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- PREVIEW PROYEK -->
     <section>
       <div class="mb-8 flex justify-between items-end slide-in-up">
         <h2 class="text-headline-lg font-headline-lg text-secondary flex items-center gap-4 uppercase">
-          <span class="bg-secondary text-on-secondary px-3 py-1 border-2 border-black shadow-[4px_4px_0px_0px_#53006f]">02</span>
+          <span class="bg-secondary text-on-secondary px-3 py-1 border-2 border-black shadow-[4px_4px_0px_0px_#53006f]">03</span>
           PROYEK TERBARU
         </h2>
         <NuxtLink
@@ -90,6 +145,53 @@ import { portfolioData as defaultData } from '~/data/portfolio.js'
 // Ambil data dari API, fallback ke defaultData
 const { data: _apiData } = await useAsyncData('portfolio-index', () => $fetch('/api/portfolio'))
 const data = computed(() => _apiData.value || defaultData)
+
+// Skills terstruktur dari database / CV
+const skillGroups = computed(() => {
+  const s = data.value?.skills || {}
+  return [
+    {
+      key: 'languages',
+      label: 'Bahasa Pemrograman',
+      icon: 'terminal',
+      badgeBg: 'bg-primary',
+      shadowColor: '#ff9d00',
+      countClass: 'border-primary text-primary',
+      tagClass: 'border-primary text-primary bg-primary/10 hover:bg-primary/20',
+      items: s.languages || []
+    },
+    {
+      key: 'frameworks',
+      label: 'Framework & Library',
+      icon: 'code',
+      badgeBg: 'bg-secondary',
+      shadowColor: '#a855f7',
+      countClass: 'border-secondary text-secondary',
+      tagClass: 'border-secondary text-secondary bg-secondary/10 hover:bg-secondary/20',
+      items: s.frameworks || []
+    },
+    {
+      key: 'tools',
+      label: 'Tools & Platform',
+      icon: 'construction',
+      badgeBg: 'bg-tertiary',
+      shadowColor: '#00e5f4',
+      countClass: 'border-tertiary text-tertiary',
+      tagClass: 'border-tertiary text-tertiary bg-tertiary/10 hover:bg-tertiary/20',
+      items: s.tools || []
+    },
+    {
+      key: 'other',
+      label: 'Keahlian Lainnya',
+      icon: 'psychology',
+      badgeBg: 'bg-emerald-400',
+      shadowColor: '#22c55e',
+      countClass: 'border-emerald-400 text-emerald-400',
+      tagClass: 'border-emerald-400 text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20',
+      items: s.other || []
+    }
+  ].filter(g => g.items.length > 0)
+})
 
 // Filter proyek yang dipilih untuk ditampilkan di halaman beranda
 const featuredProjects = computed(() => {

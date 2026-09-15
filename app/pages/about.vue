@@ -26,10 +26,10 @@
         </div>
       </div>
 
-      <!-- Download CV Button -->
-      <div class="mt-8">
+      <!-- Action Buttons -->
+      <div class="mt-8 flex flex-wrap gap-4 items-center">
         <a
-          :href="data.cvUrl || '/CV_Muhammad_Mikail_Laurana.docx'"
+          :href="data.cvUrl || '/CV_Muhammad Mikail Laurana_5027261053.docx'"
           download
           class="inline-flex items-center gap-3 bg-primary-container text-on-primary-container px-8 py-4 border-4 border-black shadow-[6px_6px_0px_0px_#701c8e] hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_#701c8e] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all font-label-sm text-label-sm font-bold uppercase"
         >
@@ -37,110 +37,173 @@
           Download CV
           <span class="text-[10px] opacity-60">.docx</span>
         </a>
+
+        <NuxtLink
+          to="/prestasi"
+          class="inline-flex items-center gap-2 border-4 border-black bg-surface-container px-6 py-4 font-label-sm text-label-sm font-bold uppercase text-primary hover:border-primary hover:-translate-y-0.5 transition-all shadow-[6px_6px_0px_0px_#ff9d00]"
+        >
+          <span class="material-symbols-outlined text-xl">emoji_events</span>
+          Lihat Halaman Prestasi
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </NuxtLink>
       </div>
     </section>
 
     <!-- =====================================================
-         SECTION 2: SKILLS
+         SECTION 2: RIWAYAT KARIER & PENDIDIKAN (1 KOLOM - PEKERJAAN DIDAHULUKAN)
          ===================================================== -->
-    <section class="slide-in-up">
-      <h2 class="text-headline-lg font-headline-lg text-tertiary uppercase flex items-center gap-3 mb-8">
-        <span class="bg-tertiary text-on-tertiary px-3 py-1 border-2 border-black shadow-[4px_4px_0px_0px_#00363a]">
-          <span class="material-symbols-outlined text-2xl" style="vertical-align:middle">code</span>
-        </span>
-        SKILL &amp; TEKNOLOGI
-      </h2>
+    <div class="space-y-12 max-w-4xl mx-auto">
 
-      <div class="space-y-6">
-        <div v-for="(group, key) in skillGroups" :key="key">
-          <p class="text-label-sm font-label-sm uppercase text-on-surface-variant mb-3 flex items-center gap-2">
-            <span class="w-2 h-2 border-2 border-current inline-block rotate-45"></span>
-            {{ group.label }}
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <span
-              v-for="skill in group.items" :key="skill"
-              class="px-4 py-2 border-2 font-label-sm text-label-sm font-bold uppercase transition-all hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] cursor-default select-none"
-              :class="group.tagClass"
-            >
-              {{ skill }}
-            </span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================
-         SECTION 3: RIWAYAT PENDIDIKAN & PENGALAMAN
-         ===================================================== -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-      <!-- Kolom Kiri: Pendidikan -->
+      <!-- BLOK 1: PENGALAMAN & PEKERJAAN (DIDAHULUKAN) -->
       <section class="space-y-6">
-        <h2 class="text-headline-lg font-headline-lg text-primary uppercase flex items-center gap-3 slide-in-up">
-          <span class="material-symbols-outlined text-3xl">school</span>
-          Riwayat Pendidikan
-        </h2>
+        <div class="flex items-center justify-between pb-3 border-b-4 border-black slide-in-up">
+          <h2 class="text-headline-lg font-headline-lg text-secondary uppercase flex items-center gap-3">
+            <span class="bg-secondary text-on-secondary px-3 py-1 border-2 border-black shadow-[4px_4px_0px_0px_#53006f]">
+              <span class="material-symbols-outlined text-2xl" style="vertical-align:middle">work</span>
+            </span>
+            Pengalaman &amp; Pekerjaan
+          </h2>
+          <span class="text-xs font-mono text-on-surface-variant uppercase font-bold hidden sm:inline-block">
+            {{ data.experience?.length || 0 }} Riwayat
+          </span>
+        </div>
 
-        <div class="relative ml-4 border-l-4 border-dashed border-surface-container-highest pl-8 space-y-8 py-2">
+        <p class="text-xs text-on-surface-variant font-mono flex items-center gap-2 italic">
+          <span class="material-symbols-outlined text-sm text-secondary">info</span>
+          Klik pada setiap kartu untuk melihat atau menutup rincian tugas &amp; tanggung jawab ke bawah.
+        </p>
+
+        <div class="space-y-4">
           <div
-            v-for="(item, i) in data.education"
-            :key="item.institution"
-            class="timeline-step relative bg-surface-container p-5 border-4 border-black hover:translate-x-2 transition-transform slide-in-up"
+            v-for="(item, i) in data.experience"
+            :key="item.institution + i"
+            class="timeline-card bg-surface-container border-4 border-black p-5 transition-all cursor-pointer select-none group slide-in-up"
+            :class="isExpanded('exp-' + i) ? 'border-secondary' : 'hover:border-white/80'"
             :style="{
-              boxShadow: '4px 4px 0px 0px ' + (colorMap[item.color] || '#ffc485'),
-              animationDelay: (i * 0.12) + 's'
+              boxShadow: isExpanded('exp-' + i)
+                ? '6px 6px 0px 0px ' + (colorMap[item.color] || '#00e5f4')
+                : '4px 4px 0px 0px ' + (colorMap[item.color] || '#00e5f4'),
+              animationDelay: (i * 0.1) + 's'
             }"
+            @click="toggleItem('exp-' + i)"
           >
-            <div
-              class="absolute -left-12 top-5 w-4 h-4 border-4 border-black"
-              :class="'bg-' + item.color"
-            ></div>
+            <!-- Card Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="space-y-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="px-2 py-0.5 text-[11px] uppercase border font-bold" :class="['text-' + item.color, 'border-' + item.color]">
+                    {{ item.badge }}
+                  </span>
+                  <span class="font-label-sm text-xs font-mono text-on-surface-variant">{{ item.period }}</span>
+                </div>
+                <h3 class="font-headline-lg text-lg text-white uppercase group-hover:text-secondary transition-colors">
+                  {{ item.institution }}
+                </h3>
+                <p class="text-on-surface-variant text-xs font-label-sm uppercase font-semibold text-secondary" v-if="item.subtitle">
+                  {{ item.subtitle }}
+                </p>
+              </div>
 
-            <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
-              <span class="font-label-sm text-label-sm text-on-surface-variant">{{ item.period }}</span>
-              <span class="px-2 py-0.5 text-[11px] uppercase border font-bold" :class="['text-' + item.color, 'border-' + item.color]">
-                {{ item.badge }}
-              </span>
+              <!-- Accordion Action Button -->
+              <div class="shrink-0 flex items-center">
+                <button
+                  type="button"
+                  class="flex items-center gap-1.5 px-3 py-1.5 font-label-sm text-xs font-bold uppercase border transition-all pointer-events-none"
+                  :class="isExpanded('exp-' + i) ? 'bg-secondary text-black border-black' : 'border-surface-container-highest text-on-surface-variant group-hover:border-secondary group-hover:text-secondary'"
+                >
+                  <span>{{ isExpanded('exp-' + i) ? 'Tutup Detail' : 'Buka Detail' }}</span>
+                  <span class="material-symbols-outlined text-base transition-transform duration-300" :class="{ 'rotate-180': isExpanded('exp-' + i) }">
+                    expand_more
+                  </span>
+                </button>
+              </div>
             </div>
-            <h4 class="font-headline-lg text-base text-white uppercase mb-0.5">{{ item.institution }}</h4>
-            <p class="text-on-surface-variant text-xs font-label-sm uppercase mb-2" v-if="item.subtitle">{{ item.subtitle }}</p>
-            <p class="text-on-surface-variant font-body-md text-sm leading-relaxed">{{ item.description }}</p>
+
+            <!-- Accordion Expandable Description -->
+            <transition name="accordion">
+              <div v-if="isExpanded('exp-' + i)" class="mt-4 pt-4 border-t-2 border-dashed border-surface-container-highest/80">
+                <p class="text-on-surface-variant font-body-md text-sm leading-relaxed whitespace-pre-line">
+                  {{ item.description }}
+                </p>
+              </div>
+            </transition>
           </div>
         </div>
       </section>
 
-      <!-- Kolom Kanan: Pengalaman -->
-      <section class="space-y-6">
-        <h2 class="text-headline-lg font-headline-lg text-secondary uppercase flex items-center gap-3 slide-in-up">
-          <span class="material-symbols-outlined text-3xl">work</span>
-          Pengalaman &amp; Organisasi
-        </h2>
+      <!-- BLOK 2: RIWAYAT PENDIDIKAN (SETELAH PEKERJAAN) -->
+      <section class="space-y-6 pt-6">
+        <div class="flex items-center justify-between pb-3 border-b-4 border-black slide-in-up">
+          <h2 class="text-headline-lg font-headline-lg text-primary uppercase flex items-center gap-3">
+            <span class="bg-primary text-on-primary px-3 py-1 border-2 border-black shadow-[4px_4px_0px_0px_#ffc485]">
+              <span class="material-symbols-outlined text-2xl" style="vertical-align:middle">school</span>
+            </span>
+            Riwayat Pendidikan
+          </h2>
+          <span class="text-xs font-mono text-on-surface-variant uppercase font-bold hidden sm:inline-block">
+            {{ data.education?.length || 0 }} Riwayat
+          </span>
+        </div>
 
-        <div class="relative ml-4 border-l-4 border-dashed border-surface-container-highest pl-8 space-y-8 py-2">
+        <p class="text-xs text-on-surface-variant font-mono flex items-center gap-2 italic">
+          <span class="material-symbols-outlined text-sm text-primary">info</span>
+          Klik pada setiap kartu untuk melihat atau menutup rincian program &amp; fokus studi.
+        </p>
+
+        <div class="space-y-4">
           <div
-            v-for="(item, i) in data.experience"
+            v-for="(item, i) in data.education"
             :key="item.institution + i"
-            class="timeline-step relative bg-surface-container p-5 border-4 border-black hover:translate-x-2 transition-transform slide-in-up"
+            class="timeline-card bg-surface-container border-4 border-black p-5 transition-all cursor-pointer select-none group slide-in-up"
+            :class="isExpanded('edu-' + i) ? 'border-primary' : 'hover:border-white/80'"
             :style="{
-              boxShadow: '4px 4px 0px 0px ' + (colorMap[item.color] || '#00e5f4'),
-              animationDelay: (i * 0.12) + 's'
+              boxShadow: isExpanded('edu-' + i)
+                ? '6px 6px 0px 0px ' + (colorMap[item.color] || '#ffc485')
+                : '4px 4px 0px 0px ' + (colorMap[item.color] || '#ffc485'),
+              animationDelay: (i * 0.1) + 's'
             }"
+            @click="toggleItem('edu-' + i)"
           >
-            <div
-              class="absolute -left-12 top-5 w-4 h-4 border-4 border-black"
-              :class="'bg-' + item.color"
-            ></div>
+            <!-- Card Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="space-y-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="px-2 py-0.5 text-[11px] uppercase border font-bold" :class="['text-' + item.color, 'border-' + item.color]">
+                    {{ item.badge }}
+                  </span>
+                  <span class="font-label-sm text-xs font-mono text-on-surface-variant">{{ item.period }}</span>
+                </div>
+                <h3 class="font-headline-lg text-lg text-white uppercase group-hover:text-primary transition-colors">
+                  {{ item.institution }}
+                </h3>
+                <p class="text-on-surface-variant text-xs font-label-sm uppercase font-semibold text-primary" v-if="item.subtitle">
+                  {{ item.subtitle }}
+                </p>
+              </div>
 
-            <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
-              <span class="font-label-sm text-label-sm text-on-surface-variant">{{ item.period }}</span>
-              <span class="px-2 py-0.5 text-[11px] uppercase border font-bold" :class="['text-' + item.color, 'border-' + item.color]">
-                {{ item.badge }}
-              </span>
+              <!-- Accordion Action Button -->
+              <div class="shrink-0 flex items-center">
+                <button
+                  type="button"
+                  class="flex items-center gap-1.5 px-3 py-1.5 font-label-sm text-xs font-bold uppercase border transition-all pointer-events-none"
+                  :class="isExpanded('edu-' + i) ? 'bg-primary text-black border-black' : 'border-surface-container-highest text-on-surface-variant group-hover:border-primary group-hover:text-primary'"
+                >
+                  <span>{{ isExpanded('edu-' + i) ? 'Tutup Detail' : 'Buka Detail' }}</span>
+                  <span class="material-symbols-outlined text-base transition-transform duration-300" :class="{ 'rotate-180': isExpanded('edu-' + i) }">
+                    expand_more
+                  </span>
+                </button>
+              </div>
             </div>
-            <h4 class="font-headline-lg text-base text-white uppercase mb-0.5">{{ item.institution }}</h4>
-            <p class="text-on-surface-variant text-xs font-label-sm uppercase mb-2" v-if="item.subtitle">{{ item.subtitle }}</p>
-            <p class="text-on-surface-variant font-body-md text-sm leading-relaxed">{{ item.description }}</p>
+
+            <!-- Accordion Expandable Description -->
+            <transition name="accordion">
+              <div v-if="isExpanded('edu-' + i)" class="mt-4 pt-4 border-t-2 border-dashed border-surface-container-highest/80">
+                <p class="text-on-surface-variant font-body-md text-sm leading-relaxed whitespace-pre-line">
+                  {{ item.description }}
+                </p>
+              </div>
+            </transition>
           </div>
         </div>
       </section>
@@ -148,63 +211,7 @@
     </div>
 
     <!-- =====================================================
-         SECTION 4: PRESTASI & PENGHARGAAN
-         ===================================================== -->
-    <section class="slide-in-up" v-if="data.achievements && data.achievements.length > 0">
-      <h2 class="text-headline-lg font-headline-lg text-primary uppercase flex items-center gap-3 mb-8">
-        <span class="bg-primary text-on-primary px-3 py-1 border-2 border-black shadow-[4px_4px_0px_0px_#ffc485]">
-          <span class="material-symbols-outlined text-2xl" style="vertical-align:middle; font-variation-settings: 'FILL' 1;">emoji_events</span>
-        </span>
-        PRESTASI &amp; PENGHARGAAN
-      </h2>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <div
-          v-for="(item, i) in data.achievements"
-          :key="item.id"
-          class="bg-surface-container border-4 border-black p-5 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all slide-in-up group"
-          :style="{
-            boxShadow: '4px 4px 0px 0px ' + (colorMap[item.color] || '#ffc485'),
-            animationDelay: (i * 0.08) + 's'
-          }"
-        >
-          <!-- Icon + Year -->
-          <div class="flex items-start justify-between mb-3">
-            <div
-              class="w-10 h-10 border-2 border-black flex items-center justify-center shrink-0"
-              :class="'bg-' + item.color"
-            >
-              <span
-                class="material-symbols-outlined text-lg text-black"
-                style="font-variation-settings: 'FILL' 1;"
-              >{{ item.icon }}</span>
-            </div>
-            <span
-              class="text-[11px] font-bold font-label-sm border px-2 py-0.5 uppercase"
-              :class="['text-' + item.color, 'border-' + item.color]"
-            >{{ item.year }}</span>
-          </div>
-
-          <!-- Title -->
-          <h4 class="font-headline-lg text-sm text-white uppercase leading-tight mb-1">
-            {{ item.title }}
-          </h4>
-
-          <!-- Event -->
-          <p class="text-on-surface-variant text-[11px] font-label-sm uppercase mb-2" :class="'text-' + item.color">
-            {{ item.event }}
-          </p>
-
-          <!-- Description -->
-          <p class="text-on-surface-variant font-body-md text-xs leading-relaxed">
-            {{ item.description }}
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================
-         SECTION 5: TERMINAL ANIMASI
+         SECTION 3: TERMINAL ANIMASI
          ===================================================== -->
     <section class="bg-black border-4 border-primary p-6 shadow-[12px_12px_0px_0px_#000] slide-in-up">
       <div class="flex gap-2 mb-4 border-b border-primary/30 pb-2">
@@ -240,21 +247,24 @@ const colorMap = {
   tertiary: '#00e5f4',
 }
 
-// ---- Skills grouped ----
-const skillGroups = computed(() => {
-  const s = data.value?.skills || {}
-  return [
-    { label: 'Bahasa Pemrograman', items: s.languages || [], tagClass: 'border-tertiary text-tertiary bg-tertiary/10 hover:bg-tertiary/20' },
-    { label: 'Framework & Library', items: s.frameworks || [], tagClass: 'border-secondary text-secondary bg-secondary/10 hover:bg-secondary/20' },
-    { label: 'Tools & Platform', items: s.tools || [], tagClass: 'border-primary text-primary bg-primary/10 hover:bg-primary/20' },
-    { label: 'Lainnya', items: s.other || [], tagClass: 'border-surface-container-highest text-on-surface-variant bg-surface-container hover:bg-surface-container-high' },
-  ].filter(g => g.items.length > 0)
-})
+// ---- Accordion State ----
+// Buka item pengalaman pertama secara default agar pengunjung langsung tahu fitur interaktif
+const expandedSet = ref(new Set(['exp-0']))
+
+const toggleItem = (key) => {
+  if (expandedSet.value.has(key)) {
+    expandedSet.value.delete(key)
+  } else {
+    expandedSet.value.add(key)
+  }
+}
+
+const isExpanded = (key) => expandedSet.value.has(key)
 
 // ---- Animated stats ----
 const statTargets = [
   { target: 10, suffix: '+', label: 'Proyek Dibangun', textColor: 'text-primary', shadowColor: '#ffc485' },
-  { target: 9,  suffix: '',  label: 'Prestasi & Penghargaan', textColor: 'text-secondary', shadowColor: '#eeb1ff' },
+  { target: 9,  suffix: '',  label: 'Prestasi Resmi', textColor: 'text-secondary', shadowColor: '#eeb1ff' },
   { target: 3,  suffix: '+', label: 'Tahun Belajar', textColor: 'text-tertiary', shadowColor: '#00e5f4' },
 ]
 
@@ -272,7 +282,7 @@ const animateStats = () => {
   })
 }
 
-// ---- Terminal typing ----
+// ---- Lifecycle onMounted ----
 onMounted(() => {
   // Stats counter trigger on scroll
   const observer = new IntersectionObserver((entries) => {
@@ -284,7 +294,7 @@ onMounted(() => {
 
   const statsEl = document.querySelector('.stats-section')
   if (statsEl) observer.observe(statsEl)
-  else animateStats() // fallback: run immediately
+  else animateStats()
 
   // Terminal typing
   const message = `Halo! Saya ${data.value.personal?.name ?? 'Mikail'}. Terbuka untuk kolaborasi proyek dan kesempatan magang.`
@@ -298,4 +308,28 @@ onMounted(() => {
     }
   }, 45)
 })
+
+useHead({
+  title: 'About Me - Muhammad Mikail Laurana',
+  meta: [
+    { name: 'description', content: 'Profil lengkap, riwayat karier, pengalaman magang, organisasi, dan riwayat pendidikan Muhammad Mikail Laurana.' }
+  ]
+})
 </script>
+
+<style scoped>
+.accordion-enter-active,
+.accordion-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 500px;
+  overflow: hidden;
+  opacity: 1;
+}
+
+.accordion-enter-from,
+.accordion-leave-to {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+}
+</style>
