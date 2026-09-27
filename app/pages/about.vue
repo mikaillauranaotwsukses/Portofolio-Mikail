@@ -29,7 +29,7 @@
       <!-- Action Buttons -->
       <div class="mt-8 flex flex-wrap gap-4 items-center">
         <a
-          :href="data.cvUrl || '/CV_Muhammad Mikail Laurana_5027261053.docx'"
+          :href="data.cvUrl || '/CV_Muhammad_Mikail_Laurana.docx'"
           download
           class="inline-flex items-center gap-3 bg-primary-container text-on-primary-container px-8 py-4 border-4 border-black shadow-[6px_6px_0px_0px_#701c8e] hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_#701c8e] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all font-label-sm text-label-sm font-bold uppercase"
         >

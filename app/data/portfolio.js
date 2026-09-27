@@ -8,7 +8,7 @@ export const portfolioData = {
     "ctaPrimaryLink": "",
     "ctaSecondaryLink": ""
   },
-  "cvUrl": "/CV_Muhammad Mikail Laurana_5027261053.docx",
+  "cvUrl": "/CV_Muhammad_Mikail_Laurana.docx",
   "skills": {
     "languages": [
       "JavaScript",

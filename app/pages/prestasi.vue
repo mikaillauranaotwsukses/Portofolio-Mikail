@@ -145,7 +145,7 @@
 
         <div class="flex flex-wrap gap-4 shrink-0">
           <a
-            :href="data.cvUrl || '/CV_Muhammad Mikail Laurana_5027261053.docx'"
+            :href="data.cvUrl || '/CV_Muhammad_Mikail_Laurana.docx'"
             download
             class="inline-flex items-center gap-2 bg-primary text-black px-6 py-3 border-4 border-black font-label-sm text-xs font-bold uppercase shadow-[4px_4px_0px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all"
           >
